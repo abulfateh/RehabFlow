@@ -89,7 +89,7 @@ button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .cue{position:absolute;top:10px;inset-inline-start:10px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);padding:5px 13px;border-radius:999px;font-weight:600;font-size:clamp(.88rem,.8rem + .35vw,1.05rem);box-shadow:var(--shadow);max-width:calc(100% - 20px)}
 .cue-dot{width:8px;height:8px;border-radius:50%;background:var(--muscle);flex-shrink:0;animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
-.hold{position:absolute;top:52px;inset-inline-start:10px;display:flex;align-items:center;gap:8px;background:var(--muscle-soft);color:var(--muscle-ink);padding:3px 12px;border-radius:999px;font-size:.82rem;font-weight:600}
+.hold{position:absolute;top:10px;inset-inline-start:10px;display:flex;align-items:center;gap:8px;background:var(--muscle-soft);color:var(--muscle-ink);padding:3px 12px;border-radius:999px;font-size:.82rem;font-weight:600}
 .hold-bar{width:56px;height:5px;border-radius:99px;background:var(--surface);overflow:hidden;display:block}
 .hold-bar i{display:block;height:100%;width:0;background:var(--muscle)}
 .view-chip{position:absolute;top:10px;inset-inline-end:10px;background:var(--surface);border:1px solid var(--line);color:var(--muted);padding:3px 11px;border-radius:999px;font-size:.78rem}
@@ -113,7 +113,8 @@ button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .seg-btn{min-height:40px;border:0;border-radius:11px;background:transparent;font-weight:600;font-size:.92rem;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:8px}
 .seg-btn[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 .seg-n{font-variant-numeric:tabular-nums;font-size:.78rem;background:var(--accent-soft);color:var(--accent);padding:0 8px;border-radius:99px}
-.toolrow{display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.seg-ph{visibility:hidden}
+.toolrow{display:flex;align-items:center;gap:12px;min-height:86px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
 .mring{width:64px;height:64px;position:relative;flex-shrink:0}
 .mring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .mring .track{stroke:var(--surface-2)}
@@ -274,7 +275,6 @@ body{margin:0;overscroll-behavior:none}
           <g id="gGhost"></g>
           <g id="gFig"></g>
         </svg>
-        <div class="cue"><span class="cue-dot"></span><span id="cueText">استعد</span></div>
         <div class="hold" id="hold" hidden><span>اثبت</span><span class="hold-bar"><i id="holdBar"></i></span></div>
         <div class="view-chip" id="viewChip" hidden>منظر من الأعلى</div>
         <div class="mchip"><i></i><span id="stMuscle"></span></div>
@@ -282,7 +282,6 @@ body{margin:0;overscroll-behavior:none}
         <div class="cycle"><i id="cycleBar"></i></div>
       </div>
       <div class="dock-wrap">
-        <div class="stepline"><span class="sn" id="stepNum">1/3</span><p id="stepText"></p></div>
         <div class="dock" id="tool"></div>
         <div class="navrow">
           <button type="button" class="navbtn" data-act="prev" aria-label="التمرين السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg><span>السابق</span></button>
@@ -399,7 +398,6 @@ body{margin:0;overscroll-behavior:none}
         var nE=at(S,4,L.UA), nW=at(nE,0,L.FA), fE=at(S,2,L.UA), fW=at(fE,0,L.FA);
         side(sc,{P:P,S:S,H:H,nK:nK,nA:nA,nT:nT,fK:fK,fA:fA,fT:fT,nE:nE,nW:nW,fE:fE,fW:fW});
         sc.muscle(along(P,nK,.14,.9,5,-1),9,p.e);
-        sc.arrow([nA[0]+26,nA[1]+40],[nA[0]+26,nA[1]+8],fade(p.e));
         return sc; } },
 
     { id:2, name:'رفع الحوض (الجسر)', short:'الجسر', muscle:'الألوية وخلف الفخذ',
@@ -417,7 +415,6 @@ body{margin:0;overscroll-behavior:none}
         side(sc,{P:P,S:S,H:H,nK:n.k,nA:n.end,nT:nT,fK:f.k,fA:f.end,fT:fT,nE:nE,nW:nW,fE:fE,fW:fW});
         sc.blob([P[0]-2,P[1]+8],ang(P,S),14,17,p.e);
         sc.muscle(along(P,n.k,.18,.78,5,1),8,p.e);
-        sc.arrow([P[0]-30,P[1]-12],[P[0]-30,P[1]-40],fade(p.e));
         return sc; } },
 
     { id:3, name:'ثبات اليدين والرجلين', short:'الثبات', muscle:'عضلات البطن والجذع',
@@ -449,8 +446,6 @@ body{margin:0;overscroll-behavior:none}
         sc.path([lp(r.H1,r.K1,.8), lp(r.H2,r.K2,.8)],6-2.6*p.e,'band');
         sc.blob([175,101],0,14,14,p.e); sc.blob([175,149],0,14,14,p.e);
         var o=fade(p.e);
-        sc.arrow([r.K1[0]+18,r.K1[1]+2],[r.K1[0]+18,r.K1[1]-20],o);
-        sc.arrow([r.K2[0]+18,r.K2[1]-2],[r.K2[0]+18,r.K2[1]+20],o);
         return sc; } },
 
     { id:5, name:'فتح الركبتين على الجنب', short:'على الجنب', muscle:'الألوية الوسطى (جانب الورك)',
@@ -472,7 +467,6 @@ body{margin:0;overscroll-behavior:none}
         sc.limb([[112,186],[152,184],[192,180]],12,'near');
         sc.head(H,15);
         sc.blob([198,179],0,16,16,p.e);
-        sc.arrow([Kt[0]+28,Kt[1]+24],[Kt[0]+28,Kt[1]-4],fade(p.e));
         return sc; } },
 
     { id:6, name:'ضغط الكرة بين الركبتين', short:'ضغط الكرة', muscle:'عضلات الفخذ الداخلية (المقرِّبة)',
@@ -490,8 +484,6 @@ body{margin:0;overscroll-behavior:none}
         });
         sc.muscle(along(r.H1,r.K1,.15,.8,5,1),7,p.e); sc.muscle(along(r.H2,r.K2,.15,.8,5,-1),7,p.e);
         var o=fade(p.e);
-        sc.arrow([r.K1[0]+4,r.K1[1]-36],[r.K1[0]+4,r.K1[1]-14],o);
-        sc.arrow([r.K2[0]+4,r.K2[1]+36],[r.K2[0]+4,r.K2[1]+14],o);
         return sc; } },
 
     { id:7, name:'تمدد نص التربيعة', short:'نص التربيعة', muscle:'الكمثرية والألوية (الرجل المرفوعة)',
@@ -529,7 +521,6 @@ body{margin:0;overscroll-behavior:none}
         var na=ik(S,[300,lerp(2,10,p.t)],L.UA,L.FA,1), fa=ik(S,[300,lerp(12,20,p.t)],L.UA,L.FA,1);
         side(sc,{P:P,S:S,H:H,nK:b.k,nA:b.end,nT:[171,214],fK:f.k,fA:f.end,fT:[283,214],nE:na.k,nW:na.end,fE:fa.k,fW:fa.end});
         sc.muscle(along(b.k,b.end,.12,.72,5,1),9,p.e);
-        sc.arrow([136,170],[136,198],fade(p.e));
         return sc; } }
   ];
   EX.forEach(function(ex){ var t=0; ex.kfs.forEach(function(k){ k.start=t; t+=k.d+k.h; }); ex.total=t; });
@@ -613,15 +604,11 @@ body{margin:0;overscroll-behavior:none}
 
   function setStep(i){
     var ex=EX[cur];
-    $('stepNum').textContent=(i+1)+'/'+ex.steps.length;
-    var st=$('stepText'); st.textContent=ex.steps[i];
-    if(!reduced){ st.classList.remove('fade'); void st.offsetWidth; st.classList.add('fade'); }
     var lis=$('steps').children; for(var j=0;j<lis.length;j++) lis[j].classList.toggle('on',j===i);
   }
   function draw(){
     var ex=EX[cur], t=clock%ex.total, s=sample(ex,t);
     render(ex.build(s.p).i);
-    if(s.k.label!==lastLabel){ lastLabel=s.k.label; $('cueText').textContent=lastLabel; }
     if(s.k.cue!==lastCue){ lastCue=s.k.cue; setStep(lastCue); }
     var showHold=!!(s.k.hold && s.ph==='hold');
     if(showHold!==lastHold){ lastHold=showHold; $('hold').hidden=!showHold; }
@@ -683,6 +670,8 @@ body{margin:0;overscroll-behavior:none}
       h+='<div class="seg" role="group" aria-label="اختر الرجل">'+['R','L'].map(function(x){
         return '<button type="button" class="seg-btn" data-act="side" data-side="'+x+'" aria-pressed="'+(x===s)+'">'+(x==='R'?'اليمنى':'اليسرى')+'<span class="seg-n">'+sideSum(ex,x)+'</span></button>';
       }).join('')+'</div>';
+    } else {
+      h+='<div class="seg seg-ph" aria-hidden="true"><span class="seg-btn"></span><span class="seg-btn"></span></div>';
     }
     if(ex.tool==='reps'){
       var n=getN(ex,s);

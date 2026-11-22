@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="تمارين العلاج الطبيعي — استوديو ثلاثي الأبعاد تفاعلي بخلفية سادة نقية بدون ظلال مع عدّاد تكرار ومؤقّت.">
-<meta name="theme-color" content="#161A1E" id="metaTheme">
+<meta name="theme-color" content="#1F2125" id="metaTheme">
 <title>تمارين العلاج الطبيعي</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -20,35 +20,36 @@
    ========================================================================== */
 :root,
 :root[data-theme="dark"] {
-  --bg: #161A1E;
-  --stage-bg: #161A1E;
-  --surface: #20242A;
-  --surface-2: #272E36;
-  --surface-3: #303944;
-  --glass: rgba(32, 36, 42, 0.84);
-  --glass-strong: rgba(32, 36, 42, 0.95);
-  --line: #2D3640;
-  --line-subtle: rgba(232, 238, 242, 0.085);
-  --line-strong: rgba(232, 238, 242, 0.16);
-  --ink: #E8EEF2;
-  --muted: #92A3B0;
+  /* Copper & charcoal, from the award: charcoal ground, glowing copper, shield silver, ribbon gold */
+  --bg: #1F2125;
+  --stage-bg: #1F2125;
+  --surface: #2A2D32;
+  --surface-2: #30343A;
+  --surface-3: #3A3E45;
+  --glass: rgba(42, 45, 50, 0.84);
+  --glass-strong: rgba(42, 45, 50, 0.95);
+  --line: #3D4148;
+  --line-subtle: rgba(243, 239, 234, 0.08);
+  --line-strong: rgba(243, 239, 234, 0.16);
+  --ink: #F3EFEA;
+  --muted: #A8A6A4;
 
-  --accent: #4FB3A8;
-  --accent-hover: #62C4B9;
-  --accent-ink: #071918;
-  --accent-soft: #2B3D4E;
-  --accent-tint: rgba(79, 179, 168, 0.16);
-  --accent-glow: rgba(79, 179, 168, 0.28);
+  --accent: #E07A3A;
+  --accent-hover: #EB8A4C;
+  --accent-ink: #1F1208;
+  --accent-soft: #3A2A20;
+  --accent-tint: rgba(224, 122, 58, 0.15);
+  --accent-glow: rgba(224, 122, 58, 0.30);
 
-  --muscle: #EF755D;
-  --muscle-soft: rgba(239, 117, 93, 0.17);
-  --muscle-ink: #FFB4A5;
-  --on-muscle: #220A05;
+  --muscle: #F2603F;
+  --muscle-soft: rgba(242, 96, 63, 0.18);
+  --muscle-ink: #FF8A6E;
+  --on-muscle: #1F0A05;
 
-  --scrim: rgba(7, 10, 14, 0.68);
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.24);
-  --shadow: 0 10px 28px rgba(0, 0, 0, 0.30);
-  --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.48);
+  --scrim: rgba(10, 10, 12, 0.66);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.26);
+  --shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.5);
 
   --f-display: 'Readex Pro', 'IBM Plex Sans Arabic', system-ui, sans-serif;
   --f-body: 'IBM Plex Sans Arabic', 'Readex Pro', system-ui, sans-serif;
@@ -56,35 +57,35 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #EEF2F4;
-  --stage-bg: #EEF2F4;
+  --bg: #EEEFF1;
+  --stage-bg: #EEEFF1;
   --surface: #FFFFFF;
-  --surface-2: #E4EBEF;
-  --surface-3: #D4DFE5;
+  --surface-2: #E4E6E9;
+  --surface-3: #D8DBDF;
   --glass: rgba(255, 255, 255, 0.88);
   --glass-strong: rgba(255, 255, 255, 0.96);
-  --line: #D2DCE2;
-  --line-subtle: rgba(23, 36, 44, 0.10);
-  --line-strong: rgba(23, 36, 44, 0.20);
-  --ink: #17242C;
-  --muted: #556773;
+  --line: #D2D5DA;
+  --line-subtle: rgba(30, 32, 36, 0.10);
+  --line-strong: rgba(30, 32, 36, 0.20);
+  --ink: #1E2024;
+  --muted: #5B5F66;
 
-  --accent: #1B6B65;
-  --accent-hover: #145651;
+  --accent: #B4561C;
+  --accent-hover: #9C4914;
   --accent-ink: #FFFFFF;
-  --accent-soft: #D7EAE7;
-  --accent-tint: rgba(27, 107, 101, 0.12);
-  --accent-glow: rgba(27, 107, 101, 0.22);
+  --accent-soft: #F6E3D5;
+  --accent-tint: rgba(180, 86, 28, 0.12);
+  --accent-glow: rgba(180, 86, 28, 0.22);
 
-  --muscle: #E0462B;
-  --muscle-soft: rgba(224, 70, 43, 0.14);
-  --muscle-ink: #A32F1A;
+  --muscle: #D9432B;
+  --muscle-soft: rgba(217, 67, 43, 0.12);
+  --muscle-ink: #C2381F;
   --on-muscle: #FFFFFF;
 
-  --scrim: rgba(15, 24, 30, 0.44);
-  --shadow-sm: 0 1px 3px rgba(23, 36, 44, 0.06);
-  --shadow: 0 8px 24px rgba(23, 36, 44, 0.08);
-  --shadow-lg: 0 22px 52px rgba(23, 36, 44, 0.16);
+  --scrim: rgba(20, 21, 24, 0.44);
+  --shadow-sm: 0 1px 3px rgba(30, 32, 36, 0.06);
+  --shadow: 0 8px 24px rgba(30, 32, 36, 0.08);
+  --shadow-lg: 0 22px 52px rgba(30, 32, 36, 0.16);
   color-scheme: light;
 }
 
@@ -276,7 +277,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   gap: 9px;
   background: var(--muscle-soft);
   color: var(--muscle-ink);
-  border: 1px solid rgba(239, 117, 93, 0.36);
+  border: 1px solid rgba(242, 96, 63, 0.36);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 5px 13px;
@@ -585,7 +586,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 }
 .act:hover { background: var(--accent-hover); }
 .act:active { transform: scale(0.97); }
-.act.stop { background: var(--muscle); color: var(--on-muscle); box-shadow: 0 4px 16px rgba(224, 70, 43, 0.30); }
+.act.stop { background: var(--muscle); color: var(--on-muscle); box-shadow: 0 4px 16px rgba(242, 96, 63, 0.30); }
 
 .round {
   width: 46px;
@@ -650,8 +651,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 .navbtn:hover { background: var(--surface-2); }
 .navbtn:active { transform: scale(0.96); }
 .navbtn svg { width: 19px; height: 19px; flex-shrink: 0; }
-.navbtn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.navbtn.primary:hover { background: var(--accent-hover); }
+.navbtn.primary { background: transparent; border-color: var(--accent); color: var(--accent); }
+.navbtn.primary:hover { background: var(--accent-tint); }
 
 .mid { display: flex; align-items: center; gap: 8px; }
 .chip-btn {
@@ -1350,56 +1351,56 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   // Exact Theme Tokens — Resistance Band & Pilates Ball share the EXACT SAME golden-amber palette!
   const THEME_3D = {
     dark: {
-      bgHex: 0x161A1E,
-      bodyHex: 0xCDD8DF,       // Crisp light matte ceramic
-      jointHex: 0x788E9B,      // Sculpted slate-titanium joints
-      muscleHex: 0xEF755D,     // Coral flush surface highlight
-      matTopHex: 0x222B33,     // Exercise mat body
-      matEdgeHex: 0x2E3B46,    // Subtle border trim
-      rubberHex: 0xD9B256,     // Shared Ball & Resistance Band color
-      rubberEmissive: 0x2A1F08,// Subtle warm amber emissive
-      rubberRoughness: 0.42,
-      rubberMetalness: 0.05,
-      propHex: 0x2A3540,       // Minimalist chair seat & wall
-      propFrameHex: 0x455664,  // Minimalist chair legs
-      wallHex: 0x3B4956,       // Wall face, lighter than the stage
-      accentHex: 0x4FB3A8,     // Teal trim / flat floor heel ring
-      // Shadowless balanced 3-point + hemisphere studio lighting
-      hemiSky: 0xE6F1F8,
-      hemiGround: 0x222A33,
-      hemiInt: 0.86,
-      keyColor: 0xFFFDF8,
-      keyInt: 1.05,
-      fillColor: 0xB8D0E4,
-      fillInt: 0.46,
-      rimColor: 0x9AD2EC,
-      rimInt: 0.62
+      bgHex: 0x1F2125,
+      bodyHex: 0xD8D3CE,       // Shield silver
+      jointHex: 0x5E636C,      // Graphite joints
+      muscleHex: 0xF2603F,     // Ember: the only red on screen
+      matTopHex: 0x2A2D32,
+      matEdgeHex: 0x363A41,
+      rubberHex: 0xE6B85C,     // Ribbon gold, shared by band and ball
+      rubberEmissive: 0x2A1F08,
+      rubberRoughness: 0.40,
+      rubberMetalness: 0.08,
+      propHex: 0x363A41,       // Chair
+      propFrameHex: 0x4E535B,
+      wallHex: 0x40454D,
+      accentHex: 0xE07A3A,     // Copper trim and heel ring
+      muscleGlow: 1.25,
+      hemiSky: 0xF4EFE9,
+      hemiGround: 0x2A2622,
+      hemiInt: 0.84,
+      keyColor: 0xFFF7EE,
+      keyInt: 1.06,
+      fillColor: 0xD6D2CE,
+      fillInt: 0.42,
+      rimColor: 0xF2A774,      // Warm copper rim light
+      rimInt: 0.55
     },
     light: {
-      bgHex: 0xEEF2F4,
-      bodyHex: 0x4D606E,       // Rich dark sculpted slate (strong contrast on #EEF2F4)
-      jointHex: 0x25323C,      // Deep charcoal spherical joints
-      muscleHex: 0xE64B30,     // Vivid coral flush surface highlight
-      matTopHex: 0xD5DFE5,     // Exercise mat body
-      matEdgeHex: 0xBDCAD3,    // Subtle border trim
-      rubberHex: 0xC89B3C,     // Shared Ball & Resistance Band color
-      rubberEmissive: 0x1F1605,// Subtle warm amber emissive
+      bgHex: 0xEEEFF1,
+      bodyHex: 0x4E535B,       // Graphite figure on light ground
+      jointHex: 0x2B2E33,
+      muscleHex: 0xD9432B,
+      matTopHex: 0xDDE0E4,
+      matEdgeHex: 0xC9CDD3,
+      rubberHex: 0xC9952E,
+      rubberEmissive: 0x1F1605,
       rubberRoughness: 0.45,
-      rubberMetalness: 0.05,
-      propHex: 0x8A9AA6,       // Minimalist chair seat & wall
-      propFrameHex: 0x5B6E7B,  // Minimalist chair legs
-      wallHex: 0xC4D0D8,       // Wall face, darker than the stage
-      accentHex: 0x1B6B65,     // Teal trim / flat floor heel ring
-      // Shadowless balanced 3-point + hemisphere studio lighting tuned for dark slate figure
+      rubberMetalness: 0.06,
+      propHex: 0x9AA0A8,
+      propFrameHex: 0x5E636C,
+      wallHex: 0xCDD1D7,
+      accentHex: 0xB4561C,
+      muscleGlow: 0.9,
       hemiSky: 0xFFFFFF,
-      hemiGround: 0xB5C4CD,
+      hemiGround: 0xC2C6CC,
       hemiInt: 0.82,
-      keyColor: 0xFFFDF9,
+      keyColor: 0xFFFBF6,
       keyInt: 1.08,
-      fillColor: 0xD7E6F0,
+      fillColor: 0xE2E4E8,
       fillInt: 0.45,
-      rimColor: 0xFFFFFF,
-      rimInt: 0.58
+      rimColor: 0xFFE2CC,
+      rimInt: 0.5
     }
   };
 
@@ -1742,6 +1743,16 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       roughness: 0.44,
       metalness: 0.05
     });
+    // Where the paint is warmer than the body (the working muscle), add a soft emissive glow.
+    const glowUniforms = { uBase: { value: new THREE.Vector3() }, uGlow: { value: 1.0 } };
+    bodyMat.onBeforeCompile = shader => {
+      shader.uniforms.uBase = glowUniforms.uBase;
+      shader.uniforms.uGlow = glowUniforms.uGlow;
+      shader.fragmentShader = 'uniform vec3 uBase;\nuniform float uGlow;\n' + shader.fragmentShader.replace(
+        '#include <emissivemap_fragment>',
+        '#include <emissivemap_fragment>\n#ifdef USE_COLOR\n  totalEmissiveRadiance += max(vColor.rgb - uBase, vec3(0.0)) * uGlow;\n#endif'
+      );
+    };
 
     const plainBodyMat = new THREE.MeshStandardMaterial({
       color: baseColorLin.clone(),
@@ -1929,6 +1940,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     function setPalette(themeCfg) {
       baseColorLin = linColor(themeCfg.bodyHex);
       muscleColorLin = linColor(themeCfg.muscleHex);
+      glowUniforms.uBase.value.set(baseColorLin.r, baseColorLin.g, baseColorLin.b);
+      glowUniforms.uGlow.value = themeCfg.muscleGlow || 1.0;
       plainBodyMat.color.copy(baseColorLin);
       jointMat.color.copy(linColor(themeCfg.jointHex));
       staticVertexGeos.forEach(g => fillGeoBaseColor(g, baseColorLin));
@@ -2481,7 +2494,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       const frontKnee = solveIK3D(frontHip, frontAnkle, DIM.THIGH, DIM.SHIN, frontPole);
       const frontToe = frontAnkle.clone().add(new THREE.Vector3(DIM.FOOT, -0.012, 0));
 
-      const wallX = 0.66;
+      const wallX = 0.46;
       const handY = lerp(1.24, 1.21, t);
       pose.wrR = new THREE.Vector3(wallX, handY, 0.18);
       pose.wrL = new THREE.Vector3(wallX, handY, -0.18);
@@ -2506,6 +2519,19 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       }
       heelRingPos = new THREE.Vector3(rearHeelX + 0.018, 0.004, s * 0.12);
     }
+
+    // Keep every hand and foot attached: if a target is out of reach, the end of the
+    // limb is pulled back along the forearm or shin instead of floating free.
+    [['elbR', 'wrR', 'handEndR', DIM.FARM], ['elbL', 'wrL', 'handEndL', DIM.FARM],
+     ['kneeR', 'ankleR', 'toeR', DIM.SHIN], ['kneeL', 'ankleL', 'toeL', DIM.SHIN]].forEach(([a, b, c, L]) => {
+      const A = pose[a], B = pose[b];
+      if (!A || !B) return;
+      const d = A.distanceTo(B);
+      if (Math.abs(d - L) < 0.0015 || d < 1e-5) return;
+      const nb = A.clone().addScaledVector(new THREE.Vector3().subVectors(B, A).divideScalar(d), L);
+      if (pose[c]) pose[c] = pose[c].clone().add(new THREE.Vector3().subVectors(nb, B));
+      pose[b] = nb;
+    });
 
     return { pose, activeMuscles, bandData, ballData, heelRingPos };
   }
@@ -2542,7 +2568,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       case 5: return { theta: s === 1 ? -0.26 : 0.26, phi: 1.05, r: 1.94, target: new THREE.Vector3(-0.04 * s, 0.24, 0.04) };
       case 6: return { theta: 0.88, phi: 0.80, r: 1.88, target: new THREE.Vector3(0.22, 0.25, 0) };
       case 7: return { theta: s === 1 ? 0.62 : Math.PI - 0.62, phi: 1.16, r: 1.98, target };
-      case 8: return { theta: s === 1 ? 0.34 : Math.PI - 0.34, phi: 1.24, r: 2.38, target };
+      case 8: return { theta: s === 1 ? -0.42 : Math.PI + 0.42, phi: 1.22, r: 2.38, target };
       default: return { theta: 0.34, phi: 1.15, r: 2.05, target };
     }
   }
@@ -2689,14 +2715,14 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       metalness: 0.04
     });
     const wall = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.85, 1.15), wallMat);
-    wall.position.set(0.73, 0.925, 0);
+    wall.position.set(0.51, 0.925, 0);
     wall.castShadow = false;
     wall.receiveShadow = false;
     wallGroup.add(wall);
 
     const wallTrimMat = new THREE.MeshStandardMaterial({ roughness: 0.38, metalness: 0.10 });
     const wallTrim = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.018, 1.15), wallTrimMat);
-    wallTrim.position.set(0.73, 0.01, 0);
+    wallTrim.position.set(0.51, 0.01, 0);
     wallTrim.castShadow = false;
     wallTrim.receiveShadow = false;
     wallGroup.add(wallTrim);
@@ -2810,7 +2836,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         if (res.ballData) pts.push(res.ballData.pos.clone().add(new THREE.Vector3(0, res.ballData.ry, 0)));
       });
       if (ex.prop === 'wall') {
-        [[0.69, 0.0, -0.32], [0.69, 1.34, -0.32], [0.69, 1.34, 0.32], [0.69, 0.0, 0.32]]
+        [[0.47, 0.0, -0.32], [0.47, 1.34, -0.32], [0.47, 1.34, 0.32], [0.47, 0.0, 0.32]]
           .forEach(a => pts.push(new THREE.Vector3(a[0], a[1], a[2])));
       } else if (ex.prop === 'chair') {
         [[-0.37, 0.92, 0], [-0.36, 0.0, -0.22], [0.07, 0.0, 0.22], [0.09, 0.46, 0.24]]
@@ -3029,7 +3055,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   function syncTheme() {
     const isLight = store.theme === 'light';
     document.documentElement.setAttribute('data-theme', store.theme);
-    $('metaTheme').setAttribute('content', isLight ? '#EEF2F4' : '#161A1E');
+    $('metaTheme').setAttribute('content', isLight ? '#EEEFF1' : '#1F2125');
     $('themeBtn').innerHTML = isLight ? MOON : SUN;
     if (studio) studio.applyThemeToScene(isLight);
   }

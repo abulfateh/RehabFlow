@@ -1354,7 +1354,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       bgHex: 0x1F2125,
       bodyHex: 0xD8D3CE,       // Shield silver
       jointHex: 0x5E636C,      // Graphite joints
-      muscleHex: 0xF2603F,     // Ember: the only red on screen
+      muscleHex: 0xE8462A,     // Ember, a touch deeper so it holds its colour on silver
       matTopHex: 0x2A2D32,
       matEdgeHex: 0x363A41,
       rubberHex: 0xE6B85C,     // Ribbon gold, shared by band and ball
@@ -1365,7 +1365,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       propFrameHex: 0x4E535B,
       wallHex: 0x40454D,
       accentHex: 0xE07A3A,     // Copper trim and heel ring
-      muscleGlow: 1.25,
+      muscleGlow: 0.28,
+      muscleMix: 0.9,
       hemiSky: 0xF4EFE9,
       hemiGround: 0x2A2622,
       hemiInt: 0.84,
@@ -1391,7 +1392,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       propFrameHex: 0x5E636C,
       wallHex: 0xCDD1D7,
       accentHex: 0xB4561C,
-      muscleGlow: 0.9,
+      muscleGlow: 0.3,
+      muscleMix: 0.35,
       hemiSky: 0xFFFFFF,
       hemiGround: 0xC2C6CC,
       hemiInt: 0.82,
@@ -1744,14 +1746,21 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       metalness: 0.05
     });
     // Where the paint is warmer than the body (the working muscle), add a soft emissive glow.
-    const glowUniforms = { uBase: { value: new THREE.Vector3() }, uGlow: { value: 1.0 } };
+    // The painted amount is recovered from the vertex colour, so the glow is just as strong
+    // on the light silver body (dark theme) as on the graphite body (light theme).
+    // After lighting, the muscle area is re-tinted in the muscle colour (keeping its shading), so bright
+    // studio light on the silver body cannot wash it out to pink.
+    const glowUniforms = {
+      uBase: { value: new THREE.Vector3() }, uMus: { value: new THREE.Vector3() },
+      uGlow: { value: 0.3 }, uMix: { value: 0.8 }
+    };
     bodyMat.onBeforeCompile = shader => {
-      shader.uniforms.uBase = glowUniforms.uBase;
-      shader.uniforms.uGlow = glowUniforms.uGlow;
-      shader.fragmentShader = 'uniform vec3 uBase;\nuniform float uGlow;\n' + shader.fragmentShader.replace(
-        '#include <emissivemap_fragment>',
-        '#include <emissivemap_fragment>\n#ifdef USE_COLOR\n  totalEmissiveRadiance += max(vColor.rgb - uBase, vec3(0.0)) * uGlow;\n#endif'
-      );
+      Object.assign(shader.uniforms, glowUniforms);
+      shader.fragmentShader = 'uniform vec3 uBase;\nuniform vec3 uMus;\nuniform float uGlow;\nuniform float uMix;\n' + shader.fragmentShader
+        .replace('#include <emissivemap_fragment>',
+          '#include <emissivemap_fragment>\n  float mW = 0.0;\n#ifdef USE_COLOR\n  vec3 mDir = uMus - uBase;\n  mW = clamp(dot(vColor.rgb - uBase, mDir) / max(dot(mDir, mDir), 1e-5), 0.0, 1.0);\n  totalEmissiveRadiance += uMus * mW * uGlow;\n#endif')
+        .replace('gl_FragColor = vec4( outgoingLight, diffuseColor.a );',
+          'float mLum = dot(outgoingLight, vec3(0.2126, 0.7152, 0.0722));\n  outgoingLight = mix(outgoingLight, uMus * (0.42 + 0.95 * mLum), mW * uMix);\n  gl_FragColor = vec4( outgoingLight, diffuseColor.a );');
     };
 
     const plainBodyMat = new THREE.MeshStandardMaterial({
@@ -1941,7 +1950,9 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       baseColorLin = linColor(themeCfg.bodyHex);
       muscleColorLin = linColor(themeCfg.muscleHex);
       glowUniforms.uBase.value.set(baseColorLin.r, baseColorLin.g, baseColorLin.b);
-      glowUniforms.uGlow.value = themeCfg.muscleGlow || 1.0;
+      glowUniforms.uMus.value.set(muscleColorLin.r, muscleColorLin.g, muscleColorLin.b);
+      glowUniforms.uGlow.value = themeCfg.muscleGlow != null ? themeCfg.muscleGlow : 0.3;
+      glowUniforms.uMix.value = themeCfg.muscleMix != null ? themeCfg.muscleMix : 0.6;
       plainBodyMat.color.copy(baseColorLin);
       jointMat.color.copy(linColor(themeCfg.jointHex));
       staticVertexGeos.forEach(g => fillGeoBaseColor(g, baseColorLin));
@@ -1971,7 +1982,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         if (maskKey && part.masks[maskKey]) {
           const m = part.masks[maskKey];
           for (let i = 0; i < count; i++) {
-            const t = Math.min(1, m[i] * 1.35) * strength;
+            const x = Math.min(1, m[i] * 1.35) * strength;
+            const t = 1 - (1 - x) * (1 - x);
             const i3 = i * 3;
             arr[i3] = br + dr * t;
             arr[i3 + 1] = bg + dg * t;

@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="description" content="تمارين العلاج الطبيعي — استوديو ثلاثي الأبعاد تفاعلي بخلفية سادة نقية بدون ظلال مع عدّاد تكرار ومؤقّت.">
 <meta name="theme-color" content="#1F2125" id="metaTheme">
 <title>تمارين العلاج الطبيعي</title>
@@ -577,6 +577,12 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 }
 .mring-btn .pen svg, .clock-btn .pen svg { width: 12px; height: 12px; }
 .clock-btn { padding: 4px 6px; }
+#entrySheet { bottom: var(--kb, 0px); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), bottom 0.18s ease-out, visibility 0s linear 0.3s; }
+#entrySheet.open { transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), bottom 0.18s ease-out, visibility 0s; }
+#entrySheet.kb-up { border-radius: 24px; }
+#entrySheet.kb-up .grab { display: none; }
+#entrySheet.kb-tight .e-hint, #entrySheet.kb-tight .e-sub { display: none; }
+#entrySheet.kb-tight #eForm { gap: 10px; }
 .e-sub { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; }
 #eForm { display: flex; flex-direction: column; gap: 14px; }
 .e-row { display: flex; align-items: center; justify-content: center; gap: 14px; }
@@ -3908,6 +3914,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   }
   function closeSheet(silent) {
     if (!openSheet) return;
+    if (openSheet.id === 'entrySheet') setTimeout(placeEntrySheet, 0);
     if (openSheet.id === 'entrySheet' && entry) { const e = entry; entry = null; if (e.fromTimer && !silent) toast('ما انحفظ الوقت'); }
     openSheet.classList.remove('open');
     openSheet.removeAttribute('role');
@@ -4149,6 +4156,31 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
      MANUAL ENTRY: rep count, or a time to review before saving
      ========================================================================== */
   let entry = null;
+  // Keep the entry sheet, and its Save button, above the phone keyboard.
+  function placeEntrySheet() {
+    const sh = $('entrySheet');
+    if (!sh) return;
+    const vv = window.visualViewport;
+    if (!sh.classList.contains('open') || !vv || window.matchMedia('(min-width: 960px)').matches) {
+      sh.style.removeProperty('--kb'); sh.style.removeProperty('max-height');
+      sh.classList.remove('kb-up', 'kb-tight');
+      return;
+    }
+    const kb = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+    const up = kb > 80 || vv.height < window.screen.height * 0.62;
+    sh.style.setProperty('--kb', kb + 'px');
+    sh.style.maxHeight = Math.max(220, Math.round(vv.height - 10)) + 'px';
+    sh.classList.toggle('kb-up', up);
+    sh.classList.toggle('kb-tight', up && vv.height < 430);
+    const f = document.activeElement;
+    if (f && sh.contains(f) && f.scrollIntoView) f.scrollIntoView({ block: 'nearest' });
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', placeEntrySheet);
+    window.visualViewport.addEventListener('scroll', placeEntrySheet);
+  }
+  window.addEventListener('resize', placeEntrySheet);
+
   function openEntry(mode, from, sec, fromTimer) {
     const ex = EX[cur], s = curSide(ex);
     entry = { mode, exId: ex.id, side: s, fromTimer: !!fromTimer, measured: sec || 0 };
@@ -4173,6 +4205,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       $('eHint').textContent = fromTimer ? 'المؤقّت سجّل ' + fmt(entry.measured) + '. عدّل الوقت إذا تحتاج، ثم احفظ.' : 'اكتب الدقائق والثواني، أو استخدم الأزرار.';
     }
     showSheet($('entrySheet'), from);
+    placeEntrySheet();
     setTimeout(() => {
       const f = $('entrySheet').querySelector('.e-input');
       if (f) { f.focus({ preventScroll: true }); try { f.select(); } catch (e) {} }
@@ -5102,7 +5135,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 /* In-app updates for the installed app: a new version downloads quietly,
    then the person chooses when to apply it. Results live in localStorage and are untouched. */
 (function () {
-  var APP_VERSION = 13;
+  var APP_VERSION = 14;
   var bar = document.getElementById('updBar');
   var row = document.getElementById('updRow');
   var ver = document.getElementById('verTxt');

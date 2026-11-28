@@ -1748,10 +1748,141 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 /* targets on the counter */
 .clockbox b.hit { color: var(--accent); }
 
+/* ==========================================================================
+   PROGRAM GALLERY + exercise pictures
+   ========================================================================== */
+.thumb { display: block; background: var(--surface-2); overflow: hidden; }
+.thumb img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.25s; }
+.thumb img.in { opacity: 1; }
+
+.lib-sub { margin: -6px 0 2px; color: var(--muted); font-size: 0.88rem; line-height: 1.6; max-width: 60ch; }
+.gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px 12px; }
+@media (min-width: 700px) { .gal { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 22px 18px; } }
+.gc { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.gc-cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--surface-2);
+  box-shadow: 0 0 0 1px var(--line);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.gc-cover:hover { box-shadow: 0 0 0 1px var(--accent); }
+.gc-cover:active { transform: scale(0.98); }
+.gc.on .gc-cover { box-shadow: 0 0 0 2px var(--accent); }
+.gc-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; background: var(--line); }
+.gc-mosaic.n1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+.gc-mosaic.n2 { grid-template-rows: 1fr; }
+.gc-mosaic.n3 .thumb:first-child { grid-row: span 2; }
+.gc-mosaic .thumb { position: relative; }
+.gc-more {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 21, 24, 0.55);
+  color: #fff;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.gc-badge {
+  position: absolute;
+  top: 8px;
+  inset-inline-start: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.gc-badge svg { width: 12px; height: 12px; }
+.gc-b { display: flex; flex-direction: column; line-height: 1.3; padding-inline: 2px; min-width: 0; }
+.gc-b b { font-size: 0.95rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gc-b span { font-size: 0.76rem; color: var(--muted); }
+.gc.new .gc-cover { background: none; box-shadow: none; border: 1.5px dashed var(--line-strong); display: grid; place-items: center; }
+.gc.new .gc-cover:hover { border-color: var(--accent); }
+.gc-plus { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); font-size: 0.8rem; font-weight: 600; }
+.gc-plus i { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-tint); color: var(--accent); }
+.gc-plus svg { width: 22px; height: 22px; }
+
+/* one program, opened from the gallery */
+.pv-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: -4px 0 14px; color: var(--muted); font-size: 0.84rem; }
+.pv-meta .on { padding: 3px 9px; border-radius: 999px; background: var(--accent-tint); color: var(--accent); font-weight: 600; font-size: 0.74rem; }
+.pv-list { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.pv-list li { display: flex; align-items: center; gap: 12px; padding: 6px; padding-inline-end: 12px; border-radius: 16px; background: var(--surface-2); }
+.pv-th { position: relative; width: 64px; height: 64px; flex-shrink: 0; border-radius: 12px; }
+.pv-th .n {
+  position: absolute;
+  bottom: 4px;
+  inset-inline-start: 4px;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 4px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  font-family: var(--f-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.pv-t { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.pv-t b { font-size: 0.9rem; font-weight: 600; }
+.pv-t span { font-size: 0.74rem; color: var(--muted); }
+.pv-v { flex-shrink: 0; text-align: end; display: flex; flex-direction: column; line-height: 1.2; }
+.pv-v b { font-family: var(--f-display); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.pv-v small { font-size: 0.68rem; color: var(--muted); }
+.pv-foot { display: flex; gap: 8px; }
+.pv-foot .soft { width: 50px; min-height: 50px; padding: 0; display: grid; place-items: center; flex-shrink: 0; }
+.pv-foot .soft svg { width: 19px; height: 19px; }
+.pv-foot .act { flex: 1; min-height: 50px; }
+
+/* pictures in the exercise list and the library */
+.exrow .xth { position: relative; width: 48px; height: 48px; flex-shrink: 0; border-radius: 12px; }
+.exrow .xth .n {
+  position: absolute;
+  bottom: -3px;
+  inset-inline-start: -3px;
+  width: 22px;
+  height: 22px;
+  font-size: 0.72rem;
+  box-shadow: 0 0 0 2px var(--surface);
+}
+.exrow[aria-current="true"] .xth .n { box-shadow: 0 0 0 2px var(--accent-soft); }
+.pe-add .xth { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; }
+.pe-add .plus { margin-inline-start: auto; }
+
+/* session clock, pause */
+.rb-l { display: flex; flex-direction: column; gap: 3px; min-width: 0; line-height: 1.15; }
+.rb-sub { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+.rb-clock { font-family: var(--f-display); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; color: var(--ink); opacity: 0.8; }
+.rb-btn.ic { width: 36px; padding: 0; justify-content: center; }
+.rb-btn.ic svg { width: 15px; height: 15px; }
+.rbar.paused .rb-l b { color: var(--accent); }
+.act.start svg { width: 16px; height: 16px; display: none; }
+.log-foot .soft.ic { flex: 0 0 50px; padding: 0; }
+.log-foot .soft.ic svg { color: var(--ink); }
+.tl-when b.tl-dur { color: var(--ink); font-family: var(--f-display); font-weight: 600; font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+.rt thead th small { display: block; margin-top: 2px; font-weight: 500; font-size: 0.66rem; font-family: var(--f-display); font-variant-numeric: tabular-nums; opacity: 0.85; direction: ltr; }
+.done-rounds { list-style: none; margin: -4px 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.done-rounds li { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 11px; border-radius: 999px; background: var(--surface-2); font-size: 0.78rem; color: var(--muted); }
+.done-rounds b { color: var(--ink); font-family: var(--f-display); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+.done-rounds li.pz { background: none; box-shadow: inset 0 0 0 1px var(--line); }
+.done-rounds li.pz b { direction: rtl; }
+
 /* sheets opened over the progress page */
-body.dash-on .scrim { z-index: 72; }
-body.dash-on #logSheet, body.dash-on #doneSheet, body.dash-on #progSheet, body.dash-on #pgEdit, body.dash-on #pgShare, body.dash-on #pgImport { z-index: 75; }
-body.dash-on #entrySheet { z-index: 78; }
+body.dash-on .scrim, body.lib-on .scrim { z-index: 72; }
+body.dash-on #logSheet, body.dash-on #doneSheet, body.dash-on #pgView, body.dash-on #pgEdit, body.dash-on #pgShare, body.dash-on #pgImport,
+body.lib-on #pgView, body.lib-on #pgEdit, body.lib-on #pgShare, body.lib-on #pgImport { z-index: 75; }
+body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
 </style>
 </head>
 <body>
@@ -1935,6 +2066,7 @@ body.dash-on #entrySheet { z-index: 78; }
   </div>
   <p class="done-sub" id="doneSub"></p>
   <div class="log-stats" id="doneStats"></div>
+  <ul class="done-rounds" id="doneRounds" aria-label="مدة كل جولة"></ul>
   <ul class="done-list" id="doneList"></ul>
   <div class="done-foot">
     <button type="button" class="soft" data-act="done-log">عرض السجل</button>
@@ -1943,17 +2075,21 @@ body.dash-on #entrySheet { z-index: 78; }
 </div>
 
 <!-- PROGRAMS -->
-<div class="sheet" id="progSheet" dir="rtl" lang="ar" aria-labelledby="pgTitle">
+<div class="sheet" id="pgView" dir="rtl" lang="ar" aria-labelledby="pvTitle">
   <div class="sheet-head">
     <span class="grab"></span>
-    <h2 id="pgTitle">البرامج</h2>
+    <h2 id="pvTitle"></h2>
     <button type="button" class="close" data-act="close" aria-label="إغلاق">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
     </button>
   </div>
-  <p class="pg-intro">كل برنامج تمارين مختارة بترتيب وهدف لكل جولة. اختر اللي بتتمرّن عليه.</p>
-  <ul class="pg-list" id="pgList"></ul>
-  <button type="button" class="act pg-new" data-act="prog-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>برنامج جديد</button>
+  <div class="pv-meta" id="pvMeta"></div>
+  <ol class="pv-list" id="pvList"></ol>
+  <div class="pv-foot">
+    <button type="button" class="soft" data-act="pv-share" aria-label="مشاركة البرنامج"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"></circle><circle cx="6" cy="12" r="2.6"></circle><circle cx="18" cy="19" r="2.6"></circle><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"></path></svg></button>
+    <button type="button" class="soft" data-act="pv-edit" aria-label="تعديل البرنامج"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-4-4L4 16v4z"></path></svg></button>
+    <button type="button" class="act" data-act="pv-use" id="pvUse"></button>
+  </div>
 </div>
 
 <div class="sheet" id="pgEdit" dir="rtl" lang="ar" aria-labelledby="peTitle">
@@ -2042,6 +2178,20 @@ body.dash-on #entrySheet { z-index: 78; }
     </div>
   </form>
 </div>
+
+<!-- PROGRAM GALLERY -->
+<section class="dash lib" id="lib" dir="rtl" lang="ar" aria-labelledby="libTitle" hidden>
+  <div class="dash-in">
+    <header class="dash-top">
+      <button type="button" class="ibtn" data-act="lib-close" id="libBack" aria-label="رجوع للتمارين">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+      </button>
+      <div class="tt"><h2 id="libTitle">البرامج</h2><small>اختر البرنامج اللي بتتمرّن عليه</small></div>
+    </header>
+    <p class="lib-sub">كل برنامج تمارين مختارة بترتيب وهدف لكل جولة. اضغط على أي برنامج تشوف تمارينه.</p>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
 
 <!-- PROGRESS DASHBOARD -->
 <section class="dash" id="dash" dir="rtl" lang="ar" aria-labelledby="dashTitle" hidden>
@@ -2356,7 +2506,12 @@ body.dash-on #entrySheet { z-index: 78; }
     }
     if (s.date !== today() || !s.d || typeof s.d !== 'object') {
       // A session still open from an earlier day ends where its last activity was
-      if (s.log && Array.isArray(s.log.sessions) && Array.isArray(s.log.sets)) s.log.sessions.forEach(x => { if (!x.end && Array.isArray(x.rounds)) x.end = lastActivity(s.log, x); });
+      if (s.log && Array.isArray(s.log.sessions) && Array.isArray(s.log.sets)) s.log.sessions.forEach(x => {
+        if (x.end || !Array.isArray(x.rounds)) return;
+        const pp = Array.isArray(x.pauses) && x.pauses.length ? x.pauses[x.pauses.length - 1] : null;
+        if (pp && pp[1] == null) pp[1] = pp[0];
+        x.end = lastActivity(s.log, x);
+      });
       if (s.date && s.d && typeof s.d === 'object') { archiveDay(s.date, s.d, s.goalOn === true ? s.goal : 0, s.log); saveHistory(); }
       s.date = today();
       s.d = {};
@@ -2457,10 +2612,27 @@ body.dash-on #entrySheet { z-index: 78; }
   function lastActivity(L, s) {
     let m = s.rounds.length ? s.rounds[s.rounds.length - 1] : s.start;
     L.sets.forEach(x => { if (x.ses === s.id && x.u > m) m = x.u; });
+    (s.pauses || []).forEach(pp => { m = Math.max(m, pp[0], pp[1] || 0); });
     return Math.max(m, s.start);
   }
+  // Pauses: [[from, to|null], ...]; time inside them is not training time
+  const isPaused = s => !!(s && s.pauses && s.pauses.length && s.pauses[s.pauses.length - 1][1] == null);
+  function pausedMs(s, a, b) {
+    let t = 0;
+    (s.pauses || []).forEach(pp => { const x = Math.max(a, pp[0]), y = Math.min(b, pp[1] == null ? Date.now() : pp[1]); if (y > x) t += y - x; });
+    return t;
+  }
+  const activeMs = (s, a, b) => Math.max(0, b - a - pausedMs(s, a, b));
+  const sessionMs = s => activeMs(s, s.start, s.end || Date.now());
+  const roundMs = (s, i) => activeMs(s, s.rounds[i], i + 1 < s.rounds.length ? s.rounds[i + 1] : (s.end || Date.now()));
+  // Training time as a clock: 4:05, or 1:02:09 past the hour
+  const fmtRun = ms => {
+    const t = Math.floor(ms / 1000), h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), sec = String(t % 60).padStart(2, '0');
+    return h ? h + ':' + String(m).padStart(2, '0') + ':' + sec : m + ':' + sec;
+  };
   // Closes a session; one that never got a set is dropped
   function closeSession(L, s, at) {
+    if (isPaused(s)) s.pauses[s.pauses.length - 1][1] = Math.max(s.pauses[s.pauses.length - 1][0], at);
     s.end = at;
     if (!L.sets.some(x => x.ses === s.id)) L.sessions = L.sessions.filter(x => x !== s);
   }
@@ -2471,6 +2643,7 @@ body.dash-on #entrySheet { z-index: 78; }
   function activeSession() {
     const L = store.log, s = L.sessions[L.sessions.length - 1];
     if (!s || s.end) return null;
+    if (isPaused(s)) return s;   // a paused session waits for you, until the day ends
     const lastA = lastActivity(L, s);
     if (Date.now() - lastA > SESSION_IDLE) { closeSession(L, s, lastA); commitToday(); return null; }
     return s;
@@ -2494,8 +2667,27 @@ body.dash-on #entrySheet { z-index: 78; }
     commitToday();
     return true;
   }
-  function newRound() {
+  // The session is running and counting (started, not paused)
+  function countingSession() {
     const s = activeSession();
+    return s && !isPaused(s) ? s : null;
+  }
+  function pauseSession() {
+    const s = activeSession();
+    if (!s || isPaused(s)) return false;
+    (s.pauses || (s.pauses = [])).push([Date.now(), null]);
+    commitToday();
+    return true;
+  }
+  function resumeSession() {
+    const s = activeSession();
+    if (!s || !isPaused(s)) return false;
+    s.pauses[s.pauses.length - 1][1] = Date.now();
+    commitToday();
+    return true;
+  }
+  function newRound() {
+    const s = countingSession();
     if (!s) return false;
     if (!roundSets(store.log, s, roundNo(s)).length) { toast('الجولة ' + roundNo(s) + ' لسه ما بدأت'); return false; }
     s.rounds.push(Date.now());
@@ -2512,7 +2704,7 @@ body.dash-on #entrySheet { z-index: 78; }
     return L.sessions.includes(s) ? s : null;
   }
   function logTap(exId, side, dv) {
-    const L = store.log, s = activeSession(), now = Date.now();
+    const L = store.log, s = countingSession(), now = Date.now();
     if (!s) return false;
     let st = curRepSet(exId, side);
     if (dv > 0) {
@@ -2527,7 +2719,7 @@ body.dash-on #entrySheet { z-index: 78; }
     return true;
   }
   function setRoundReps(exId, side, v) {
-    const L = store.log, s = activeSession(), now = Date.now();
+    const L = store.log, s = countingSession(), now = Date.now();
     if (!s) return false;
     const st = curRepSet(exId, side);
     if (st) { st.v = v; st.u = now; st.src = 'manual'; }
@@ -2536,7 +2728,7 @@ body.dash-on #entrySheet { z-index: 78; }
     return true;
   }
   function logHold(exId, side, v, t, src) {
-    const L = store.log, s = activeSession();
+    const L = store.log, s = countingSession();
     if (!s) return false;
     L.sets.push({ id: newId(), ex: exId, side, k: 't', v, t, u: t + v * 1000, src, ses: s.id, r: roundNo(s) });
     sortSets(L);
@@ -2566,7 +2758,7 @@ body.dash-on #entrySheet { z-index: 78; }
   function sessionList(L) {
     const ex = L.sessions.map(s => {
       const sets = L.sets.filter(x => x.ses === s.id);
-      return { id: s.id, start: s.start, end: s.end || null, rounds: s.rounds.slice(), sets, live: !s.end, ref: s, prog: s.prog || null, pname: s.pname || '' };
+      return { id: s.id, start: s.start, end: s.end || null, rounds: s.rounds.slice(), pauses: (s.pauses || []).map(pp => pp.slice()), sets, live: !s.end, ref: s, prog: s.prog || null, pname: s.pname || '' };
     }).filter(x => x.sets.length || x.live);
     return ex.concat(legacyGroups(L)).sort((a, b) => a.start - b.start);
   }
@@ -4208,12 +4400,14 @@ body.dash-on #entrySheet { z-index: 78; }
     }
 
     // Distance and aim point that keep the whole movement (and its prop) inside the free area of the stage.
-    function fitPreset(ex, side, preset) {
+    // `box` fits into a picture of another size (thumbnails) instead of the stage
+    function fitPreset(ex, side, preset, box) {
       const base = getCameraPreset(ex.id, side, preset);
       const stage = $('stage');
-      const W = stage.clientWidth || 300, H = stage.clientHeight || 220;
-      const availW = Math.max(80, W - 2 * FIT_MARGIN.side);
-      const availH = Math.max(80, H - FIT_MARGIN.top - FIT_MARGIN.bottom);
+      const W = box ? box.W : (stage.clientWidth || 300), H = box ? box.H : (stage.clientHeight || 220);
+      const M = box ? box.m : FIT_MARGIN;
+      const availW = Math.max(40, W - 2 * M.side);
+      const availH = Math.max(40, H - M.top - M.bottom);
       const tV = Math.tan(camera.fov * D2R / 2);
       const tanV = tV * availH / H;
       const tanH = tV * (W / H) * availW / W;
@@ -4270,7 +4464,7 @@ body.dash-on #entrySheet { z-index: 78; }
       ballMesh.visible = ex.prop === 'mat-ball';
     }
 
-    function updateFrame(ex, p, side, timeMs, dt) {
+    function poseScene(ex, p, side, timeMs) {
       const res = computeExercisePose(ex.id, p, side, timeMs);
       hero.applyPose(res.pose, res.activeMuscles, p.e);
 
@@ -4293,9 +4487,40 @@ body.dash-on #entrySheet { z-index: 78; }
         const pulse = 1 + Math.sin(timeMs * 0.005) * 0.05;
         heelRing.scale.set(pulse, pulse, 1);
       }
-
+    }
+    function updateFrame(ex, p, side, timeMs, dt) {
+      poseScene(ex, p, side, timeMs);
       updateCamera(dt);
       renderer.render(scene, camera);
+    }
+
+    // Still pictures of an exercise at its key moment, for the gallery and lists.
+    // A second renderer draws the same scene, so the live view is not disturbed.
+    let snapR = null;
+    function snapshot(ex, p, side, w, h) {
+      if (!snapR) {
+        snapR = new THREE.WebGLRenderer({ canvas: document.createElement('canvas'), antialias: true, preserveDrawingBuffer: true });
+        snapR.outputEncoding = renderer.outputEncoding;
+        snapR.toneMapping = renderer.toneMapping;
+        snapR.toneMappingExposure = renderer.toneMappingExposure;
+        snapR.setPixelRatio(1);
+      }
+      snapR.setSize(w, h, false);
+      setPropsForEx(ex);
+      poseScene(ex, p, side, 0);
+      const f = fitPreset(ex, side, 'auto', { W: w, H: h, m: { top: h * 0.07, bottom: h * 0.07, side: w * 0.06 } });
+      const cam = new THREE.PerspectiveCamera(camera.fov, w / h, 0.1, 30);
+      const sp = Math.sin(f.phi);
+      cam.position.set(f.target.x + f.r * sp * Math.sin(f.theta), f.target.y + f.r * Math.cos(f.phi), f.target.z + f.r * sp * Math.cos(f.theta));
+      cam.lookAt(f.target);
+      snapR.render(scene, cam);
+      return snapR.domElement.toDataURL('image/jpeg', 0.86);
+    }
+    function dropSnapshots() {
+      if (!snapR) return;
+      snapR.dispose();
+      try { snapR.forceContextLoss(); } catch (e) {}
+      snapR = null;
     }
 
     // --- Interactive 360° Pointer/Touch Orbit & Pinch/Wheel Zoom ---
@@ -4350,6 +4575,8 @@ body.dash-on #entrySheet { z-index: 78; }
       setPropsForEx,
       updateFrame,
       fitPreset,
+      snapshot,
+      dropSnapshots,
       setOnResize(fn) { onResize = fn; }
     };
   }
@@ -4420,6 +4647,8 @@ body.dash-on #entrySheet { z-index: 78; }
     $('themeBtn').innerHTML = isLight ? MOON : SUN;
     if (studio) studio.applyThemeToScene(isLight);
     if (dashOpen) { syncDashTheme(); renderDash(); }
+    if (libOpen) renderGallery();
+    if (openSheet === $('pgView') && viewId) openView(viewId);
   }
 
   function syncPlay() {
@@ -4429,7 +4658,7 @@ body.dash-on #entrySheet { z-index: 78; }
 
   function onAutoCycle() {
     const ex = PX[cur];
-    if (!autoCount || ex.tool !== 'reps' || !activeSession()) return;
+    if (!autoCount || ex.tool !== 'reps' || !countingSession()) return;
     const s = curSide(ex), tg = targetOf(ex.id), c0 = curRepSet(ex.id, s), before = c0 ? c0.v : 0;
     logTap(ex.id, s, 1);
     if (tg && before < tg && before + 1 >= tg) toast('وصلت للهدف: ' + tg + ' تكرار');
@@ -4462,7 +4691,7 @@ body.dash-on #entrySheet { z-index: 78; }
   }
 
   function animateLoop(ts) {
-    if (dashOpen) { lastTs = null; requestAnimationFrame(animateLoop); return; }
+    if (dashOpen || libOpen) { lastTs = null; requestAnimationFrame(animateLoop); return; }
     if (lastTs == null) lastTs = ts;
     const dtMs = Math.min(64, ts - lastTs);
     lastTs = ts;
@@ -4516,14 +4745,19 @@ body.dash-on #entrySheet { z-index: 78; }
   const ICON_STOP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="2"></rect></svg>';
   function renderToday() {
     if (!$('tbNow')) return;
+    $('tbNow').classList.remove('tc-paused');
     const L = store.log, s = activeSession(), list = sessionList(L).filter(x => x.sets.length || x.live);
     const n = list.filter(x => !x.legacy || x.sets.length).length;
     const now = $('tbNow'), sub = $('tbSub');
     now.classList.toggle('tc-live', !!s);
-    if (s) {
+    if (s && isPaused(s)) {
+      now.textContent = sesName(list.indexOf(list.find(x => x.ref === s))) + ' · موقوفة';
+      sub.textContent = 'وقفت ' + fmtClock(s.pauses[s.pauses.length - 1][0]) + ' · ' + fmtRun(sessionMs(s)) + ' تمرين للحين';
+      $('tbBtns').innerHTML = '<button type="button" class="tc-btn primary" data-act="ses-resume">' + ICON_PLAY + 'استئناف</button>';
+    } else if (s) {
       const rs = roundSets(L, s, roundNo(s)), done = PX.filter(ex => exDoneIn(rs, ex)).length;
       now.textContent = sesName(list.indexOf(list.find(x => x.ref === s))) + ' · الجولة ' + roundNo(s);
-      sub.textContent = 'من ' + fmtClock(s.start) + ' · خلصت ' + done + ' من ' + PX.length + ' بهالجولة';
+      sub.innerHTML = '<span data-sesclock>' + fmtRun(sessionMs(s)) + '</span> · خلصت ' + done + ' من ' + PX.length + ' بهالجولة';
       $('tbBtns').innerHTML = '<button type="button" class="tc-btn" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>';
     } else {
       now.textContent = n ? sesName(n) : 'جاهز تبدأ؟';
@@ -4541,8 +4775,9 @@ body.dash-on #entrySheet { z-index: 78; }
       '<button type="button" class="seg-b' + (isDone(ex) ? ' done' : '') + '" data-act="go" data-i="' + i + '" aria-label="تمرين ' + ex.id + ': ' + ex.name + '"' + (i === cur ? ' aria-current="step"' : '') + '><i></i></button>'
     ).join('');
     $('exlist').innerHTML = PX.map((ex, i) =>
-      '<button type="button" class="exrow" data-act="go" data-i="' + i + '"' + (i === cur ? ' aria-current="true"' : '') + '><span class="n">' + (i + 1) + '</span><span class="t"><b>' + ex.name + '</b><span>' + ex.muscle + '</span></span>' + (isDone(ex) ? '<span class="ok" aria-label="مكتمل">' + CHECK + '</span>' : '') + '</button>'
+      '<button type="button" class="exrow" data-act="go" data-i="' + i + '"' + (i === cur ? ' aria-current="true"' : '') + '><span class="thumb xth">' + thumbImg(ex) + '<span class="n">' + (i + 1) + '</span></span><span class="t"><b>' + ex.name + '</b><span>' + ex.muscle + '</span></span>' + (isDone(ex) ? '<span class="ok" aria-label="مكتمل">' + CHECK + '</span>' : '') + '</button>'
     ).join('');
+    if (openSheet === $('listSheet')) ensureThumbs();
     updateProgress();
   }
 
@@ -4568,18 +4803,34 @@ body.dash-on #entrySheet { z-index: 78; }
 
   let endArmed = false, endT = null;
   // The live session's round: a dot per exercise (filled = both legs done, ring = one leg), then next round / end
+  const ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5.5" width="4" height="13" rx="1.2"></rect><rect x="13.5" y="5.5" width="4" height="13" rx="1.2"></rect></svg>';
   function roundBar(ex) {
     const s = activeSession();
     if (!s) return '';
+    if (isPaused(s)) {
+      return '<div class="rbar paused">' +
+        '<button type="button" class="rb-info" data-act="log-open" aria-label="الجلسة موقوفة مؤقتاً. افتح سجل اليوم"><span class="rb-l"><b>الجلسة موقوفة</b><span class="rb-sub"><span class="rb-clock" data-sesclock>' + fmtRun(sessionMs(s)) + '</span> تمرين · الجولة ' + roundNo(s) + '</span></span></button>' +
+        '<button type="button" class="rb-btn' + (endArmed ? ' armed' : '') + '" data-act="ses-end">' + (endArmed ? 'تأكيد الإنهاء' : ICON_STOP + 'إنهاء') + '</button>' +
+      '</div>';
+    }
     const rs = roundSets(store.log, s, roundNo(s));
     const dots = PX.map((e, i) => '<i class="' + (exDoneIn(rs, e) ? 'done' : exPartIn(rs, e) ? 'half' : '') + (i === cur ? ' cur' : '') + '"></i>').join('');
     const done = PX.filter(e => exDoneIn(rs, e)).length;
     return '<div class="rbar">' +
-      '<button type="button" class="rb-info" data-act="log-open" aria-label="الجولة ' + roundNo(s) + '، ' + done + ' من ' + PX.length + ' تمارين. افتح سجل اليوم"><b>الجولة ' + roundNo(s) + (activeProg().rounds ? ' من ' + activeProg().rounds : '') + '</b><span class="rb-dots" aria-hidden="true">' + dots + '</span></button>' +
+      '<button type="button" class="rb-info" data-act="log-open" aria-label="الجولة ' + roundNo(s) + '، ' + done + ' من ' + PX.length + ' تمارين. افتح سجل اليوم"><span class="rb-l"><b>الجولة ' + roundNo(s) + (activeProg().rounds ? ' من ' + activeProg().rounds : '') + '</b><span class="rb-sub"><span class="rb-dots" aria-hidden="true">' + dots + '</span><span class="rb-clock" data-sesclock>' + fmtRun(sessionMs(s)) + '</span></span></span></button>' +
+      '<button type="button" class="rb-btn ic" data-act="ses-pause" aria-label="إيقاف الجلسة مؤقتاً">' + ICON_PAUSE + '</button>' +
       '<button type="button" class="rb-btn next' + (done === PX.length && !(activeProg().rounds && roundNo(s) >= activeProg().rounds) ? ' primary' : '') + '" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>' +
-      '<button type="button" class="rb-btn' + (endArmed ? ' armed' : done === PX.length && activeProg().rounds && roundNo(s) >= activeProg().rounds ? ' primary' : '') + '" data-act="ses-end">' + (endArmed ? 'تأكيد الإنهاء' : ICON_STOP + 'إنهاء') + '</button>' +
+      '<button type="button" class="rb-btn' + (endArmed ? ' armed' : done === PX.length && activeProg().rounds && roundNo(s) >= activeProg().rounds ? ' primary' : ' ic') + '" data-act="ses-end" aria-label="إنهاء الجلسة">' + (endArmed ? 'تأكيد الإنهاء' : ICON_STOP + (done === PX.length && activeProg().rounds && roundNo(s) >= activeProg().rounds ? 'إنهاء' : '')) + '</button>' +
     '</div>';
   }
+  // The session clock ticks once a second (training time, pauses left out)
+  setInterval(() => {
+    const s = store.log.sessions[store.log.sessions.length - 1];
+    if (!s || s.end || isPaused(s)) return;
+    const txt = fmtRun(sessionMs(s)), rtx = fmtRun(roundMs(s, s.rounds.length - 1));
+    document.querySelectorAll('[data-sesclock]').forEach(e => { e.textContent = txt; });
+    document.querySelectorAll('[data-roundclock]').forEach(e => { e.textContent = rtx; });
+  }, 1000);
   // A session left open closes itself after two idle hours
   setInterval(() => {
     const L = store.log, s = L.sessions[L.sessions.length - 1];
@@ -4600,6 +4851,19 @@ body.dash-on #entrySheet { z-index: 78; }
 
     const sideName = ex.sides ? (s === 'L' ? ' للرجل اليسرى' : ' للرجل اليمنى') : '';
     const live = activeSession();
+    if (live && isPaused(live) && ex.tool !== 'cd') {
+      const n = getN(ex, s);
+      const big = ex.tool === 'hold' ? (n.n ? fmt(n.best) : '—') : n;
+      const pp = live.pauses[live.pauses.length - 1];
+      h += '<div class="toolrow">' + roundBar(ex) +
+        '<div class="mring-btn ro" aria-label="مجموع اليوم' + sideName + ': ' + big + '">' + mring(0, big, ex.tool === 'hold' ? 'أفضل' : 'اليوم', true) + '</div>' +
+        '<button type="button" class="act start" data-act="ses-resume">' + ICON_PLAY + 'استئناف<small>موقوفة من ' + fmtClock(pp[0]) + '</small></button>' +
+      '</div>';
+      m += '<h3>الجلسة موقوفة</h3><p class="note">وقت الإيقاف ما ينحسب من مدة الجلسة أو الجولة. كمّل من نفس المكان.</p>';
+      $('tool').innerHTML = h;
+      $('toolMore').innerHTML = m;
+      return;
+    }
     if (!live && ex.tool !== 'cd') {
       const n = getN(ex, s), cnt = sessionCount(store.log);
       const big = ex.tool === 'hold' ? (n.n ? fmt(n.best) : '—') : n;
@@ -4697,7 +4961,22 @@ body.dash-on #entrySheet { z-index: 78; }
     const c = el.querySelector('.close');
     if (c) setTimeout(() => c.focus({ preventScroll: true }), 50);
   }
+  // Tapping a button in a sheet while typing keeps the keyboard up, so the sheet does not drop
+  // under your finger and the first tap counts.
+  function keepTyping(e) {
+    const a = document.activeElement;
+    if (!a || a.tagName !== 'INPUT' || a.readOnly || /^(button|submit|checkbox|radio)$/.test(a.type)) return;
+    const b = e.target.closest && e.target.closest('button');
+    if (!b || b.disabled) return;
+    const sh = a.closest('.sheet');
+    if (sh && sh.contains(b)) e.preventDefault();
+  }
+  document.addEventListener('pointerdown', keepTyping, true);
+  document.addEventListener('mousedown', keepTyping, true);
+
   function closeSheet(silent) {
+    const fa = document.activeElement;
+    if (fa && fa.tagName === 'INPUT' && openSheet && openSheet.contains(fa)) fa.blur();
     if (openSheet === $('pgImport') && incoming) { incoming = null; clearShareHash(); }
     if (!openSheet) return;
     if (openSheet.id === 'entrySheet') setTimeout(placeEntrySheet, 0);
@@ -4757,7 +5036,7 @@ body.dash-on #entrySheet { z-index: 78; }
     if (store.date !== today()) { Object.assign(store, loadStore()); renderTool(); renderNav(); }
     const ex = PX[cur], s = curSide(ex);
 
-    if (act === 'list') { showSheet($('listSheet'), b); return; }
+    if (act === 'list') { showSheet($('listSheet'), b); ensureThumbs(); return; }
     if (act === 'info') { showSheet($('detail'), b); return; }
     if (act === 'close') { closeSheet(); return; }
     if (act === 'go') {
@@ -4793,7 +5072,7 @@ body.dash-on #entrySheet { z-index: 78; }
       return;
     }
     if (act === 'entry-reps' || act === 'entry-time') {
-      if (!activeSession()) { toast('ابدأ الجلسة أول'); renderTool(); return; }
+      if (!countingSession()) { toast(activeSession() ? 'الجلسة موقوفة' : 'ابدأ الجلسة أول'); renderTool(); return; }
       if (act === 'entry-reps') openEntry('reps', b);
       else if (!(timer && timer.ex === ex.id)) openEntry('time', b, 0, false);
       return;
@@ -4802,8 +5081,8 @@ body.dash-on #entrySheet { z-index: 78; }
     if (act === 'entry-save') { saveEntry(); return; }
     if (act === 'entry-cancel') { cancelEntry(); return; }
     if (act === 'entry-del') { deleteEntrySet(); return; }
-    if (act === 'ses-start' || act === 'round-new' || act === 'ses-end' || act === 'done-log') { sessionAct(act, b); return; }
-    if (/^(prog-|pe-|sh-|im-)/.test(act)) { progAct(act, b); return; }
+    if (/^(ses-start|ses-pause|ses-resume|round-new|ses-end|done-log)$/.test(act)) { sessionAct(act, b); return; }
+    if (/^(prog-|pe-|sh-|im-|pv-|lib-)/.test(act)) { progAct(act, b); return; }
     if (act.indexOf('log-') === 0) {
       if (b.closest('#logSheet')) return;
       if (act === 'log-open') openLog(store.date, b);
@@ -4861,7 +5140,7 @@ body.dash-on #entrySheet { z-index: 78; }
         openEntry('time', b, sec, true, { wall });
         return;
       }
-      if (!activeSession()) { toast('ابدأ الجلسة أول'); renderTool(); return; }
+      if (!countingSession()) { toast(activeSession() ? 'الجلسة موقوفة' : 'ابدأ الجلسة أول'); renderTool(); return; }
       timer = { ex: ex.id, side: s, t0: performance.now(), w: Date.now() };
     } else if (act === 'cd') {
       if (timer && timer.ex === ex.id) { stopTimer(false); toast('أُوقف المؤقّت'); }
@@ -4928,7 +5207,9 @@ body.dash-on #entrySheet { z-index: 78; }
   window.addEventListener('hashchange', () => {
     if (location.hash.indexOf('#p=') === 0) { offerShared(); return; }
     if (location.hash === '#progress') { openDash(true); return; }
+    if (location.hash === '#programs') { openLib(true); return; }
     if (dashOpen) closeDash(true);
+    if (libOpen) closeLib(true);
     const h = fromHash();
     if (h != null && h !== cur) setEx(h, true, false);
   });
@@ -5100,7 +5381,7 @@ body.dash-on #entrySheet { z-index: 78; }
       finishEntry('انحفظ التعديل');
       return;
     }
-    if (!activeSession()) { closeSheet(true); entry = null; toast('انتهت الجلسة، ما انحفظ'); renderTool(); renderNav(); return; }
+    if (!countingSession()) { closeSheet(true); entry = null; toast(activeSession() ? 'الجلسة موقوفة، ما انحفظ' : 'انتهت الجلسة، ما انحفظ'); renderTool(); renderNav(); return; }
     if (entry.kind === 'r') {
       const before = getN(ex, s);
       setRoundReps(ex.id, s, val);
@@ -5178,9 +5459,20 @@ body.dash-on #entrySheet { z-index: 78; }
   /* ---------- start / next round / end ---------- */
   function sessionAct(act, b) {
     if (act === 'done-log') { closeSheet(true); openLog(store.date); return; }
+    if (act === 'ses-pause' || act === 'ses-resume') {
+      endArmed = false;
+      if (act === 'ses-pause') { if (timer) stopTimer(true); if (!pauseSession()) return; toast('وقفت الجلسة مؤقتاً'); }
+      else { if (!resumeSession()) return; toast('رجعت للجلسة · الجولة ' + roundNo(activeSession())); }
+      renderTool();
+      renderNav();
+      if (openSheet === $('logSheet')) renderLog();
+      const nb = $('tool').querySelector('[data-act="' + (act === 'ses-pause' ? 'ses-resume' : 'ses-pause') + '"]');
+      if (nb && !openSheet) nb.focus({ preventScroll: true });
+      return;
+    }
     if (act === 'ses-start' || act === 'round-new') {
       const ok = act === 'ses-start' ? startSession() : newRound();
-      if (!ok) { if (act === 'ses-start') toast('فيه جلسة شغالة'); return; }
+      if (!ok) { if (act === 'ses-start') toast('فيه جلسة شغالة'); else if (isPaused(activeSession())) toast('الجلسة موقوفة، استأنفها أول'); return; }
       endArmed = false;
       store.side = {};
       saveStore();
@@ -5218,7 +5510,10 @@ body.dash-on #entrySheet { z-index: 78; }
     $('doneSub').textContent = (x.pname ? x.pname + ' · ' : '') + fmtClock(x.start) + ' – ' + fmtClock(x.end) + ' · ' + fmtSpan(x.end - x.start);
     const cell = (v, label) => '<div' + (v ? '' : ' class="nil"') + '><b>' + (v || '—') + '</b><span>' + label + '</span></div>';
     const order = orderFor(x.prog);
-    $('doneStats').innerHTML = cell(x.rounds.length, 'الجولات') + cell(order.filter(ex => x.sets.some(y => y.ex === ex.id)).length, 'التمارين') + cell(reps ? fmtNum(reps) : 0, 'التكرار') + cell(hold ? fmt(hold) : 0, 'الثبات');
+    $('doneStats').innerHTML = cell(fmtRun(sessionMs(x)), 'مدة التمرين') + cell(x.rounds.length, 'الجولات') + cell(reps ? fmtNum(reps) : 0, 'التكرار') + cell(hold ? fmt(hold) : 0, 'الثبات');
+    const pz = pausedMs(x, x.start, x.end);
+    $('doneRounds').innerHTML = x.rounds.map((t, i) => '<li><span>الجولة ' + (i + 1) + '</span><b>' + fmtRun(roundMs(x, i)) + '</b></li>').join('') +
+      (pz >= 60000 ? '<li class="pz"><span>وقفة</span><b>' + fmtSpan(pz) + '</b></li>' : '');
     $('doneList').innerHTML = order.filter(ex => x.sets.some(y => y.ex === ex.id)).map(ex => {
       const parts = sidesOf(ex).map(sd => {
         const ss = x.sets.filter(y => y.ex === ex.id && y.side === sd);
@@ -5272,7 +5567,7 @@ body.dash-on #entrySheet { z-index: 78; }
     const order = orderFor(x.prog), exs = order.filter(ex => x.sets.some(st => st.ex === ex.id));
     if (!exs.length) return '<p class="tl-empty">ما سجّلت شي بهالجلسة للحين. ابدأ من التمرين 1.</p>';
     let h = '<div class="rt-wrap"><table class="rt"><thead><tr><th class="rt-ex">التمرين</th>' +
-      x.rounds.map((t, ri) => '<th scope="col" title="بدأت ' + fmtClock(t) + '"' + (ri + 1 === curR ? ' class="cur"' : '') + '>جولة<br>' + (ri + 1) + '</th>').join('') +
+      x.rounds.map((t, ri) => '<th scope="col" title="بدأت ' + fmtClock(t) + '"' + (ri + 1 === curR ? ' class="cur"' : '') + '>جولة ' + (ri + 1) + '<small' + (ri + 1 === curR && !isPaused(x) ? ' data-roundclock' : '') + '>' + fmtRun(roundMs(x, ri)) + '</small></th>').join('') +
       '<th class="rt-sum">المجموع</th></tr></thead><tbody>';
     exs.forEach(ex => {
       sidesOf(ex).forEach((sd, si) => {
@@ -5337,8 +5632,10 @@ body.dash-on #entrySheet { z-index: 78; }
           '<div class="tl-body">' + exs.map(ex => exBlock(ex, exRows(ex, x.sets.filter(st => st.ex === ex.id)))).join('') + '</div></li>';
         return;
       }
-      const when = x.live ? 'من ' + fmtClock(x.start) + ' · جارية الحين' : fmtClock(x.start) + ' – ' + fmtClock(x.end) + ' · ' + fmtSpan(x.end - x.start);
-      h += '<li class="tl-ses' + (x.live ? ' live' : '') + '"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(i) + '</b>' + (x.pname ? '<span class="tl-p">' + esc(x.pname) + '</span>' : '') + '<span>' + when + '</span></div>' +
+      const pz = pausedMs(x, x.start, x.end || Date.now());
+      const when = (x.live ? 'من ' + fmtClock(x.start) + ' · ' + (isPaused(x) ? 'موقوفة' : 'جارية') : fmtClock(x.start) + ' – ' + fmtClock(x.end)) +
+        ' · <b class="tl-dur"' + (x.live && !isPaused(x) ? ' data-sesclock' : '') + '>' + fmtRun(sessionMs(x)) + '</b> تمرين' + (pz >= 60000 ? ' · وقفة ' + fmtSpan(pz) : '');
+      h += '<li class="tl-ses' + (x.live ? ' live' : '') + '"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(i) + '</b>' + (x.pname ? '<span class="tl-p">' + esc(x.pname) + '</span>' : '') + '<span class="tl-when">' + when + '</span></div>' +
         (x.live ? '<span class="tl-badge">الجولة ' + x.rounds.length + '</span>' : '<span class="tl-meta">' + roundsAr(x.rounds.length) + '</span>') + '</div>' +
         '<div class="tl-body">' + sessionTable(x) + '</div></li>';
     });
@@ -5348,7 +5645,10 @@ body.dash-on #entrySheet { z-index: 78; }
     let foot = '';
     if (isToday) {
       foot = live
-        ? '<button type="button" class="soft" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>' +
+        ? (isPaused(live)
+          ? '<button type="button" class="act" data-act="ses-resume">' + ICON_PLAY + 'استئناف</button>'
+          : '<button type="button" class="soft ic" data-act="ses-pause" aria-label="إيقاف مؤقت">' + ICON_PAUSE + '</button>' +
+            '<button type="button" class="soft" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>') +
           '<button type="button" class="soft' + (endArmed ? ' armed' : '') + '" data-act="ses-end">' + ICON_STOP + (endArmed ? 'اضغط للتأكيد' : 'إنهاء الجلسة') + '</button>'
         : '<button type="button" class="act" data-act="ses-start">' + ICON_PLAY + (list.some(x => x.sets.length) ? 'ابدأ جلسة جديدة' : 'ابدأ الجلسة') + '</button>';
     }
@@ -5373,6 +5673,100 @@ body.dash-on #entrySheet { z-index: 78; }
 
 
   /* ==========================================================================
+     EXERCISE PICTURES + PROGRAM GALLERY
+     ========================================================================== */
+  // One still per exercise at its key moment, made on demand and redrawn for the other theme
+  const thumbs = { theme: null, map: {}, queue: [], busy: false };
+  function thumbImg(ex) {
+    const src = thumbs.theme === store.theme ? thumbs.map[ex.id] : '';
+    return '<img alt="" data-thumb="' + ex.id + '"' + (src ? ' class="in" src="' + src + '"' : '') + '>';
+  }
+  function fillThumbs() {
+    document.querySelectorAll('img[data-thumb]:not(.in)').forEach(img => {
+      const src = thumbs.map[img.getAttribute('data-thumb')];
+      if (src) { img.src = src; img.classList.add('in'); }
+    });
+  }
+  function ensureThumbs() {
+    if (!studio) return;
+    if (thumbs.theme !== store.theme) { thumbs.theme = store.theme; thumbs.map = {}; thumbs.queue = []; }
+    EX.forEach(ex => { if (!thumbs.map[ex.id] && !thumbs.queue.includes(ex)) thumbs.queue.push(ex); });
+    fillThumbs();
+    if (thumbs.busy || !thumbs.queue.length) return;
+    thumbs.busy = true;
+    const step = () => {
+      const ex = thumbs.queue.shift();
+      if (ex && thumbs.theme === store.theme) {
+        try { thumbs.map[ex.id] = studio.snapshot(ex, sampleKF(ex, peakTime(ex)).p, sidesOf(ex)[0], 360, 360); } catch (e) { thumbs.map[ex.id] = ''; }
+        fillThumbs();
+      }
+      if (thumbs.queue.length) { requestAnimationFrame(step); return; }
+      thumbs.busy = false;
+      studio.setPropsForEx(PX[cur]);
+      studio.dropSnapshots();
+    };
+    requestAnimationFrame(step);
+  }
+
+  let libOpen = false;
+  const ICON_CHECK_S = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+  function renderGallery() {
+    $('gal').innerHTML = progs.list.map(p => {
+      const ex = p.items.map(it => exById(it.ex)).filter(Boolean), show = ex.slice(0, 4), more = ex.length - 4;
+      const tiles = show.map((e, i) => '<span class="thumb">' + thumbImg(e) + (i === 3 && more > 0 ? '<span class="gc-more" dir="ltr">+' + more + '</span>' : '') + '</span>').join('');
+      const on = p.id === progs.active;
+      return '<article class="gc' + (on ? ' on' : '') + '"><button type="button" class="gc-cover" data-act="prog-view" data-id="' + p.id + '" aria-label="' + esc(p.name) + '، ' + progMeta(p) + (on ? '، البرنامج الحالي' : '') + '">' +
+        '<span class="gc-mosaic n' + Math.min(4, show.length) + '">' + tiles + '</span>' + (on ? '<span class="gc-badge">' + ICON_CHECK_S + 'الحالي</span>' : '') + '</button>' +
+        '<div class="gc-b"><b>' + esc(p.name) + '</b><span>' + progMeta(p) + '</span></div></article>';
+    }).join('') +
+      '<article class="gc new"><button type="button" class="gc-cover" data-act="prog-new"><span class="gc-plus"><i>' + ICON_PLUS + '</i>برنامج جديد</span></button>' +
+      '<div class="gc-b"><b>من مكتبة التمارين</b><span>اختر تمارينك وأهدافها</span></div></article>';
+    ensureThumbs();
+  }
+  function openLib(fromHash) {
+    if (libOpen) { renderGallery(); return; }
+    closeSheet(true);
+    if (dashOpen) closeDash(true);
+    if (timer) stopTimer(true);
+    libOpen = true;
+    document.body.classList.add('lib-on');
+    $('lib').hidden = false;
+    $('lib').scrollTop = 0;
+    document.querySelector('.shell').setAttribute('aria-hidden', 'true');
+    renderGallery();
+    if (!fromHash) { try { history.replaceState(null, '', '#programs'); } catch (e) {} }
+    setTimeout(() => $('libBack').focus({ preventScroll: true }), 40);
+  }
+  function closeLib(fromHash) {
+    if (!libOpen) return;
+    closeSheet(true);
+    libOpen = false;
+    document.body.classList.remove('lib-on');
+    $('lib').hidden = true;
+    document.querySelector('.shell').removeAttribute('aria-hidden');
+    if (!fromHash) { try { history.replaceState(null, '', '#ex-' + PX[cur].id); } catch (e) {} }
+    const lb = $('listBtn');
+    if (lb) lb.focus({ preventScroll: true });
+  }
+  let viewId = null;
+  function openView(id, from) {
+    const p = progById(id);
+    if (!p) return;
+    viewId = id;
+    const on = id === progs.active;
+    $('pvTitle').textContent = p.name;
+    $('pvMeta').innerHTML = '<span>' + progMeta(p) + '</span>' + (on ? '<span class="on">البرنامج الحالي</span>' : '');
+    $('pvList').innerHTML = p.items.map((it, i) => {
+      const ex = exById(it.ex);
+      return '<li><span class="thumb pv-th">' + thumbImg(ex) + '<span class="n">' + (i + 1) + '</span></span>' +
+        '<span class="pv-t"><b>' + esc(ex.name) + '</b><span>' + esc(ex.muscle) + '</span></span>' +
+        '<span class="pv-v">' + (it.t ? '<b>' + (ex.tool === 'hold' ? fmt(it.t) : it.t) + '</b><small>' + (ex.tool === 'hold' ? 'ثانية' : 'تكرار') + (ex.sides ? ' لكل رجل' : '') + '</small>' : '<small>بدون هدف</small>') + '</span></li>';
+    }).join('');
+    $('pvUse').textContent = on ? 'تمرّن عليه' : 'اختيار هالبرنامج';
+    showSheet($('pgView'), from);
+    ensureThumbs();
+  }
+  /* ==========================================================================
      PROGRAMS: pick, edit, share, receive
      ========================================================================== */
   const ICON_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"></circle><circle cx="6" cy="12" r="2.6"></circle><circle cx="18" cy="19" r="2.6"></circle><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"></path></svg>';
@@ -5383,22 +5777,13 @@ body.dash-on #entrySheet { z-index: 78; }
   const kindOf = ex => (ex.tool === 'hold' ? (ex.tags.includes('time') ? 'إطالة بالوقت' : 'ثبات بالوقت') : 'تكرار');
   let pe = null, peDelArmed = false, shareProg = null, incoming = null;
 
-  function renderProgList() {
-    $('pgList').innerHTML = progs.list.map(p =>
-      '<li class="pg' + (p.id === progs.active ? ' on' : '') + '">' +
-        '<button type="button" class="pg-main" data-act="prog-use" data-id="' + p.id + '" aria-pressed="' + (p.id === progs.active) + '"><span class="pg-radio"></span><span class="pg-t"><b>' + esc(p.name) + '</b><span>' + progMeta(p) + '</span></span></button>' +
-        '<button type="button" class="pg-ic" data-act="prog-share" data-id="' + p.id + '" aria-label="مشاركة ' + esc(p.name) + '">' + ICON_SHARE + '</button>' +
-        '<button type="button" class="pg-ic" data-act="prog-edit" data-id="' + p.id + '" aria-label="تعديل ' + esc(p.name) + '">' + PEN + '</button>' +
-      '</li>').join('');
-  }
-  function openProgs(from) { renderProgList(); showSheet($('progSheet'), from); }
   function useProg(id) {
-    if (id === progs.active) { closeSheet(true); return; }
+    if (id === progs.active) { closeLib(); return; }
     if (activeSession()) { toast('أنهِ الجلسة الحالية قبل ما تغيّر البرنامج'); return; }
     progs.active = id;
     saveProgs();
     syncPX();
-    closeSheet(true);
+    closeLib();
     setEx(0);
     toast('البرنامج: ' + activeProg().name);
   }
@@ -5431,8 +5816,9 @@ body.dash-on #entrySheet { z-index: 78; }
     }).join('') : '<li class="pe-none">اختر التمارين من المكتبة تحت.</li>';
     const rest = EX.filter(ex => !pe.items.some(it => it.ex === ex.id));
     $('peLib').innerHTML = rest.length ? rest.map(ex =>
-      '<li><button type="button" class="pe-add" data-act="pe-add" data-ex="' + ex.id + '"><span class="plus">' + ICON_PLUS + '</span><span class="t"><b>' + esc(ex.name) + '</b><small>' + esc(ex.muscle) + ' · ' + kindOf(ex) + '</small></span></button></li>'
+      '<li><button type="button" class="pe-add" data-act="pe-add" data-ex="' + ex.id + '"><span class="thumb xth">' + thumbImg(ex) + '</span><span class="t"><b>' + esc(ex.name) + '</b><small>' + esc(ex.muscle) + ' · ' + kindOf(ex) + '</small></span><span class="plus">' + ICON_PLUS + '</span></button></li>'
     ).join('') : '<li class="pe-none">كل تمارين المكتبة داخل البرنامج.</li>';
+    ensureThumbs();
     const canDel = pe.id && progs.list.length > 1;
     $('peFoot').innerHTML =
       (canDel ? '<button type="button" class="soft e-del' + (peDelArmed ? ' armed' : '') + '" data-act="pe-del">' + ICON_TRASH + (peDelArmed ? 'اضغط للتأكيد' : 'حذف') + '</button>' : '') +
@@ -5469,7 +5855,8 @@ body.dash-on #entrySheet { z-index: 78; }
       if (progs.active === pe.id) { progs.active = progs.list[0].id; syncPX(); setEx(0); }
       saveProgs();
       pe = null;
-      openProgs();
+      closeSheet(true);
+      if (libOpen) renderGallery();
       toast('انحذف ' + name);
       return;
     }
@@ -5498,7 +5885,7 @@ body.dash-on #entrySheet { z-index: 78; }
       setEx(ni >= 0 ? ni : 0);
     }
     pe = null;
-    openProgs();
+    if (libOpen) { renderGallery(); openView(c.id); } else closeSheet(true);
     toast('انحفظ البرنامج: ' + c.name);
   }
 
@@ -5559,7 +5946,12 @@ body.dash-on #entrySheet { z-index: 78; }
 
   function progAct(act, b) {
     const id = b.getAttribute('data-id');
-    if (act === 'prog-open') openProgs(b);
+    if (act === 'prog-open') openLib();
+    else if (act === 'lib-close') closeLib();
+    else if (act === 'prog-view') openView(id, b);
+    else if (act === 'pv-use') useProg(viewId);
+    else if (act === 'pv-edit') openEditor(viewId, b);
+    else if (act === 'pv-share') openShare(viewId, b);
     else if (act === 'prog-use') useProg(id);
     else if (act === 'prog-edit') openEditor(id, b);
     else if (act === 'prog-new') openEditor(null, b);
@@ -5643,7 +6035,7 @@ body.dash-on #entrySheet { z-index: 78; }
     if (!L || !Array.isArray(L.sets) || !L.sets.length) return null;
     const list = sessionList({ sets: L.sets, sessions: Array.isArray(L.sessions) ? L.sessions : [], base: {} }).filter(x => x.sets.length);
     const exp = list.filter(x => !x.legacy);
-    const out = { sessions: list.length, rounded: exp.length, rounds: exp.reduce((a, x) => a + x.rounds.length, 0), holdSum: 0, per: {} };
+    const out = { sessions: list.length, rounded: exp.length, rounds: exp.reduce((a, x) => a + x.rounds.length, 0), timed: exp.filter(x => x.end).length, ms: exp.filter(x => x.end).reduce((a, x) => a + sessionMs(x), 0), holdSum: 0, per: {} };
     L.sets.forEach(st => {
       const p = out.per[st.ex] || (out.per[st.ex] = { rsets: 0, rsum: 0, tsum: 0 });
       if (st.k === 'r' && st.ses) { p.rsets++; p.rsum += st.v; }
@@ -6095,6 +6487,7 @@ body.dash-on #entrySheet { z-index: 78; }
     const lg = eff.filter(x => x.st && x.st.log).map(x => x.st.log);
     const lgSes = lg.reduce((a, l) => a + l.sessions, 0);
     const lgRounded = lg.reduce((a, l) => a + l.rounded, 0), lgRounds = lg.reduce((a, l) => a + l.rounds, 0);
+    const lgTimed = lg.reduce((a, l) => a + l.timed, 0), lgMs = lg.reduce((a, l) => a + l.ms, 0);
     const sk = streaks(info.days);
 
     // previous period of the same length, for the delta
@@ -6134,7 +6527,7 @@ body.dash-on #entrySheet { z-index: 78; }
         tile(ICON('<path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path>'), 'مجموع التكرارات', fmtNum(repsTot), '', active ? 'متوسط يومي ' + fmtNum(repsTot / active) : '—') +
         tile(ICON('<circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path>'), 'أطول ثبات', best3 ? fmt(best3) : '—', '', 'ثبات الحشرة الميتة') +
         tile(ICON('<rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path>'), 'الجلسات في اليوم', lg.length ? fmtAvg(lgSes / lg.length) : '—', '', lg.length ? sesAr(lgSes) + ' خلال ' + (lg.length === 1 ? 'يوم واحد' : lg.length + ' يوم') : 'التفاصيل تبدأ من أول جلسة') +
-        tile(ICON('<path d="M20 12a8 8 0 1 1-2.3-5.6"></path><path d="M20 4v5h-5"></path>'), 'الجولات في الجلسة', lgRounded ? fmtAvg(lgRounds / lgRounded) : '—', '', lgRounded ? 'مجموع ' + roundsAr(lgRounds) : 'تبدأ من أول جلسة') +
+        tile(ICON('<path d="M20 12a8 8 0 1 1-2.3-5.6"></path><path d="M20 4v5h-5"></path>'), 'الجولات في الجلسة', lgRounded ? fmtAvg(lgRounds / lgRounded) : '—', '', lgTimed ? 'متوسط مدة الجلسة ' + fmtSpan(lgMs / lgTimed) : lgRounded ? 'مجموع ' + roundsAr(lgRounds) : 'تبدأ من أول جلسة') +
       '</div></div>';
 
     h += '<div class="dgrid main">' +
@@ -6297,6 +6690,7 @@ body.dash-on #entrySheet { z-index: 78; }
       const se = { id: x.id, start: x.start, end: okT(x.end) && x.end >= x.start ? x.end : null, rounds: rounds.length ? rounds : [x.start] };
       if (typeof x.prog === 'string' && PID_RE.test(x.prog)) se.prog = x.prog;
       if (typeof x.pname === 'string') se.pname = x.pname.replace(/\s+/g, ' ').trim().slice(0, 40);
+      if (Array.isArray(x.pauses)) se.pauses = x.pauses.filter(pp => Array.isArray(pp) && okT(pp[0]) && pp[0] >= x.start).slice(0, 100).map(pp => [pp[0], okT(pp[1]) && pp[1] >= pp[0] ? pp[1] : null]);
       out.sessions.push(se);
     });
     // A set whose session or round is missing becomes a plain timed set
@@ -6393,6 +6787,7 @@ body.dash-on #entrySheet { z-index: 78; }
         else {
           if (x.rounds.length > y.rounds.length) y.rounds = x.rounds.slice();
           if (y.end && x.end) y.end = Math.max(y.end, x.end);   // a session still open here stays open
+          if ((x.pauses || []).length > (y.pauses || []).length) y.pauses = JSON.parse(JSON.stringify(x.pauses));
         }
       });
       la.sessions.sort((p, q) => p.start - q.start);
@@ -6550,6 +6945,7 @@ body.dash-on #entrySheet { z-index: 78; }
     const startIdx = fromHash();
     setEx(startIdx == null ? 0 : startIdx, true, true);
     if (location.hash === '#progress') openDash(true);
+    else if (location.hash === '#programs') openLib(true);
     else if (location.hash.indexOf('#p=') === 0) setTimeout(offerShared, 300);
     requestAnimationFrame(animateLoop);
   }
@@ -6562,7 +6958,7 @@ body.dash-on #entrySheet { z-index: 78; }
 /* In-app updates for the installed app: a new version downloads quietly,
    then the person chooses when to apply it. Results live in localStorage and are untouched. */
 (function () {
-  var APP_VERSION = 18;
+  var APP_VERSION = 19;
   var bar = document.getElementById('updBar');
   var row = document.getElementById('updRow');
   var ver = document.getElementById('verTxt');

@@ -1416,48 +1416,64 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 }
 
 /* ==========================================================================
-   SESSIONS & SETS — main-screen set strip, today card, day log
+   SESSIONS & ROUNDS — round bar, today card, day log, summary
    ========================================================================== */
-
-/* ---------- set strip inside the counter card ---------- */
-.toolrow { flex-wrap: wrap; row-gap: 8px; }
-.setline {
+/* ---------- round bar inside the counter card ---------- */
+.toolrow { flex-wrap: wrap; row-gap: 10px; }
+.rbar {
   order: -1;
   flex: 1 1 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 26px;
-  margin: -2px -4px 0;
-  padding: 0 4px 8px;
+  gap: 6px;
+  margin: -2px -2px 0;
+  padding: 0 2px 10px;
   border-bottom: 1px solid var(--line-subtle);
+}
+.rb-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding-inline: 4px;
+  border-radius: 10px;
   text-align: start;
-  color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 600;
 }
-.setline .sl-k { flex-shrink: 0; white-space: nowrap; }
-.setline .sl-p { flex: 1; min-width: 0; display: flex; gap: 4px; overflow: hidden; justify-content: flex-start; }
-.setline .sl-p i {
-  font-style: normal;
+.rb-info b { font-family: var(--f-display); font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
+.rb-info:hover { background: var(--surface-2); }
+.rb-dots { display: flex; gap: 4px; align-items: center; min-width: 0; }
+.rb-dots i { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.rb-dots i.half { box-shadow: inset 0 0 0 2px var(--accent); }
+.rb-dots i.done { background: var(--accent); box-shadow: none; }
+.rb-dots i.cur { outline: 1.5px solid var(--ink); outline-offset: 2px; }
+.rb-btn {
   flex-shrink: 0;
-  min-width: 26px;
-  height: 22px;
-  padding-inline: 6px;
-  border-radius: 7px;
-  display: inline-grid;
-  place-items: center;
-  background: var(--surface-2);
-  color: var(--ink);
-  font-family: var(--f-display);
-  font-size: 0.74rem;
-  font-variant-numeric: tabular-nums;
+  min-height: 34px;
+  padding-inline: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
 }
-.setline .sl-p i.on { background: var(--accent-tint); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-.setline .sl-p i.next { background: none; box-shadow: inset 0 0 0 1px var(--line-strong); color: var(--muted); }
-.setline .sl-p i.more { background: none; min-width: 0; padding: 0 2px; color: var(--muted); }
-.setline svg { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.7; }
-.setline:hover { color: var(--ink); }
+.rb-btn svg { width: 14px; height: 14px; }
+.rb-btn:hover { border-color: var(--accent); }
+.rb-btn.next svg { color: var(--accent); }
+.rb-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.rb-btn.primary svg { color: inherit; }
+.rb-btn.armed { background: var(--muscle-soft); color: var(--muscle-ink); border-color: var(--muscle); }
+
+/* no session yet: one clear way in */
+.act.start { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; line-height: 1.2; }
+.act.start small { font-family: var(--f-body); font-size: 0.72rem; font-weight: 500; opacity: 0.85; }
+.mring-btn.ro { cursor: default; }
+.mring-btn.ro:hover, .clock-btn.ro:hover { background: none; }
+.mring-btn.ro:active { transform: none; }
 
 /* ---------- today card in the exercise list ---------- */
 .today-card {
@@ -1471,9 +1487,9 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 .tc-t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; line-height: 1.3; }
 .tc-t b { font-family: var(--f-display); font-size: 1.02rem; font-weight: 600; }
 .tc-t span { font-size: 0.78rem; color: var(--muted); }
-.tc-live { display: inline-flex; align-items: center; gap: 6px; }
+.tc-live { display: inline-flex; align-items: center; gap: 7px; }
 .tc-live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
-.tc-new {
+.tc-btn {
   flex-shrink: 0;
   min-height: 38px;
   padding-inline: 12px 14px;
@@ -1486,10 +1502,10 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   align-items: center;
   gap: 6px;
 }
-.tc-new svg { width: 15px; height: 15px; color: var(--accent); }
-.tc-new:hover { border-color: var(--accent); }
-.tc-new:disabled { opacity: 0.45; cursor: default; border-color: var(--line); }
-.log-foot .act:disabled { opacity: 0.45; box-shadow: none; cursor: default; }
+.tc-btn svg { width: 15px; height: 15px; color: var(--accent); }
+.tc-btn:hover { border-color: var(--accent); }
+.tc-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.tc-btn.primary svg { color: inherit; }
 .tc-link {
   width: 100%;
   display: flex;
@@ -1507,22 +1523,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 .tc-link:hover { background: var(--surface-3); }
 
 /* ---------- day log sheet ---------- */
-.log-pager {
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  align-items: center;
-  gap: 8px;
-  margin: 2px 0 12px;
-}
-.lp-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  color: var(--ink);
-  background: var(--surface-2);
-}
+.log-pager { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 8px; margin: 2px 0 12px; }
+.lp-btn { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--ink); background: var(--surface-2); }
 .lp-btn svg { width: 18px; height: 18px; }
 .lp-btn:hover { background: var(--surface-3); }
 .lp-btn:disabled { opacity: 0.3; cursor: default; background: none; }
@@ -1530,108 +1532,53 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 .lp-day b { font-size: 0.95rem; font-weight: 600; }
 .lp-day span { font-size: 0.76rem; color: var(--muted); }
 
-.log-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 16px;
-  padding: 12px 4px;
-  border-radius: 16px;
-  background: var(--surface-2);
-}
+.log-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 16px; padding: 12px 4px; border-radius: 16px; background: var(--surface-2); }
 .log-stats > div { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
 .log-stats > div + div { border-inline-start: 1px solid var(--line-subtle); }
-.log-stats b { font-family: var(--f-display); font-size: 1.28rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.log-stats b { font-family: var(--f-display); font-size: 1.28rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; white-space: nowrap; }
 .log-stats span { font-size: 0.72rem; color: var(--muted); }
 .log-stats .nil b { color: var(--muted); font-weight: 500; }
 
-/* timeline: one rail, a dot per session, rests between them */
+/* sessions on a rail */
 .tl { list-style: none; margin: 0; padding: 0; position: relative; }
-.tl::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 7px;
-  top: 12px;
-  bottom: 12px;
-  width: 2px;
-  border-radius: 2px;
-  background: var(--line);
-}
+.tl::before { content: ""; position: absolute; inset-inline-start: 7px; top: 12px; bottom: 12px; width: 2px; border-radius: 2px; background: var(--line); }
 .tl > li { position: relative; padding-inline-start: 28px; }
-.tl-dot {
-  position: absolute;
-  inset-inline-start: 1px;
-  top: 6px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--bg-sheet, var(--surface));
-}
-.tl-ses.pending .tl-dot { background: var(--surface); box-shadow: inset 0 0 0 2px var(--accent), 0 0 0 4px var(--surface); }
+.tl > li + li { margin-top: 18px; }
+.tl-dot { position: absolute; inset-inline-start: 1px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--surface); }
+.tl-ses.live .tl-dot { background: var(--surface); box-shadow: inset 0 0 0 3px var(--accent), 0 0 0 4px var(--surface); }
 .tl-ses.legacy .tl-dot { background: var(--surface-3); border-radius: 4px; }
 .tl-h { display: flex; align-items: flex-start; gap: 10px; min-height: 28px; }
 .tl-tt { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
 .tl-tt b { font-family: var(--f-display); font-size: 1rem; font-weight: 600; }
 .tl-tt span { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .tl-meta { flex-shrink: 0; font-size: 0.76rem; color: var(--muted); padding-top: 3px; }
-.tl-act {
-  flex-shrink: 0;
-  min-height: 32px;
-  padding-inline: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  font-size: 0.78rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--ink);
-}
-.tl-act svg { width: 14px; height: 14px; color: var(--accent); }
-.tl-act:hover { border-color: var(--accent); }
-.tl-body { margin: 10px 0 4px; display: flex; flex-direction: column; gap: 2px; }
-.tl-empty { margin: 6px 0 2px; font-size: 0.8rem; color: var(--muted); }
+.tl-badge { flex-shrink: 0; margin-top: 2px; padding: 3px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; background: var(--accent-tint); color: var(--accent); }
+.tl-body { margin-top: 10px; }
+.tl-rest { margin: 10px 0 0; padding-inline-start: 28px; font-size: 0.74rem; color: var(--muted); }
 
-.tl-gap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 40px;
-  margin: 4px 0 8px;
-  font-size: 0.76rem;
-  color: var(--muted);
-}
-.tl-gap .g { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; }
-.tl-gap .g::after { content: ""; flex: 1; height: 1px; background: repeating-linear-gradient(90deg, var(--line) 0 4px, transparent 4px 8px); }
-.tl-gap .tl-act { min-height: 30px; font-size: 0.74rem; color: var(--muted); }
-
-/* one exercise inside a session */
-.lx { padding: 10px 12px; border-radius: 14px; background: var(--surface-2); }
-.lx + .lx { margin-top: 6px; }
-.lx-h { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.lx-n {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  border-radius: 7px;
-  display: grid;
-  place-items: center;
-  background: var(--surface);
-  font-family: var(--f-display);
-  font-size: 0.74rem;
-  font-weight: 700;
-}
-.lx-h b { font-size: 0.88rem; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.lx-r { display: flex; align-items: center; gap: 8px; min-height: 36px; }
-.lx-r + .lx-r { border-top: 1px solid var(--line-subtle); }
-.lx-s { width: 30px; flex-shrink: 0; font-size: 0.74rem; color: var(--muted); }
-.lx-c { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 5px; padding-block: 4px; }
-.lx-t { flex-shrink: 0; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 42px; text-align: end; }
-.lx-t b { color: var(--ink); font-family: var(--f-display); font-weight: 600; }
+/* exercise × round card, like the sheet a physio hands you */
+.rt-wrap { overflow-x: auto; border-radius: 14px; background: var(--surface-2); -webkit-overflow-scrolling: touch; }
+.rt { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.rt th, .rt td { padding: 5px 3px; text-align: center; vertical-align: middle; }
+.rt thead th { padding-block: 8px 6px; font-size: 0.7rem; font-weight: 600; color: var(--muted); line-height: 1.2; border-bottom: 1px solid var(--line-subtle); }
+.rt thead th:not(.rt-ex):not(.rt-sum) { width: 42px; }
+.rt thead th small { display: block; font-weight: 500; font-size: 0.68rem; font-variant-numeric: tabular-nums; opacity: 0.85; }
+.rt thead th.cur { color: var(--accent); }
+.rt .rt-ex { text-align: start; padding-inline-start: 12px; }
+.rt tbody .rt-ex { font-weight: 600; font-size: 0.82rem; line-height: 1.3; }
+.rt tbody tr.first > * { border-top: 1px solid var(--line-subtle); }
+.rt tbody tr.first:first-child > * { border-top: 0; }
+.rt-exn { display: flex; align-items: center; gap: 7px; }
+.rt-exn .n { width: 20px; height: 20px; flex-shrink: 0; border-radius: 6px; display: grid; place-items: center; background: var(--surface); font-family: var(--f-display); font-size: 0.7rem; font-weight: 700; }
+.rt-exn .t { min-width: 0; }
+.rt-side { display: block; font-size: 0.7rem; font-weight: 500; color: var(--muted); padding-inline-start: 27px; }
+.rt tr.second .rt-side { padding-top: 2px; }
+.rt .rt-sum { padding-inline-end: 10px; width: 1%; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--muted); }
+.rt td.nil { color: var(--muted); opacity: 0.6; }
 .set-chip {
-  min-width: 40px;
+  min-width: 36px;
   height: 30px;
-  padding-inline: 9px;
+  padding-inline: 6px;
   border-radius: 9px;
   background: var(--surface);
   box-shadow: inset 0 0 0 1px var(--line-subtle);
@@ -1641,26 +1588,54 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   font-variant-numeric: tabular-nums;
   transition: box-shadow 0.15s, background 0.15s;
 }
+.set-chip + .set-chip { margin-top: 3px; }
 .set-chip:hover { box-shadow: inset 0 0 0 1px var(--accent); }
 .set-chip:active { background: var(--accent-tint); }
-.set-chip.ro { cursor: default; box-shadow: none; background: none; padding-inline: 0; min-width: 0; color: var(--muted); font-weight: 500; }
+.set-chip.ro { cursor: default; box-shadow: none; background: none; padding-inline: 0; min-width: 0; height: auto; color: var(--muted); font-weight: 500; }
+
+/* older days: simple list */
+.lx { padding: 10px 12px; border-radius: 14px; background: var(--surface-2); }
+.lx + .lx { margin-top: 6px; }
+.lx-h { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.lx-n { width: 22px; height: 22px; flex-shrink: 0; border-radius: 7px; display: grid; place-items: center; background: var(--surface); font-family: var(--f-display); font-size: 0.74rem; font-weight: 700; }
+.lx-h b { font-size: 0.88rem; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lx-r { display: flex; align-items: center; gap: 8px; min-height: 34px; }
+.lx-r + .lx-r { border-top: 1px solid var(--line-subtle); }
+.lx-s { width: 30px; flex-shrink: 0; font-size: 0.74rem; color: var(--muted); }
+.lx-c { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 5px; padding-block: 4px; }
+.lx-c .set-chip + .set-chip { margin-top: 0; }
 
 .lg-empty { padding: 26px 8px 18px; text-align: center; color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
-.log-foot { margin-top: 12px; }
-.log-foot .act { width: 100%; flex: none; min-height: 50px; display: inline-flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; font-size: 0.98rem; }
+.log-foot { margin-top: 16px; display: flex; gap: 8px; }
+.log-foot .act { min-height: 50px; display: inline-flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; font-size: 0.98rem; }
 .log-foot .act svg { width: 18px; height: 18px; }
+.log-foot .soft { min-height: 50px; flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; }
+.log-foot .soft svg { width: 16px; height: 16px; color: var(--accent); }
+.log-foot .soft.armed svg { color: inherit; }
 .log-hint { margin: 10px 0 0; font-size: 0.74rem; color: var(--muted); text-align: center; line-height: 1.5; }
+
+/* ---------- session summary ---------- */
+.done-sub { margin: -4px 0 14px; color: var(--muted); font-size: 0.84rem; }
+.done-list { list-style: none; margin: 0 0 16px; padding: 0; border-radius: 14px; background: var(--surface-2); }
+.done-list li { display: flex; align-items: center; gap: 10px; min-height: 42px; padding: 6px 12px; }
+.done-list li + li { border-top: 1px solid var(--line-subtle); }
+.done-list .n { width: 22px; height: 22px; flex-shrink: 0; border-radius: 7px; display: grid; place-items: center; background: var(--surface); font-family: var(--f-display); font-size: 0.72rem; font-weight: 700; }
+.done-list .t { flex: 1; min-width: 0; font-size: 0.86rem; font-weight: 600; }
+.done-list .v { flex-shrink: 0; font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.done-list .v b { color: var(--ink); font-family: var(--f-display); font-weight: 600; }
+.done-foot { display: flex; gap: 8px; }
+.done-foot .soft { min-height: 50px; flex: 1; font-size: 0.9rem; }
+.done-foot .act { min-height: 50px; }
 
 /* ---------- entry sheet: edit extras ---------- */
 .e-extra { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 .e-extra .soft { display: inline-flex; align-items: center; gap: 6px; font-size: 0.84rem; }
 .e-extra svg { width: 16px; height: 16px; }
 .e-extra .e-del { color: var(--muscle-ink); }
-.e-extra .e-del.armed svg { color: inherit; }
 
 /* sheets opened over the progress page */
 body.dash-on .scrim { z-index: 72; }
-body.dash-on #logSheet { z-index: 75; }
+body.dash-on #logSheet, body.dash-on #doneSheet { z-index: 75; }
 body.dash-on #entrySheet { z-index: 78; }
 </style>
 </head>
@@ -1807,14 +1782,14 @@ body.dash-on #entrySheet { z-index: 78; }
   <div class="today-card">
     <div class="tc-top">
       <div class="tc-t"><b id="tbNow">اليوم</b><span id="tbSub"></span></div>
-      <button type="button" class="tc-new" data-act="log-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>مرة جديدة</button>
+      <div id="tbBtns"></div>
     </div>
     <button type="button" class="tc-link" data-act="log-open"><span>سجل اليوم</span><span class="tc-s" id="tbStats"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
   </div>
   <div class="exlist" id="exlist"></div>
 </div>
 
-<!-- DAY LOG: sessions and sets -->
+<!-- DAY LOG: sessions and rounds -->
 <div class="sheet" id="logSheet" dir="rtl" lang="ar" aria-labelledby="logTitle">
   <div class="sheet-head">
     <span class="grab"></span>
@@ -1830,10 +1805,25 @@ body.dash-on #entrySheet { z-index: 78; }
   </div>
   <div class="log-stats" id="logSum"></div>
   <div id="logBody"></div>
-  <div class="log-foot" id="logFoot">
-    <button type="button" class="act" data-act="log-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>بدء مرة جديدة</button>
-  </div>
+  <div class="log-foot" id="logFoot"></div>
   <p class="log-hint" id="logHint"></p>
+</div>
+
+<div class="sheet" id="doneSheet" dir="rtl" lang="ar" aria-labelledby="doneTitle">
+  <div class="sheet-head">
+    <span class="grab"></span>
+    <h2 id="doneTitle">انتهت الجلسة</h2>
+    <button type="button" class="close" data-act="close" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+  </div>
+  <p class="done-sub" id="doneSub"></p>
+  <div class="log-stats" id="doneStats"></div>
+  <ul class="done-list" id="doneList"></ul>
+  <div class="done-foot">
+    <button type="button" class="soft" data-act="done-log">عرض السجل</button>
+    <button type="button" class="act" data-act="close">تم</button>
+  </div>
 </div>
 
 
@@ -2188,6 +2178,8 @@ body.dash-on #entrySheet { z-index: 78; }
       s.log.base = JSON.parse(JSON.stringify(s.d));       // totals logged before sets were kept
     }
     if (s.date !== today() || !s.d || typeof s.d !== 'object') {
+      // A session still open from an earlier day ends where its last activity was
+      if (s.log && Array.isArray(s.log.sessions) && Array.isArray(s.log.sets)) s.log.sessions.forEach(x => { if (!x.end && Array.isArray(x.rounds)) x.end = lastActivity(s.log, x); });
       if (s.date && s.d && typeof s.d === 'object') { archiveDay(s.date, s.d, s.goalOn === true ? s.goal : 0, s.log); saveHistory(); }
       s.date = today();
       s.d = {};
@@ -2200,6 +2192,7 @@ body.dash-on #entrySheet { z-index: 78; }
     return s;
   }
   const store = loadStore();
+  try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {}   // keep a day change or migration even if nothing else is saved
   // The daily target is optional: with it off, an exercise counts as done once you log it.
   const goalNow = () => (store.goalOn ? store.goal : 0);
   if (hasValues(store.d)) { archiveDay(store.date, store.d, goalNow(), store.log); saveHistory(); }
@@ -2233,25 +2226,25 @@ body.dash-on #entrySheet { z-index: 78; }
   }
 
   /* ==========================================================================
-     SESSIONS & SETS
-     Every rep set and every timed hold is kept with its clock time. Sessions ("مرات")
-     and sets are worked out from those times; the daily totals are always derived.
-       log.sets   [{id, ex, side, k:'r'|'t', v, t, u, src}]   v = reps, or seconds
-       log.splits [ms]        "new session" taps
-       log.joined [setId]     sessions merged back into the one before
-       log.base   {ex:{side}} totals logged before details were kept
+     SESSIONS & ROUNDS
+     A session is started by hand ("ابدأ الجلسة") and ended by hand (or closes itself after
+     two idle hours). Inside it you go round the exercises, 1 to 8; each pass is a round.
+     Every count is kept as a set that belongs to one session and one round.
+       log.sessions [{id, start, end|null, rounds:[startMs, ...]}]
+       log.sets     [{id, ex, side, k:'r'|'t', v, t, u, src, ses, r}]   v = reps, or seconds
+       log.base     {ex:{side}}   totals logged before details were kept
+     Sets without `ses` come from the short-lived version that guessed sets from pauses.
      ========================================================================== */
-  const SESSION_GAP = 2 * 60 * 60 * 1000;
-  const SET_GAP = 2 * 60 * 1000;
+  const SESSION_IDLE = 2 * 60 * 60 * 1000;
+  const SESSION_GAP = SESSION_IDLE;
   let setSeq = 0;
   const newId = () => Date.now().toString(36) + (setSeq++).toString(36) + Math.floor(Math.random() * 1296).toString(36);
-  function newLog() { return { sets: [], splits: [], joined: [], base: {} }; }
+  function newLog() { return { sets: [], sessions: [], base: {} }; }
   function ensureLog(o) {
     if (!o.log || typeof o.log !== 'object') o.log = newLog();
     const L = o.log;
     if (!Array.isArray(L.sets)) L.sets = [];
-    if (!Array.isArray(L.splits)) L.splits = [];
-    if (!Array.isArray(L.joined)) L.joined = [];
+    if (!Array.isArray(L.sessions)) L.sessions = [];
     if (!L.base || typeof L.base !== 'object') L.base = {};
     return L;
   }
@@ -2284,80 +2277,122 @@ body.dash-on #entrySheet { z-index: 78; }
     return d;
   }
   function sortSets(L) { L.sets.sort((a, b) => a.t - b.t); }
-  function sessionsOf(L) {
-    const sets = L.sets.slice().sort((a, b) => a.t - b.t);
-    const joined = new Set(L.joined);
+  function lastActivity(L, s) {
+    let m = s.rounds.length ? s.rounds[s.rounds.length - 1] : s.start;
+    L.sets.forEach(x => { if (x.ses === s.id && x.u > m) m = x.u; });
+    return Math.max(m, s.start);
+  }
+  // Closes a session; one that never got a set is dropped
+  function closeSession(L, s, at) {
+    s.end = at;
+    if (!L.sets.some(x => x.ses === s.id)) L.sessions = L.sessions.filter(x => x !== s);
+  }
+  function commitToday() {
+    store.d = aggregate(store.log);
+    saveStore();
+  }
+  function activeSession() {
+    const L = store.log, s = L.sessions[L.sessions.length - 1];
+    if (!s || s.end) return null;
+    const lastA = lastActivity(L, s);
+    if (Date.now() - lastA > SESSION_IDLE) { closeSession(L, s, lastA); commitToday(); return null; }
+    return s;
+  }
+  const roundNo = s => s.rounds.length;
+  const roundSets = (L, s, r) => L.sets.filter(x => x.ses === s.id && x.r === r);
+  function curRepSet(exId, side) {
+    const s = activeSession();
+    if (!s) return null;
+    return store.log.sets.find(x => x.ses === s.id && x.r === roundNo(s) && x.ex === exId && x.side === side && x.k === 'r') || null;
+  }
+  // Every leg of the exercise has something in this round
+  function exDoneIn(sets, ex) { return sidesOf(ex).every(sd => sets.some(x => x.ex === ex.id && x.side === sd && x.v > 0)); }
+  function exPartIn(sets, ex) { return sets.some(x => x.ex === ex.id && x.v > 0); }
+
+  function startSession() {
+    if (activeSession()) return false;
+    const now = Date.now();
+    store.log.sessions.push({ id: newId(), start: now, end: null, rounds: [now] });
+    commitToday();
+    return true;
+  }
+  function newRound() {
+    const s = activeSession();
+    if (!s) return false;
+    if (!roundSets(store.log, s, roundNo(s)).length) { toast('الجولة ' + roundNo(s) + ' لسه ما بدأت'); return false; }
+    s.rounds.push(Date.now());
+    commitToday();
+    return true;
+  }
+  function endSession() {
+    const L = store.log, s = activeSession();
+    if (!s) return null;
+    // A round opened but never used is not part of the session
+    if (s.rounds.length > 1 && !roundSets(L, s, roundNo(s)).length) s.rounds.pop();
+    closeSession(L, s, Date.now());
+    commitToday();
+    return L.sessions.includes(s) ? s : null;
+  }
+  function logTap(exId, side, dv) {
+    const L = store.log, s = activeSession(), now = Date.now();
+    if (!s) return false;
+    let st = curRepSet(exId, side);
+    if (dv > 0) {
+      if (st) { st.v += dv; st.u = now; }
+      else { L.sets.push({ id: newId(), ex: exId, side, k: 'r', v: dv, t: now, u: now, src: 'tap', ses: s.id, r: roundNo(s) }); sortSets(L); }
+    } else {
+      if (!st) return false;
+      st.v += dv;
+      if (st.v <= 0) L.sets = L.sets.filter(x => x !== st);
+    }
+    commitToday();
+    return true;
+  }
+  function setRoundReps(exId, side, v) {
+    const L = store.log, s = activeSession(), now = Date.now();
+    if (!s) return false;
+    const st = curRepSet(exId, side);
+    if (st) { st.v = v; st.u = now; st.src = 'manual'; }
+    else { L.sets.push({ id: newId(), ex: exId, side, k: 'r', v, t: now, u: now, src: 'manual', ses: s.id, r: roundNo(s) }); sortSets(L); }
+    commitToday();
+    return true;
+  }
+  function logHold(exId, side, v, t, src) {
+    const L = store.log, s = activeSession();
+    if (!s) return false;
+    L.sets.push({ id: newId(), ex: exId, side, k: 't', v, t, u: t + v * 1000, src, ses: s.id, r: roundNo(s) });
+    sortSets(L);
+    commitToday();
+    return true;
+  }
+  function clearRound(exId, side) {
+    const L = store.log, s = activeSession();
+    if (!s) return;
+    L.sets = L.sets.filter(x => !(x.ses === s.id && x.r === roundNo(s) && x.ex === exId && x.side === side));
+    commitToday();
+  }
+  // Older sets with no session: grouped by time the way that version did
+  function legacyGroups(L) {
+    const sets = L.sets.filter(x => !x.ses).sort((a, b) => a.t - b.t);
     const out = [];
     let cs = null, prev = null;
     sets.forEach(st => {
-      let brk = !cs, manual = false;
-      if (cs && !joined.has(st.id)) {
-        manual = L.splits.some(x => x > prev.t && x <= st.t);
-        if (manual || st.t - prev.u > SESSION_GAP) brk = true;
-      }
-      if (brk) { cs = { start: st.t, end: st.u, sets: [], first: st.id, manual }; out.push(cs); }
+      if (!cs || st.t - prev.u > SESSION_GAP) { cs = { start: st.t, end: st.u, sets: [], legacy: true }; out.push(cs); }
       cs.sets.push(st);
       cs.end = Math.max(cs.end, st.u);
       prev = st;
     });
     return out;
   }
-  // A "new session" tapped after the last logged set, still waiting for its first set
-  function pendingSplit(L) {
-    const lastT = L.sets.reduce((m, s) => Math.max(m, s.t), 0);
-    const p = L.splits.filter(x => x > lastT);
-    return p.length ? Math.max(...p) : null;
+  // All of a day's sessions in time order, each with its sets
+  function sessionList(L) {
+    const ex = L.sessions.map(s => {
+      const sets = L.sets.filter(x => x.ses === s.id);
+      return { id: s.id, start: s.start, end: s.end || null, rounds: s.rounds.slice(), sets, live: !s.end, ref: s };
+    }).filter(x => x.sets.length || x.live);
+    return ex.concat(legacyGroups(L)).sort((a, b) => a.start - b.start);
   }
-  function commitToday() {
-    store.d = aggregate(store.log);
-    saveStore();
-  }
-  function openTapSet(L, exId, side) {
-    const last = L.sets.length ? L.sets.reduce((a, b) => (b.t >= a.t ? b : a)) : null;
-    if (!last || last.ex !== exId || last.side !== side || last.k !== 'r' || last.src !== 'tap') return null;
-    if (Date.now() - last.u > SET_GAP) return null;
-    if (L.splits.some(x => x > last.t)) return null;
-    return last;
-  }
-  function logTap(exId, side, dv) {
-    const L = store.log, now = Date.now();
-    if (dv > 0) {
-      const open = openTapSet(L, exId, side);
-      if (open) { open.v += dv; open.u = now; }
-      else { L.sets.push({ id: newId(), ex: exId, side, k: 'r', v: dv, t: now, u: now, src: 'tap' }); sortSets(L); }
-    } else {
-      for (let i = L.sets.length - 1; i >= 0; i--) {
-        const st = L.sets[i];
-        if (st.ex === exId && st.side === side && st.k === 'r') {
-          st.v += dv;
-          if (st.v <= 0) L.sets.splice(i, 1);
-          commitToday();
-          return;
-        }
-      }
-      const b = L.base[exId];
-      if (b && typeof b[side] === 'number' && b[side] > 0) b[side] = Math.max(0, b[side] + dv);
-    }
-    commitToday();
-  }
-  function logSet(exId, side, k, v, t, src) {
-    const L = store.log;
-    const st = { id: newId(), ex: exId, side, k, v, t, u: k === 't' ? t + v * 1000 : t, src };
-    L.sets.push(st);
-    sortSets(L);
-    commitToday();
-    return st;
-  }
-  function clearExSide(exId, side) {
-    const L = store.log;
-    L.sets = L.sets.filter(st => !(st.ex === exId && st.side === side));
-    if (L.base[exId]) delete L.base[exId][side];
-    commitToday();
-  }
-  function currentSessionNo() {
-    const L = store.log, n = sessionsOf(L).length;
-    return pendingSplit(L) ? n + 1 : Math.max(1, n);
-  }
+  function sessionCount(L) { return sessionList(L).filter(x => x.sets.length).length; }
   const fmtClock = ms => {
     const d = new Date(ms);
     let h = d.getHours();
@@ -2366,8 +2401,10 @@ body.dash-on #entrySheet { z-index: 78; }
     return h + ':' + m + ' ' + ap;
   };
   const ORD = ['الأولى', 'الثانية', 'الثالثة', 'الرابعة', 'الخامسة', 'السادسة', 'السابعة', 'الثامنة', 'التاسعة', 'العاشرة'];
-  const sesName = i => 'المرة ' + (ORD[i] || (i + 1));
+  const sesName = i => 'الجلسة ' + (ORD[i] || (i + 1));
   const timesAr = n => (n === 1 ? 'مرة وحدة' : n === 2 ? 'مرتين' : n + (n <= 10 ? ' مرات' : ' مرة'));
+  const sesAr = n => (n === 1 ? 'جلسة وحدة' : n === 2 ? 'جلستين' : n + (n <= 10 ? ' جلسات' : ' جلسة'));
+  const roundsAr = n => (n === 1 ? 'جولة وحدة' : n === 2 ? 'جولتين' : n + (n <= 10 ? ' جولات' : ' جولة'));
   const setsAr = n => (n === 1 ? 'مجموعة وحدة' : n === 2 ? 'مجموعتين' : n + (n <= 10 ? ' مجموعات' : ' مجموعة'));
   // Long totals read as hours and minutes ("5 س 12 د"); short ones as m:ss
   const fmtDur = sec => (sec >= 3600 ? Math.floor(sec / 3600) + ' س ' + Math.floor((sec % 3600) / 60) + ' د' : fmt(sec));
@@ -4127,7 +4164,7 @@ body.dash-on #entrySheet { z-index: 78; }
 
   function onAutoCycle() {
     const ex = EX[cur];
-    if (!autoCount || ex.tool !== 'reps') return;
+    if (!autoCount || ex.tool !== 'reps' || !activeSession()) return;
     const s = curSide(ex), before = getN(ex, s);
     logTap(ex.id, s, 1);
     if (store.goalOn && before < store.goal && getN(ex, s) >= store.goal) toast('أحسنت، وصلت للهدف');
@@ -4209,28 +4246,29 @@ body.dash-on #entrySheet { z-index: 78; }
     renderTool();
   }
 
+  const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"></path></svg>';
+  const ICON_NEXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"></path><path d="M20 4v5h-5"></path></svg>';
+  const ICON_STOP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="2"></rect></svg>';
   function renderToday() {
     if (!$('tbNow')) return;
-    const L = store.log, ses = sessionsOf(L), pend = pendingSplit(L), last = ses[ses.length - 1];
-    const live = !pend && last && Date.now() - last.end < SESSION_GAP;
+    const L = store.log, s = activeSession(), list = sessionList(L).filter(x => x.sets.length || x.live);
+    const n = list.filter(x => !x.legacy || x.sets.length).length;
     const now = $('tbNow'), sub = $('tbSub');
-    now.classList.toggle('tc-live', !!(pend || live));
-    if (pend) {
-      now.textContent = sesName(ses.length);
-      sub.textContent = 'بدأت ' + fmtClock(pend) + ' · بانتظار أول تمرين';
-    } else if (live) {
-      now.textContent = sesName(ses.length - 1);
-      sub.textContent = 'من ' + fmtClock(last.start) + ' · ' + setsAr(last.sets.length);
-    } else if (last) {
-      now.textContent = 'تمرّنت اليوم ' + timesAr(ses.length);
-      sub.textContent = 'آخر مرة ' + fmtClock(last.end) + ' · الجاية تبدأ مع أول تمرين';
+    now.classList.toggle('tc-live', !!s);
+    if (s) {
+      const rs = roundSets(L, s, roundNo(s)), done = EX.filter(ex => exDoneIn(rs, ex)).length;
+      now.textContent = sesName(list.indexOf(list.find(x => x.ref === s))) + ' · الجولة ' + roundNo(s);
+      sub.textContent = 'من ' + fmtClock(s.start) + ' · خلصت ' + done + ' من ' + EX.length + ' بهالجولة';
+      $('tbBtns').innerHTML = '<button type="button" class="tc-btn" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>';
     } else {
-      now.textContent = 'اليوم';
-      sub.textContent = 'ما بدأت للحين';
+      now.textContent = n ? sesName(n) : 'جاهز تبدأ؟';
+      const last = list[list.length - 1];
+      sub.textContent = n ? 'آخر جلسة انتهت ' + fmtClock(last.end || last.start) : 'ما فيه جلسات اليوم للحين';
+      $('tbBtns').innerHTML = '<button type="button" class="tc-btn primary" data-act="ses-start">' + ICON_PLAY + 'ابدأ الجلسة</button>';
     }
     const reps = L.sets.reduce((a, x) => a + (x.k === 'r' ? x.v : 0), 0);
-    $('tbStats').textContent = ses.length ? [timesAr(ses.length), setsAr(L.sets.length)].concat(reps ? [fmtNum(reps) + ' تكرار'] : []).join(' · ') : '';
-    document.querySelectorAll('[data-act="log-new"]').forEach(b => { b.disabled = !L.sets.length || !!pend; });
+    const rounds = L.sessions.reduce((a, x) => a + (L.sets.some(y => y.ses === x.id) ? x.rounds.length : 0), 0);
+    $('tbStats').textContent = n ? [sesAr(n)].concat(rounds ? [roundsAr(rounds)] : [], reps ? [fmtNum(reps) + ' تكرار'] : []).join(' · ') : '';
   }
   function renderNav() {
     renderToday();
@@ -4258,32 +4296,28 @@ body.dash-on #entrySheet { z-index: 78; }
   }
 
   function resetBtn() {
-    return '<button type="button" class="soft' + (resetArmed ? ' armed' : '') + '" data-act="reset">' + (resetArmed ? 'اضغط مرة ثانية للتأكيد' : 'تصفير عدّاد اليوم') + '</button>';
+    return '<button type="button" class="soft' + (resetArmed ? ' armed' : '') + '" data-act="reset">' + (resetArmed ? 'اضغط مرة ثانية للتأكيد' : 'تصفير هالجولة') + '</button>';
   }
 
-  let openSetId = null;
-  const CHEV_START = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>';
-  // This exercise's sets (this leg) in the current session; the live one is highlighted, an empty slot waits for the next
-  function setLine(ex, s) {
-    const L = store.log, pend = pendingSplit(L), ses = sessionsOf(L), last = ses[ses.length - 1];
-    const cs = !pend && last && Date.now() - last.end < SESSION_GAP ? last : null;
-    const name = cs ? sesName(ses.length - 1) : sesName(ses.length);
-    const mine = cs ? cs.sets.filter(x => x.ex === ex.id && x.side === s) : [];
-    const open = ex.tool === 'reps' ? openTapSet(L, ex.id, s) : null;
-    openSetId = open ? open.id : null;
-    let pills = mine.map(x => '<i' + (open && x.id === open.id ? ' class="on"' : '') + '>' + (x.k === 't' ? fmt(x.v) : x.v) + '</i>');
-    if (pills.length > 6) pills = ['<i class="more">…</i>'].concat(pills.slice(-6));
-    if (!open) pills.push('<i class="next"></i>');
-    const say = name + (mine.length ? '، مجموعات هالتمرين: ' + mine.map(x => (x.k === 't' ? fmt(x.v) : x.v)).join('، ') : '') + '. افتح سجل اليوم';
-    return '<button type="button" class="setline" data-act="log-open" aria-label="' + say + '"><span class="sl-k">' + name + '</span><span class="sl-p" dir="rtl">' + pills.join('') + '</span>' + CHEV_START + '</button>';
+  let endArmed = false, endT = null;
+  // The live session's round: a dot per exercise (filled = both legs done, ring = one leg), then next round / end
+  function roundBar(ex) {
+    const s = activeSession();
+    if (!s) return '';
+    const rs = roundSets(store.log, s, roundNo(s));
+    const dots = EX.map((e, i) => '<i class="' + (exDoneIn(rs, e) ? 'done' : exPartIn(rs, e) ? 'half' : '') + (i === cur ? ' cur' : '') + '"></i>').join('');
+    const done = EX.filter(e => exDoneIn(rs, e)).length;
+    return '<div class="rbar">' +
+      '<button type="button" class="rb-info" data-act="log-open" aria-label="الجولة ' + roundNo(s) + '، ' + done + ' من ' + EX.length + ' تمارين. افتح سجل اليوم"><b>الجولة ' + roundNo(s) + '</b><span class="rb-dots" aria-hidden="true">' + dots + '</span></button>' +
+      '<button type="button" class="rb-btn next' + (done === EX.length ? ' primary' : '') + '" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>' +
+      '<button type="button" class="rb-btn' + (endArmed ? ' armed' : '') + '" data-act="ses-end">' + (endArmed ? 'تأكيد الإنهاء' : ICON_STOP + 'إنهاء') + '</button>' +
+    '</div>';
   }
-  // A paused set closes after two minutes; refresh the label when that happens.
+  // A session left open closes itself after two idle hours
   setInterval(() => {
-    const ex = EX[cur];
-    if (!ex || ex.tool !== 'reps' || openSetId == null) return;
-    const st = openTapSet(store.log, ex.id, curSide(ex));
-    if (!st) renderTool();
-  }, 15000);
+    const L = store.log, s = L.sessions[L.sessions.length - 1];
+    if (s && !s.end && !activeSession()) { renderTool(); renderNav(); if (openSheet === $('logSheet')) renderLog(); }
+  }, 30000);
   function renderTool() {
     const ex = EX[cur], s = curSide(ex);
     const run = timer && timer.ex === ex.id;
@@ -4298,9 +4332,22 @@ body.dash-on #entrySheet { z-index: 78; }
     }
 
     const sideName = ex.sides ? (s === 'L' ? ' للرجل اليسرى' : ' للرجل اليمنى') : '';
+    const live = activeSession();
+    if (!live && ex.tool !== 'cd') {
+      const n = getN(ex, s), cnt = sessionCount(store.log);
+      const big = ex.tool === 'hold' ? (n.n ? fmt(n.best) : '—') : n;
+      h += '<div class="toolrow">' +
+        '<div class="mring-btn ro" aria-label="مجموع اليوم' + sideName + ': ' + big + '">' + mring(0, big, ex.tool === 'hold' ? 'أفضل' : 'اليوم', true) + '</div>' +
+        '<button type="button" class="act start" data-act="ses-start">ابدأ الجلسة<small>' + (cnt ? sesName(cnt) + ' اليوم' : 'الجولة الأولى تبدأ من التمرين 1') + '</small></button>' +
+      '</div>';
+      m += '<h3>الجلسة</h3><p class="note">ابدأ الجلسة عشان ينحسب التكرار والوقت. داخلها تمر على التمارين من 1 إلى 8، وكل مرور جولة.</p>';
+      $('tool').innerHTML = h;
+      $('toolMore').innerHTML = m;
+      return;
+    }
     if (ex.tool === 'reps') {
       const n = getN(ex, s);
-      h += '<div class="toolrow">' + setLine(ex, s) +
+      h += '<div class="toolrow">' + roundBar(ex) +
         '<button type="button" class="mring-btn" data-act="entry-reps" aria-label="إدخال عدد التكرار يدوياً' + sideName + '، العدد الحالي ' + n + '">' +
           (store.goalOn ? mring(n / store.goal, n, 'من ' + store.goal) : mring(0, n, 'تكرار', true)) +
           '<span class="pen">' + PEN + '</span></button>' +
@@ -4308,7 +4355,7 @@ body.dash-on #entrySheet { z-index: 78; }
         '<button type="button" class="round" dir="ltr" data-act="plus" data-v="-1" aria-label="إنقاص تكرار واحد">−1</button>' +
       '</div>';
 
-      m += '<h3>عدّاد اليوم</h3>' +
+      m += '<h3>العدّاد</h3>' +
         '<div class="more-row"><span id="autoLbl">عدّ تلقائي مع حركة المجسم</span><button type="button" class="switch" role="switch" aria-labelledby="autoLbl" aria-checked="' + autoCount + '" data-act="auto"><i></i></button></div>' +
         '<div class="more-row"><span id="goalLbl">هدف يومي للتكرار</span><button type="button" class="switch" role="switch" aria-labelledby="goalLbl" aria-checked="' + store.goalOn + '" data-act="goal-toggle"><i></i></button></div>' +
         (store.goalOn
@@ -4319,7 +4366,7 @@ body.dash-on #entrySheet { z-index: 78; }
     } else if (ex.tool === 'hold') {
       const v = getN(ex, s);
       const stats = 'أفضل ' + (v.n ? fmt(v.best) : '—') + ' · ' + (v.n === 1 ? 'مرة وحدة' : v.n === 2 ? 'مرتين' : v.n + ' مرات');
-      h += '<div class="toolrow">' + setLine(ex, s) +
+      h += '<div class="toolrow">' + roundBar(ex) +
         (run
           ? '<div class="clockbox"><b id="clock">' + fmt((performance.now() - timer.t0) / 1000) + '</b><span>' + stats + '</span></div>'
           : '<button type="button" class="clockbox clock-btn" data-act="entry-time" aria-label="إضافة وقت يدوياً' + sideName + '"><b id="clock">0:00</b><span>' + stats + '</span><span class="pen">' + PEN + '</span></button>') +
@@ -4343,7 +4390,7 @@ body.dash-on #entrySheet { z-index: 78; }
     const ex = EX.find(e => e.id === timer.ex);
     const sec = (performance.now() - timer.t0) / 1000;
     if (record && ex.tool === 'hold' && sec >= 1) {
-      logSet(ex.id, timer.side, 't', Math.floor(sec), timer.w || Date.now() - sec * 1000, 'timer');
+      logHold(ex.id, timer.side, Math.floor(sec), timer.w || Date.now() - sec * 1000, 'timer');
       toast('سُجّل الثبات: ' + fmt(sec));
     }
     timer = null;
@@ -4480,17 +4527,20 @@ body.dash-on #entrySheet { z-index: 78; }
       jumpToStep(Number(b.getAttribute('data-step')));
       return;
     }
-    if (act === 'entry-reps') { openEntry('reps', b); return; }
-    if (act === 'entry-time') { if (!(timer && timer.ex === ex.id)) openEntry('time', b, 0, false); return; }
+    if (act === 'entry-reps' || act === 'entry-time') {
+      if (!activeSession()) { toast('ابدأ الجلسة أول'); renderTool(); return; }
+      if (act === 'entry-reps') openEntry('reps', b);
+      else if (!(timer && timer.ex === ex.id)) openEntry('time', b, 0, false);
+      return;
+    }
     if (act === 'entry-step') { entryStep(Number(b.getAttribute('data-v'))); return; }
     if (act === 'entry-save') { saveEntry(); return; }
     if (act === 'entry-cancel') { cancelEntry(); return; }
     if (act === 'entry-del') { deleteEntrySet(); return; }
-    if (act === 'entry-merge') { mergeEntrySet(); return; }
+    if (act === 'ses-start' || act === 'round-new' || act === 'ses-end' || act === 'done-log') { sessionAct(act, b); return; }
     if (act.indexOf('log-') === 0) {
       if (b.closest('#logSheet')) return;
       if (act === 'log-open') openLog(store.date, b);
-      else if (act === 'log-new' && startNewSession()) renderNav();
       return;
     }
     if (act === 'auto') {
@@ -4502,6 +4552,7 @@ body.dash-on #entrySheet { z-index: 78; }
     }
 
     if (act !== 'reset') { resetArmed = false; clearTimeout(resetT); }
+    if (endArmed) { endArmed = false; clearTimeout(endT); }
 
     if (act === 'side') {
       const ns = b.getAttribute('data-side');
@@ -4515,8 +4566,7 @@ body.dash-on #entrySheet { z-index: 78; }
       }
     } else if (act === 'plus') {
       const dv = Number(b.getAttribute('data-v')), before = getN(ex, s);
-      if (dv < 0 && before <= 0) return;
-      logTap(ex.id, s, dv);
+      if (!logTap(ex.id, s, dv)) { if (dv < 0) toast('ما فيه تكرار بهالجولة تنقصه'); return; }
       if (store.goalOn && dv > 0 && before < store.goal && getN(ex, s) >= store.goal) toast('أحسنت، وصلت للهدف');
     } else if (act === 'goal') {
       store.goal = clamp(store.goal + Number(b.getAttribute('data-v')), 10, 500);
@@ -4534,8 +4584,8 @@ body.dash-on #entrySheet { z-index: 78; }
         resetArmed = false;
         clearTimeout(resetT);
         if (timer && timer.ex === ex.id) timer = null;
-        clearExSide(ex.id, s);
-        toast('تم تصفير عدّاد اليوم');
+        clearRound(ex.id, s);
+        toast('تم تصفير هالتمرين في الجولة ' + roundNo(activeSession() || { rounds: [0] }));
       }
     } else if (act === 'hold') {
       if (timer && timer.ex === ex.id) {
@@ -4545,6 +4595,7 @@ body.dash-on #entrySheet { z-index: 78; }
         openEntry('time', b, sec, true, { wall });
         return;
       }
+      if (!activeSession()) { toast('ابدأ الجلسة أول'); renderTool(); return; }
       timer = { ex: ex.id, side: s, t0: performance.now(), w: Date.now() };
     } else if (act === 'cd') {
       if (timer && timer.ex === ex.id) { stopTimer(false); toast('أُوقف المؤقّت'); }
@@ -4682,8 +4733,8 @@ body.dash-on #entrySheet { z-index: 78; }
       kind: editSet ? editSet.k : (mode === 'reps' ? 'r' : 't')
     };
     const sideTxt = ex.sides ? (s === 'L' ? ' · اليسرى' : ' · اليمنى') : '';
-    const pos = editSet ? setPos(extra.day, editSet) : null;
-    $('eSub').textContent = ex.name + sideTxt + (editSet ? ' · ' + (pos.si >= 0 ? sesName(pos.si) + ' ' : '') + fmtClock(editSet.t) : '');
+    const pos = editSet ? setPos(extra.day, editSet) : null, liveS = activeSession();
+    $('eSub').textContent = ex.name + sideTxt + (editSet ? ' · ' + (pos.label ? pos.label + ' · ' : '') + fmtClock(editSet.t) : liveS ? ' · الجولة ' + roundNo(liveS) : '');
     const field = $('eField'), chips = $('eChips'), extraBox = $('eExtra');
     extraBox.hidden = true;
     extraBox.innerHTML = '';
@@ -4693,14 +4744,13 @@ body.dash-on #entrySheet { z-index: 78; }
       $('ePlus').textContent = '+1'; $('ePlus').setAttribute('data-v', '1'); $('ePlus').setAttribute('aria-label', 'زيادة 1');
       chips.innerHTML = [5, 10, 20, 50].map(v => '<button type="button" class="chip" dir="ltr" data-act="entry-step" data-v="' + v + '" aria-label="زيادة ' + v + '">+' + v + '</button>').join('');
       if (editSet) {
-        $('eTitle').textContent = 'تعديل المجموعة';
         $('eReps').value = editSet.v;
-        $('eHint').textContent = 'عدّل عدد التكرار في هالمجموعة.';
+        $('eHint').textContent = 'عدد التكرار في هالجولة.';
       } else {
-        const lastSame = store.log.sets.filter(st => st.ex === ex.id && st.side === s && st.k === 'r').pop();
-        $('eTitle').textContent = 'إضافة مجموعة';
-        $('eReps').value = lastSame ? lastSame.v : 10;
-        $('eHint').textContent = 'تنضاف كمجموعة جديدة في ' + sesName(currentSessionNo() - 1) + '.';
+        const cur0 = curRepSet(ex.id, s), prevR = lastRoundValue(ex.id, s);
+        $('eTitle').textContent = 'تكرار الجولة ' + roundNo(liveS);
+        $('eReps').value = cur0 ? cur0.v : (prevR || 10);
+        $('eHint').textContent = cur0 ? 'هذا اللي مسجّل بهالجولة، عدّله إذا تحتاج.' : (prevR ? 'نفس عدد الجولة اللي قبل، عدّله إذا تحتاج.' : 'اكتب عدد التكرار اللي سويته بهالجولة.');
       }
     } else {
       field.innerHTML = '<div class="e-mmss" dir="ltr"><input id="eMin" class="e-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="59" aria-label="دقائق"><span aria-hidden="true">:</span><input id="eSec" class="e-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="59" aria-label="ثواني"></div>';
@@ -4708,9 +4758,8 @@ body.dash-on #entrySheet { z-index: 78; }
       $('ePlus').textContent = '+5'; $('ePlus').setAttribute('data-v', '5'); $('ePlus').setAttribute('aria-label', 'زيادة 5 ثواني');
       chips.innerHTML = [-1, 1, 10, 30].map(v => '<button type="button" class="chip" data-act="entry-step" data-v="' + v + '" aria-label="' + (v > 0 ? 'زيادة ' : 'إنقاص ') + Math.abs(v) + ' ثانية"><span dir="ltr">' + (v > 0 ? '+' : '−') + Math.abs(v) + '</span> ث</button>').join('');
       if (editSet) {
-        $('eTitle').textContent = 'تعديل وقت الثبات';
         setEntrySec(editSet.v);
-        $('eHint').textContent = 'عدّل مدة هالمرة من الثبات.';
+        $('eHint').textContent = 'عدّل مدة الثبات.';
       } else {
         $('eTitle').textContent = fromTimer ? 'راجع الوقت قبل الحفظ' : 'إضافة وقت ثبات';
         setEntrySec(entry.measured);
@@ -4718,12 +4767,9 @@ body.dash-on #entrySheet { z-index: 78; }
       }
     }
     if (editSet) {
-      const prev = mergeTarget(entry.day, editSet);
-      extraBox.innerHTML =
-        '<button type="button" class="soft e-del" data-act="entry-del">' + ICON_TRASH + 'حذف المجموعة</button>' +
-        (prev ? '<button type="button" class="soft" data-act="entry-merge">' + ICON_MERGE + 'دمج مع اللي قبلها</button>' : '');
+      extraBox.innerHTML = '<button type="button" class="soft e-del" data-act="entry-del">' + ICON_TRASH + (editSet.k === 't' ? 'حذف الثبات' : 'حذف من الجولة') + '</button>';
       extraBox.hidden = false;
-      $('eTitle').textContent = 'تعديل المجموعة ' + (pos.n || '');
+      $('eTitle').textContent = pos.round ? 'تعديل · الجولة ' + pos.round : 'تعديل';
     }
     showSheet($('entrySheet'), from);
     placeEntrySheet();
@@ -4768,7 +4814,7 @@ body.dash-on #entrySheet { z-index: 78; }
     let val;
     if (entry.kind === 'r') {
       val = parseInt($('eReps').value, 10);
-      if (isNaN(val) || val < 1) { $('eHint').textContent = entry.setId ? 'اكتب رقم أكبر من صفر، أو احذف المجموعة.' : 'اكتب رقم أكبر من صفر.'; return; }
+      if (isNaN(val) || val < 1) { $('eHint').textContent = entry.setId ? 'اكتب رقم أكبر من صفر، أو احذفه من الجولة.' : 'اكتب رقم أكبر من صفر.'; return; }
       val = clamp(val, 1, 9999);
     } else {
       val = entrySec();
@@ -4784,13 +4830,14 @@ body.dash-on #entrySheet { z-index: 78; }
       finishEntry('انحفظ التعديل');
       return;
     }
+    if (!activeSession()) { closeSheet(true); entry = null; toast('انتهت الجلسة، ما انحفظ'); renderTool(); renderNav(); return; }
     if (entry.kind === 'r') {
       const before = getN(ex, s);
-      logSet(ex.id, s, 'r', val, Date.now(), 'manual');
-      finishEntry(store.goalOn && before < store.goal && getN(ex, s) >= store.goal ? 'أحسنت، وصلت للهدف' : 'انحفظت مجموعة: ' + val + ' تكرار');
+      setRoundReps(ex.id, s, val);
+      finishEntry(store.goalOn && before < store.goal && getN(ex, s) >= store.goal ? 'أحسنت، وصلت للهدف' : 'انحفظ: ' + val + ' تكرار في الجولة ' + roundNo(activeSession()));
     } else {
       const v = getN(ex, s);
-      logSet(ex.id, s, 't', val, entry.wall || Date.now() - val * 1000, entry.fromTimer ? 'timer' : 'manual');
+      logHold(ex.id, s, val, entry.wall || Date.now() - val * 1000, entry.fromTimer ? 'timer' : 'manual');
       finishEntry('انحفظ الثبات: ' + fmt(val) + (val > (v.best || 0) && v.n ? ' · رقم جديد' : ''));
     }
   }
@@ -4802,55 +4849,39 @@ body.dash-on #entrySheet { z-index: 78; }
     if (e.fromTimer) toast('ما انحفظ الوقت');
     if (e.back === 'log') openLog(e.day);
   }
+  // Which session and round a set belongs to, for titles
   function setPos(day, st) {
-    const ses = sessionsOf(dayLog(day) || newLog());
-    const si = ses.findIndex(x => x.sets.some(y => y.id === st.id));
-    const same = si >= 0 ? ses[si].sets.filter(x => x.ex === st.ex && x.side === st.side) : [];
-    return { si, n: same.findIndex(x => x.id === st.id) + 1 };
+    const L = dayLog(day) || newLog(), list = sessionList(L);
+    const i = list.findIndex(x => x.sets.some(y => y.id === st.id));
+    if (i < 0) return { label: '', round: 0 };
+    return { label: list[i].legacy ? '' : sesName(i), round: st.r || 0 };
+  }
+  // The same exercise and leg in the round before, to prefill a manual entry
+  function lastRoundValue(exId, side) {
+    const s = activeSession();
+    if (!s || roundNo(s) < 2) return 0;
+    const st = store.log.sets.find(x => x.ses === s.id && x.r === roundNo(s) - 1 && x.ex === exId && x.side === side && x.k === 'r');
+    return st ? st.v : 0;
   }
   function deleteEntrySet() {
     if (!entry || !entry.setId) return;
     const btn = $('eExtra').querySelector('.e-del');
     if (btn && !btn.classList.contains('armed')) {
       btn.classList.add('armed');
-      btn.innerHTML = ICON_TRASH + 'اضغط مرة ثانية للحذف';
+      btn.innerHTML = ICON_TRASH + 'اضغط مرة ثانية للتأكيد';
       return;
     }
     const L = dayLog(entry.day);
     if (L) {
       L.sets = L.sets.filter(x => x.id !== entry.setId);
-      L.joined = L.joined.filter(x => x !== entry.setId);
       commitDay(entry.day);
     }
-    finishEntry('انحذفت المجموعة');
-  }
-  // The set just before this one, same exercise and leg, inside the same session
-  function mergeTarget(day, st) {
-    if (!st || st.k !== 'r') return null;
-    const L = dayLog(day);
-    if (!L) return null;
-    const ses = sessionsOf(L).find(x => x.sets.some(y => y.id === st.id));
-    if (!ses) return null;
-    const same = ses.sets.filter(x => x.ex === st.ex && x.side === st.side && x.k === 'r');
-    const i = same.findIndex(x => x.id === st.id);
-    return i > 0 ? same[i - 1] : null;
-  }
-  function mergeEntrySet() {
-    if (!entry || !entry.setId) return;
-    const L = dayLog(entry.day), st = L && L.sets.find(x => x.id === entry.setId), prev = mergeTarget(entry.day, st);
-    if (st && prev) {
-      prev.v += st.v;
-      prev.u = Math.max(prev.u, st.u);
-      L.sets = L.sets.filter(x => x.id !== st.id);
-      L.joined = L.joined.filter(x => x !== st.id);
-      commitDay(entry.day);
-      finishEntry('اندمجت المجموعتين: ' + prev.v + ' تكرار');
-    }
+    finishEntry('انحذف');
   }
   $('eForm').addEventListener('submit', ev => { ev.preventDefault(); saveEntry(); });
 
   /* ==========================================================================
-     DAY LOG: sessions, sets, merge, new session
+     DAY LOG: sessions, rounds, summary
      ========================================================================== */
   const ICON_TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>';
   const ICON_MERGE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v2a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4"></path><path d="M12 12v8"></path></svg>';
@@ -4862,7 +4893,7 @@ body.dash-on #entrySheet { z-index: 78; }
     if (!k || k === store.date) return store.log;
     const o = hist.days[k];
     if (!o) return null;
-    if (!o.log) return { sets: [], splits: [], joined: [], base: o.d || {} };
+    if (!o.log) return { sets: [], sessions: [], base: o.d || {} };
     return ensureLog(o);
   }
   function commitDay(k) {
@@ -4873,35 +4904,62 @@ body.dash-on #entrySheet { z-index: 78; }
     if (!hasValues(o.d)) delete hist.days[k];
     saveHistory();
   }
-  function startNewSession() {
-    const L = store.log;
-    if (pendingSplit(L)) { toast(sesName(currentSessionNo() - 1) + ' جاهزة، ابدأ التمرين'); return false; }
-    if (!L.sets.length) { toast('هذي أول مرة اليوم، ابدأ التمرين'); return false; }
-    L.splits.push(Date.now());
-    commitToday();
-    toast('بدأت ' + sesName(currentSessionNo() - 1));
-    return true;
+
+  /* ---------- start / next round / end ---------- */
+  function sessionAct(act, b) {
+    if (act === 'done-log') { closeSheet(true); openLog(store.date); return; }
+    if (act === 'ses-start' || act === 'round-new') {
+      const ok = act === 'ses-start' ? startSession() : newRound();
+      if (!ok) { if (act === 'ses-start') toast('فيه جلسة شغالة'); return; }
+      endArmed = false;
+      store.side = {};
+      saveStore();
+      if (openSheet) closeSheet(true);
+      setEx(0);
+      const s = activeSession(), list = sessionList(store.log);
+      toast(act === 'ses-start' ? 'بدأت ' + sesName(list.findIndex(x => x.ref === s)) + ' · الجولة 1' : 'الجولة ' + roundNo(s) + ' · من التمرين 1');
+      return;
+    }
+    if (act === 'ses-end') {
+      if (!endArmed) {
+        endArmed = true;
+        clearTimeout(endT);
+        endT = setTimeout(() => { endArmed = false; renderTool(); if (openSheet === $('logSheet')) renderLog(); }, 3500);
+        renderTool();
+        if (openSheet === $('logSheet')) renderLog();
+        return;
+      }
+      endArmed = false;
+      clearTimeout(endT);
+      if (timer) stopTimer(true);
+      const s = endSession();
+      renderTool();
+      renderNav();
+      if (dashOpen) renderDash();
+      if (s) openDone(s, b);
+      else { if (openSheet) closeSheet(true); toast('انلغت الجلسة لأنها فاضية'); }
+    }
   }
-  function mergeSession(k, i) {
-    const L = dayLog(k);
-    if (!L || !L.sets) return;
-    const ses = sessionsOf(L);
-    if (i < 1 || i >= ses.length) return;
-    const a = ses[i - 1], b = ses[i];
-    if (!L.joined.includes(b.first)) L.joined.push(b.first);
-    const lastA = a.sets[a.sets.length - 1].t, firstB = b.sets[0].t;
-    L.splits = L.splits.filter(x => !(x > lastA && x <= firstB));
-    commitDay(k);
-    toast('اندمجت ' + sesName(i) + ' مع ' + sesName(i - 1));
+  function openDone(s, from) {
+    const L = store.log, list = sessionList(L), i = list.findIndex(x => x.ref === s), x = list[i];
+    const reps = x.sets.filter(y => y.k === 'r').reduce((a, y) => a + y.v, 0);
+    const hold = x.sets.filter(y => y.k === 't').reduce((a, y) => a + y.v, 0);
+    $('doneTitle').textContent = 'انتهت ' + sesName(i);
+    $('doneSub').textContent = fmtClock(x.start) + ' – ' + fmtClock(x.end) + ' · ' + fmtSpan(x.end - x.start);
+    const cell = (v, label) => '<div' + (v ? '' : ' class="nil"') + '><b>' + (v || '—') + '</b><span>' + label + '</span></div>';
+    $('doneStats').innerHTML = cell(x.rounds.length, 'الجولات') + cell(EX.filter(ex => x.sets.some(y => y.ex === ex.id)).length, 'التمارين') + cell(reps ? fmtNum(reps) : 0, 'التكرار') + cell(hold ? fmt(hold) : 0, 'الثبات');
+    $('doneList').innerHTML = EX.filter(ex => x.sets.some(y => y.ex === ex.id)).map(ex => {
+      const parts = sidesOf(ex).map(sd => {
+        const ss = x.sets.filter(y => y.ex === ex.id && y.side === sd);
+        if (!ss.length) return '';
+        const v = ss[0].k === 't' ? fmt(ss.reduce((a, y) => a + y.v, 0)) : ss.reduce((a, y) => a + y.v, 0);
+        return (ex.sides ? (sd === 'L' ? 'يسار ' : 'يمين ') : '') + '<b>' + v + '</b>';
+      }).filter(Boolean).join(' · ');
+      return '<li><span class="n">' + ex.id + '</span><span class="t">' + esc(ex.name) + '</span><span class="v">' + parts + '</span></li>';
+    }).join('');
+    showSheet($('doneSheet'), from);
   }
-  function cancelPending() {
-    const L = store.log, p = pendingSplit(L);
-    if (p == null) return;
-    const lastT = L.sets.reduce((m, s) => Math.max(m, s.t), 0);
-    L.splits = L.splits.filter(x => x <= lastT);
-    commitToday();
-    toast('رجعت ل' + sesName(sessionsOf(L).length - 1));
-  }
+
   function availableDays() {
     const ks = new Set(Object.keys(hist.days).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k) && k <= today()));
     ks.add(store.date);
@@ -4921,7 +4979,7 @@ body.dash-on #entrySheet { z-index: 78; }
   };
   function chipFor(st, i) {
     const label = st.k === 't' ? fmt(st.v) : String(st.v);
-    return '<button type="button" class="set-chip" data-act="log-set" data-id="' + st.id + '" aria-label="المجموعة ' + (i + 1) + ': ' + (st.k === 't' ? 'ثبات ' + fmt(st.v) : st.v + ' تكرار') + '، اضغط للتعديل"><span dir="ltr">' + label + '</span></button>';
+    return '<button type="button" class="set-chip" data-act="log-set" data-id="' + st.id + '" aria-label="' + (st.r ? 'الجولة ' + st.r + ': ' : '') + (st.k === 't' ? 'ثبات ' + fmt(st.v) : st.v + ' تكرار') + '، اضغط للتعديل"><span dir="ltr">' + label + '</span></button>';
   }
   // One exercise inside a session: a row per leg, sets in the order they were done, and their total
   function exBlock(ex, rows) {
@@ -4937,10 +4995,36 @@ body.dash-on #entrySheet { z-index: 78; }
         '<div class="lx-c">' + ss.map(chipFor).join('') + '</div>' + (totTxt ? '<span class="lx-t">' + totTxt + '</span>' : '') + '</div>';
     }).join('');
   }
+  // One session as a card: exercises down, rounds across, a total per row
+  function sessionTable(x) {
+    const R = x.rounds.length, curR = x.live ? R : 0;
+    const exs = EX.filter(ex => x.sets.some(st => st.ex === ex.id));
+    if (!exs.length) return '<p class="tl-empty">ما سجّلت شي بهالجلسة للحين. ابدأ من التمرين 1.</p>';
+    let h = '<div class="rt-wrap"><table class="rt"><thead><tr><th class="rt-ex">التمرين</th>' +
+      x.rounds.map((t, ri) => '<th scope="col" title="بدأت ' + fmtClock(t) + '"' + (ri + 1 === curR ? ' class="cur"' : '') + '>جولة<br>' + (ri + 1) + '</th>').join('') +
+      '<th class="rt-sum">المجموع</th></tr></thead><tbody>';
+    exs.forEach(ex => {
+      sidesOf(ex).forEach((sd, si) => {
+        const all = x.sets.filter(st => st.ex === ex.id && st.side === sd);
+        const head = si === 0
+          ? '<div class="rt-exn"><span class="n">' + ex.id + '</span><span class="t">' + esc(ex.name) + '</span></div>' + (ex.sides ? '<span class="rt-side">يمين</span>' : '')
+          : '<span class="rt-side">يسار</span>';
+        const cells = x.rounds.map((_, ri) => {
+          const ss = all.filter(st => st.r === ri + 1);
+          return ss.length ? '<td>' + ss.map(chipFor).join('') + '</td>' : '<td class="nil">—</td>';
+        }).join('');
+        const tot = all.reduce((a, st) => a + st.v, 0);
+        const sum = all.length ? (ex.tool === 'hold' ? fmt(tot) : tot) : '—';
+        h += '<tr class="' + (si === 0 ? 'first' : 'second') + '"><th class="rt-ex" scope="row">' + head + '</th>' + cells + '<td class="rt-sum">' + sum + '</td></tr>';
+      });
+    });
+    return h + '</tbody></table></div>';
+  }
   function renderLog() {
     const k = logDayKey || store.date, isToday = k === store.date;
     const L = dayLog(k) || newLog();
-    const ses = sessionsOf(L), pend = isToday ? pendingSplit(L) : null;
+    if (!L.sessions) L.sessions = [];
+    const list = sessionList(L), live = isToday ? activeSession() : null;
     const days = availableDays(), di = days.indexOf(k);
     const lbl = dayLabel(k);
     $('logDay').textContent = lbl[0];
@@ -4949,18 +5033,18 @@ body.dash-on #entrySheet { z-index: 78; }
     $('logPrev').disabled = !prevK; $('logPrev').setAttribute('data-k', prevK || '');
     $('logNext').disabled = !nextK; $('logNext').setAttribute('data-k', nextK || '');
 
-    // Totals include anything logged before sets were kept
+    // Totals include anything logged before sessions were kept
     const all = aggregate(L);
     let reps = 0;
     EX.forEach(ex => { if (ex.tool !== 'hold' && all[ex.id]) Object.values(all[ex.id]).forEach(v => { reps += typeof v === 'number' ? v : 0; }); });
     const hold = L.sets.filter(x => x.k === 't').reduce((a, x) => a + x.v, 0);
+    const rounds = list.filter(x => !x.legacy && x.sets.length).reduce((a, x) => a + x.rounds.length, 0);
     const cell = (v, label) => '<div' + (v ? '' : ' class="nil"') + '><b>' + (v || '—') + '</b><span>' + label + '</span></div>';
-    $('logSum').innerHTML = cell(ses.length, 'المرات') + cell(L.sets.length, 'المجموعات') + cell(reps ? fmtNum(reps) : 0, 'التكرار') + cell(hold ? fmt(hold) : 0, 'الثبات');
+    $('logSum').innerHTML = cell(list.filter(x => x.sets.length).length, 'الجلسات') + cell(rounds, 'الجولات') + cell(reps ? fmtNum(reps) : 0, 'التكرار') + cell(hold ? fmt(hold) : 0, 'الثبات');
 
     const baseD = aggregate({ sets: [], base: L.base || {} });
-    const hasBase = hasValues(baseD);
     let h = '';
-    if (hasBase) {
+    if (hasValues(baseD)) {
       let rows = '';
       EX.forEach(ex => {
         const r = baseD[ex.id];
@@ -4973,31 +5057,33 @@ body.dash-on #entrySheet { z-index: 78; }
         }).join('');
         rows += exBlock(ex, lines);
       });
-      h += '<li class="tl-ses legacy"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>قبل التحديث</b><span>مجموع بدون أوقات أو مجموعات</span></div></div><div class="tl-body">' + rows + '</div></li>';
+      h += '<li class="tl-ses legacy"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>قبل التحديث</b><span>مجموع بدون أوقات</span></div></div><div class="tl-body">' + rows + '</div></li>';
     }
-    ses.forEach((x, i) => {
-      if (i > 0) {
-        const rest = fmtSpan(x.start - ses[i - 1].end);
-        h += '<li class="tl-gap"><span class="g">' + (x.manual ? 'بدأتها يدوياً بعد ' + rest : 'استراحة ' + rest) + '</span>' +
-          '<button type="button" class="tl-act" data-act="log-merge" data-i="' + i + '" aria-label="دمج ' + sesName(i) + ' مع ' + sesName(i - 1) + '">' + ICON_MERGE + 'دمج</button></li>';
+    list.forEach((x, i) => {
+      if (x.legacy) {
+        const exs = EX.filter(ex => x.sets.some(st => st.ex === ex.id));
+        h += '<li class="tl-ses legacy"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(i) + '</b><span>' + fmtClock(x.start) + ' · قبل نظام الجولات</span></div></div>' +
+          '<div class="tl-body">' + exs.map(ex => exBlock(ex, exRows(ex, x.sets.filter(st => st.ex === ex.id)))).join('') + '</div></li>';
+        return;
       }
-      const dur = x.end - x.start;
-      const when = fmtClock(x.start) + (dur >= 60000 ? ' – ' + fmtClock(x.end) + ' · ' + fmtSpan(dur) : '');
-      const exs = EX.filter(ex => x.sets.some(st => st.ex === ex.id));
-      h += '<li class="tl-ses"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(i) + '</b><span>' + when + '</span></div>' +
-        '<span class="tl-meta">' + setsAr(x.sets.length) + '</span></div>' +
-        '<div class="tl-body">' + exs.map(ex => exBlock(ex, exRows(ex, x.sets.filter(st => st.ex === ex.id)))).join('') + '</div></li>';
+      const when = x.live ? 'من ' + fmtClock(x.start) + ' · جارية الحين' : fmtClock(x.start) + ' – ' + fmtClock(x.end) + ' · ' + fmtSpan(x.end - x.start);
+      h += '<li class="tl-ses' + (x.live ? ' live' : '') + '"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(i) + '</b><span>' + when + '</span></div>' +
+        (x.live ? '<span class="tl-badge">الجولة ' + x.rounds.length + '</span>' : '<span class="tl-meta">' + roundsAr(x.rounds.length) + '</span>') + '</div>' +
+        '<div class="tl-body">' + sessionTable(x) + '</div></li>';
     });
-    if (pend) {
-      if (ses.length) h += '<li class="tl-gap"><span class="g">مرة جديدة يدوية</span></li>';
-      h += '<li class="tl-ses pending"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(ses.length) + '</b><span>بدأت ' + fmtClock(pend) + ' · بانتظار أول تمرين</span></div>' +
-        '<button type="button" class="tl-act" data-act="log-unsplit">إلغاء</button></div></li>';
-    }
     $('logBody').innerHTML = h
       ? '<ol class="tl">' + h + '</ol>'
-      : '<div class="lg-empty">' + (isToday ? 'ما سجّلت تمارين اليوم للحين.<br>كل مجموعة تسجّلها تظهر هنا بوقتها.' : 'ما فيه تمارين مسجّلة في هاليوم.') + '</div>';
-    $('logFoot').hidden = !isToday;
-    $('logHint').textContent = (isToday ? 'بعد ساعتين راحة تبدأ مرة جديدة تلقائياً · ' : '') + (L.sets.length ? 'اضغط أي رقم لتعديله أو حذفه' : '');
+      : '<div class="lg-empty">' + (isToday ? 'ما فيه جلسات اليوم للحين.<br>ابدأ جلسة وكل جولة تنحفظ هنا بوقتها.' : 'ما فيه تمارين مسجّلة في هاليوم.') + '</div>';
+    let foot = '';
+    if (isToday) {
+      foot = live
+        ? '<button type="button" class="soft" data-act="round-new">' + ICON_NEXT + 'جولة جديدة</button>' +
+          '<button type="button" class="soft' + (endArmed ? ' armed' : '') + '" data-act="ses-end">' + ICON_STOP + (endArmed ? 'اضغط للتأكيد' : 'إنهاء الجلسة') + '</button>'
+        : '<button type="button" class="act" data-act="ses-start">' + ICON_PLAY + (list.some(x => x.sets.length) ? 'ابدأ جلسة جديدة' : 'ابدأ الجلسة') + '</button>';
+    }
+    $('logFoot').innerHTML = foot;
+    $('logFoot').hidden = !foot;
+    $('logHint').textContent = L.sets.length ? 'اضغط أي رقم لتعديله أو حذفه' : '';
     renderToday();
   }
   function openLog(k, from) {
@@ -5012,9 +5098,6 @@ body.dash-on #entrySheet { z-index: 78; }
     const act = b.getAttribute('data-act');
     if (act === 'log-day') { const k = b.getAttribute('data-k'); if (k) { logDayKey = k; renderLog(); } }
     else if (act === 'log-set') openEntry('edit', b, 0, false, { day: logDayKey, id: b.getAttribute('data-id'), back: 'log' });
-    else if (act === 'log-merge') { mergeSession(logDayKey, Number(b.getAttribute('data-i'))); renderLog(); renderNav(); if (dashOpen) renderDash(); }
-    else if (act === 'log-unsplit') { cancelPending(); renderLog(); renderNav(); }
-    else if (act === 'log-new') { if (startNewSession()) { renderLog(); renderNav(); } }
   });
 
 
@@ -5086,12 +5169,13 @@ body.dash-on #entrySheet { z-index: 78; }
   function logStats(rec) {
     const L = rec && rec.log;
     if (!L || !Array.isArray(L.sets) || !L.sets.length) return null;
-    const out = { sessions: sessionsOf(ensureLog({ log: L })).length, sets: L.sets.length, repSets: 0, repSum: 0, holdSum: 0, per: {} };
+    const list = sessionList({ sets: L.sets, sessions: Array.isArray(L.sessions) ? L.sessions : [], base: {} }).filter(x => x.sets.length);
+    const exp = list.filter(x => !x.legacy);
+    const out = { sessions: list.length, rounded: exp.length, rounds: exp.reduce((a, x) => a + x.rounds.length, 0), holdSum: 0, per: {} };
     L.sets.forEach(st => {
-      const p = out.per[st.ex] || (out.per[st.ex] = { sets: 0, sum: 0, tsum: 0 });
-      p.sets++;
-      if (st.k === 'r') { out.repSets++; out.repSum += st.v; p.sum += st.v; }
-      else { out.holdSum += st.v; p.tsum += st.v; }
+      const p = out.per[st.ex] || (out.per[st.ex] = { rsets: 0, rsum: 0, tsum: 0 });
+      if (st.k === 'r' && st.ses) { p.rsets++; p.rsum += st.v; }
+      if (st.k === 't') { out.holdSum += st.v; p.tsum += st.v; }
     });
     return out;
   }
@@ -5100,7 +5184,7 @@ body.dash-on #entrySheet { z-index: 78; }
 
   // A realistic year of practice for previewing the page. Never saved.
   function makeSample() {
-    let seed = 20261127, sq = 0;
+    let seed = 20261128, sq = 0;
     const rnd = () => (seed = (seed * 48271) % 2147483647) / 2147483647;
     const days = {}, end = pd(today()), N = 300;
     for (let i = N; i >= 0; i--) {
@@ -5111,26 +5195,31 @@ body.dash-on #entrySheet { z-index: 78; }
       if (rnd() < 0.3 + 0.35 * p) starts.push(19 * 60 + rnd() * 120);
       starts.forEach(min => {
         let t = day.getTime() + min * 60000;
-        EX.forEach(ex => {
-          if (rnd() < 0.08 + 0.12 * (1 - p)) return;
-          sidesOf(ex).forEach(s => {
-            const n = ex.tool === 'hold' ? 1 + Math.floor(rnd() * 2) : 2 + Math.floor(rnd() * 2.6);
-            for (let k = 0; k < n; k++) {
+        const sid = 'x' + (sq++).toString(36), ses = { id: sid, start: t, end: 0, rounds: [] };
+        const nR = 2 + (rnd() < 0.25 + 0.4 * p ? 1 : 0);
+        for (let r = 1; r <= nR; r++) {
+          ses.rounds.push(t);
+          EX.forEach(ex => {
+            if (rnd() < 0.06 + 0.12 * (1 - p)) return;
+            sidesOf(ex).forEach(sd => {
               let v;
               if (ex.tool === 'hold') {
                 const base = ex.id === 3 ? 20 + 58 * p : ex.id === 7 ? 28 + 64 * p : 30 + 42 * p;
-                v = Math.max(8, Math.round(base + (rnd() - 0.5) * 16));
+                v = Math.max(8, Math.round(base + (rnd() - 0.5) * 16 - (r - 1) * 3));
               } else {
-                v = Math.round(9 + 9 * p + (rnd() - 0.5) * 6);
-                if (ex.id === 5 && s === 'L') v = Math.round(v * (0.74 + 0.22 * p));
+                v = Math.round(9 + 9 * p + (rnd() - 0.5) * 5 - (r - 1) * 1.2);
+                if (ex.id === 5 && sd === 'L') v = Math.round(v * (0.74 + 0.22 * p));
                 v = Math.max(4, v);
               }
               const dur = ex.tool === 'hold' ? v * 1000 : v * 2500;
-              L.sets.push({ id: 's' + (sq++).toString(36), ex: ex.id, side: s, k: ex.tool === 'hold' ? 't' : 'r', v, t, u: t + dur, src: 'sample' });
-              t += dur + 30000 + rnd() * 40000;
-            }
+              L.sets.push({ id: 's' + (sq++).toString(36), ex: ex.id, side: sd, k: ex.tool === 'hold' ? 't' : 'r', v, t, u: t + dur, src: 'sample', ses: sid, r });
+              t += dur + 15000 + rnd() * 25000;
+            });
           });
-        });
+          t += 60000 + rnd() * 90000;
+        }
+        ses.end = t;
+        L.sessions.push(ses);
       });
       if (L.sets.length) days[dk(day)] = { goal: 0, d: aggregate(L), log: L };
     }
@@ -5209,7 +5298,7 @@ body.dash-on #entrySheet { z-index: 78; }
       eff.forEach(x => {
         if (!x.st) return;
         const lp = x.st.log && x.st.log.per[ex.id];
-        if (lp) { lgDays++; lgSets += lp.sets; lgSum += lp.sum; lgT += lp.tsum; }
+        if (lp) { lgDays++; lgSets += lp.rsets; lgSum += lp.rsum; lgT += lp.tsum; }
         const p = x.st.per[ex.id];
         if (p.done) doneDays++;
         if (ex.tool === 'reps' ? p.reps > 0 : p.count > 0) practiced++;
@@ -5417,7 +5506,7 @@ body.dash-on #entrySheet { z-index: 78; }
   function cellTip(x) {
     const when = AR_DAYS[x.dt.getDay()] + ' ' + fmtDay(x.dt);
     if (x.before) return ['—', 'قبل بداية تسجيلك · ' + when];
-    if (x.st && x.st.log) return [x.st.done + ' من 8', 'تمارين مكتملة · ' + timesAr(x.st.log.sessions) + ' · ' + when];
+    if (x.st && x.st.log) return [x.st.done + ' من 8', 'تمارين مكتملة · ' + sesAr(x.st.log.sessions) + ' · ' + when];
     if (!x.st || !x.st.any) return ['راحة', 'ما فيه تمرين · ' + when];
     return [x.st.done + ' من 8', 'تمارين مكتملة · ' + when];
   }
@@ -5532,8 +5621,8 @@ body.dash-on #entrySheet { z-index: 78; }
     const best3 = eff.reduce((a, x) => Math.max(a, x.st ? x.st.per[3].best : 0), 0);
     const best7 = eff.reduce((a, x) => Math.max(a, x.st ? x.st.per[7].best : 0), 0);
     const lg = eff.filter(x => x.st && x.st.log).map(x => x.st.log);
-    const lgSes = lg.reduce((a, l) => a + l.sessions, 0), lgSets = lg.reduce((a, l) => a + l.sets, 0);
-    const lgRepSets = lg.reduce((a, l) => a + l.repSets, 0), lgRepSum = lg.reduce((a, l) => a + l.repSum, 0);
+    const lgSes = lg.reduce((a, l) => a + l.sessions, 0);
+    const lgRounded = lg.reduce((a, l) => a + l.rounded, 0), lgRounds = lg.reduce((a, l) => a + l.rounds, 0);
     const sk = streaks(info.days);
 
     // previous period of the same length, for the delta
@@ -5572,8 +5661,8 @@ body.dash-on #entrySheet { z-index: 78; }
         tile(ICON('<path d="M5 12.5l4.5 4.5L19 7.5"></path>'), 'تمارين مكتملة', fmtNum(doneTot), '', 'من ' + fmtNum(eff.length * 8) + ' ممكنة') +
         tile(ICON('<path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path>'), 'مجموع التكرارات', fmtNum(repsTot), '', active ? 'متوسط يومي ' + fmtNum(repsTot / active) : '—') +
         tile(ICON('<circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path>'), 'أطول ثبات', best3 ? fmt(best3) : '—', '', 'تمرين الثبات (3)') +
-        tile(ICON('<rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path>'), 'المرات في اليوم', lg.length ? fmtAvg(lgSes / lg.length) : '—', '', lg.length ? timesAr(lgSes) + ' خلال ' + (lg.length === 1 ? 'يوم واحد' : lg.length + ' يوم') : 'التفاصيل تبدأ من أول تسجيل') +
-        tile(ICON('<path d="M4 7h16M4 12h16M4 17h10"></path>'), 'متوسط المجموعة', lgRepSets ? fmtNum(lgRepSum / lgRepSets) : '—', lgRepSets ? 'تكرار' : '', lg.length ? 'من ' + setsAr(lgSets) : '—') +
+        tile(ICON('<rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path>'), 'الجلسات في اليوم', lg.length ? fmtAvg(lgSes / lg.length) : '—', '', lg.length ? sesAr(lgSes) + ' خلال ' + (lg.length === 1 ? 'يوم واحد' : lg.length + ' يوم') : 'التفاصيل تبدأ من أول جلسة') +
+        tile(ICON('<path d="M20 12a8 8 0 1 1-2.3-5.6"></path><path d="M20 4v5h-5"></path>'), 'الجولات في الجلسة', lgRounded ? fmtAvg(lgRounds / lgRounded) : '—', '', lgRounded ? 'مجموع ' + roundsAr(lgRounds) : 'تبدأ من أول جلسة') +
       '</div></div>';
 
     h += '<div class="dgrid main">' +
@@ -5625,7 +5714,7 @@ body.dash-on #entrySheet { z-index: 78; }
     if (ex.tool === 'reps') {
       const avg = m.practiced ? m.sum / m.practiced / (ex.sides ? 2 : 1) : 0;
       meta += '<span>متوسط <b>' + fmtNum(avg) + '</b> تكرار' + (ex.sides ? ' لكل رجل' : '') + '</span>';
-      if (m.lgSets) meta += '<span>بمعدل <b>' + fmtAvg(m.lgSets / m.lgDays / (ex.sides ? 2 : 1)) + '</b> مجموعة × <b>' + fmtNum(m.lgSum / m.lgSets) + '</b></span>';
+      if (m.lgSets) meta += '<span>بمعدل <b>' + fmtNum(m.lgSum / m.lgSets) + '</b> بالجولة</span>';
     } else if (ex.tool === 'hold') {
       meta += '<span>أطول ثبات <b>' + (m.best ? fmt(m.best) : '—') + '</b></span><span><b>' + fmtNum(m.cnt) + '</b> مرة</span>';
       if (m.lgT) meta += '<span>مجموع الوقت <b>' + fmtDur(m.lgT) + '</b></span>';
@@ -5724,10 +5813,24 @@ body.dash-on #entrySheet { z-index: 78; }
       const v = num(st.v, 0, kk === 't' ? 3600 : 9999);
       if (!v || typeof st.t !== 'number' || !isFinite(st.t) || st.t < d0 || st.t > d1) return;
       const u = typeof st.u === 'number' && isFinite(st.u) && st.u >= st.t ? Math.min(st.u, st.t + 4 * 3600e3) : st.t;
-      out.sets.push({ id: typeof st.id === 'string' && ID_RE.test(st.id) ? st.id : newId(), ex: ex.id, side: st.side, k: kk, v, t: st.t, u, src: ['tap', 'manual', 'timer', 'sample'].includes(st.src) ? st.src : 'manual' });
+      const o = { id: typeof st.id === 'string' && ID_RE.test(st.id) ? st.id : newId(), ex: ex.id, side: st.side, k: kk, v, t: st.t, u, src: ['tap', 'manual', 'timer', 'sample'].includes(st.src) ? st.src : 'manual' };
+      if (typeof st.ses === 'string' && ID_RE.test(st.ses) && Number.isInteger(st.r) && st.r >= 1 && st.r <= 50) { o.ses = st.ses; o.r = st.r; }
+      out.sets.push(o);
     });
-    (Array.isArray(L.splits) ? L.splits : []).forEach(x => { if (typeof x === 'number' && isFinite(x) && x >= d0 && x <= d1) out.splits.push(x); });
-    (Array.isArray(L.joined) ? L.joined : []).forEach(x => { if (typeof x === 'string' && ID_RE.test(x)) out.joined.push(x); });
+    const okT = x => typeof x === 'number' && isFinite(x) && x >= d0 && x <= d1;
+    (Array.isArray(L.sessions) ? L.sessions : []).forEach(x => {
+      if (!x || typeof x !== 'object' || typeof x.id !== 'string' || !ID_RE.test(x.id) || !okT(x.start)) return;
+      if (out.sessions.some(y => y.id === x.id)) return;
+      const rounds = (Array.isArray(x.rounds) ? x.rounds : []).filter(okT).slice(0, 50).sort((a, b) => a - b);
+      out.sessions.push({ id: x.id, start: x.start, end: okT(x.end) && x.end >= x.start ? x.end : null, rounds: rounds.length ? rounds : [x.start] });
+    });
+    // A set whose session or round is missing becomes a plain timed set
+    out.sets.forEach(st => {
+      const se = st.ses && out.sessions.find(y => y.id === st.ses);
+      if (!se || st.r > se.rounds.length) { delete st.ses; delete st.r; }
+    });
+    // An open session in a backup ends at its last activity
+    out.sessions.forEach(x => { if (!x.end) x.end = lastActivity(out, x); });
     out.base = cleanTotals(L.base) || {};
     sortSets(out);
     return out;
@@ -5806,8 +5909,15 @@ body.dash-on #entrySheet { z-index: 78; }
       ensureLog({ log: la });
       const ids = new Set(la.sets.map(x => x.id));
       (lb.sets || []).forEach(x => { if (!ids.has(x.id)) la.sets.push(JSON.parse(JSON.stringify(x))); });
-      (lb.splits || []).forEach(x => { if (!la.splits.includes(x)) la.splits.push(x); });
-      (lb.joined || []).forEach(x => { if (!la.joined.includes(x)) la.joined.push(x); });
+      (lb.sessions || []).forEach(x => {
+        const y = la.sessions.find(z => z.id === x.id);
+        if (!y) la.sessions.push(JSON.parse(JSON.stringify(x)));
+        else {
+          if (x.rounds.length > y.rounds.length) y.rounds = x.rounds.slice();
+          if (y.end && x.end) y.end = Math.max(y.end, x.end);   // a session still open here stays open
+        }
+      });
+      la.sessions.sort((p, q) => p.start - q.start);
       la.base = mergeDay({ d: la.base || {} }, { d: lb.base || {} }).d;
       sortSets(la);
       return { goal: typeof a.goal === 'number' ? a.goal : b.goal, d: aggregate(la), log: la };
@@ -5973,7 +6083,7 @@ body.dash-on #entrySheet { z-index: 78; }
 /* In-app updates for the installed app: a new version downloads quietly,
    then the person chooses when to apply it. Results live in localStorage and are untouched. */
 (function () {
-  var APP_VERSION = 16;
+  var APP_VERSION = 17;
   var bar = document.getElementById('updBar');
   var row = document.getElementById('updRow');
   var ver = document.getElementById('verTxt');

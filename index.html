@@ -1688,7 +1688,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   font: 600 1rem var(--f-body);
 }
 .pe-field input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-.pe-rounds { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 14px; background: var(--surface-2); margin-bottom: 18px; }
+.pe-rounds { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 14px; background: var(--surface-2); margin-bottom: 8px; }
+.pe-rounds + .pe-h { margin-top: 18px; }
 .pe-rounds > span { display: flex; flex-direction: column; line-height: 1.3; }
 .pe-rounds b { font-size: 0.9rem; }
 .pe-rounds small { font-size: 0.74rem; color: var(--muted); }
@@ -1877,6 +1878,61 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 .done-rounds b { color: var(--ink); font-family: var(--f-display); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
 .done-rounds li.pz { background: none; box-shadow: inset 0 0 0 1px var(--line); }
 .done-rounds li.pz b { direction: rtl; }
+
+/* ---------- progress: adherence, notes, per-exercise ---------- */
+.meter.goal { position: relative; overflow: visible; }
+.meter.goal .mk { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-inline-start: -1px; border-radius: 2px; background: var(--ink); opacity: 0.55; }
+.hero .hint { font-size: 0.76rem; color: var(--muted); }
+.ref-l { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 4 4; opacity: 0.45; }
+.ref-t { font-weight: 600; }
+.bar-m.low { opacity: 0.55; }
+.bar-m.low.on, .has-hover .bar-m.low.on { opacity: 0.8; }
+.spark-t { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.6; }
+
+.ins { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.ins li { display: flex; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line); }
+.ins li:first-child { border-top: 0; padding-top: 2px; }
+.ins-ic { width: 34px; height: 34px; flex-shrink: 0; border-radius: 11px; display: grid; place-items: center; }
+.ins-ic svg { width: 18px; height: 18px; }
+.ins .warn .ins-ic { background: var(--muscle-soft); color: var(--muscle-ink); }
+.ins .info .ins-ic { background: var(--surface-2); color: var(--ink); }
+.ins .good .ins-ic { background: var(--accent-tint); color: var(--accent); }
+.ins-t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+.ins-k { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.02em; color: var(--muted); }
+.ins .warn .ins-k { color: var(--muscle-ink); }
+.ins .good .ins-k { color: var(--accent); }
+.ins-t b { font-size: 0.94rem; font-weight: 600; line-height: 1.4; }
+.ins-t p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.6; max-width: 62ch; }
+.ins-t .linkbtn { margin-top: 2px; padding: 0; min-height: 30px; font-size: 0.8rem; }
+.ins-none { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+.exs2 { display: flex; flex-direction: column; }
+.ex2 { padding-block: 10px; border-top: 1px solid var(--line); }
+.ex2:first-child { border-top: 0; padding-top: 0; }
+.ex2-h { width: 100%; display: flex; align-items: center; gap: 12px; text-align: start; border-radius: 14px; padding: 4px; margin: -4px; }
+button.ex2-h:hover { background: var(--surface-2); }
+.ex2-th { width: 48px; height: 48px; flex-shrink: 0; border-radius: 12px; }
+.ex2-t { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.ex2-t b { font-size: 0.92rem; font-weight: 600; }
+.ex2-t span { font-size: 0.74rem; color: var(--muted); }
+.ex2-v { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; line-height: 1.15; min-width: 58px; }
+.ex2-v b { font-family: var(--f-display); font-size: 1.2rem; font-weight: 700; font-variant-numeric: tabular-nums; direction: ltr; }
+.ex2-v small { font-size: 0.7rem; color: var(--muted); }
+.ex2-d { margin-top: 2px; font-size: 0.7rem; font-weight: 700; color: var(--muted); }
+.ex2-d.up { color: var(--accent); }
+.ex2-d.down { color: var(--muscle-ink); }
+.ex2 .spark { flex-shrink: 0; }
+.ex2.nodata .ex2-h { opacity: 0.7; }
+.ex2.nodata .ex2-v small { max-width: 110px; text-align: end; }
+.ex2-c { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; padding-inline-start: 60px; }
+.c2 { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); font-size: 0.74rem; color: var(--muted); }
+.c2 b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.c2 svg { width: 13px; height: 13px; }
+.c2.warn { background: var(--muscle-soft); color: var(--muscle-ink); }
+.c2.warn b { color: inherit; }
+.c2.good { background: var(--accent-tint); color: var(--accent); font-weight: 600; }
+.ex2-chart { margin-top: 10px; }
+@media (max-width: 420px) { .ex2 .spark { display: none; } .ex2-c { padding-inline-start: 0; } }
 
 /* sheets opened over the progress page */
 body.dash-on .scrim, body.lib-on .scrim { z-index: 72; }
@@ -2103,6 +2159,9 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
   <label class="pe-field"><span>اسم البرنامج</span><input id="peName" type="text" maxlength="40" autocomplete="off" enterkeyhint="done"></label>
   <div class="pe-rounds"><span><b>الجولات في الجلسة</b><small>كم مرة تمر على التمارين</small></span>
     <div class="stepper"><button type="button" data-act="pe-rounds" data-v="-1" aria-label="أقل">−</button><b id="peRounds"></b><button type="button" data-act="pe-rounds" data-v="1" aria-label="أكثر">+</button></div>
+  </div>
+  <div class="pe-rounds"><span><b>الجلسات في اليوم</b><small>حسب وصفة أخصائيك</small></span>
+    <div class="stepper"><button type="button" data-act="pe-perday" data-v="-1" aria-label="أقل">−</button><b id="pePerDay"></b><button type="button" data-act="pe-perday" data-v="1" aria-label="أكثر">+</button></div>
   </div>
   <h3 class="pe-h">تمارين البرنامج <small id="peCount"></small></h3>
   <ol class="pe-items" id="peItems"></ol>
@@ -2789,7 +2848,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
   const PKEY = 'physio-programs-v1';
   const PID_RE = /^[a-z0-9]{1,40}$/i;
   const DEFAULT_PROG = {
-    id: 'hipknee', name: 'برنامج الورك والركبة', rounds: 3,
+    id: 'hipknee', name: 'برنامج الورك والركبة', rounds: 3, perDay: 1,
     items: [[1, 10], [2, 12], [3, 30], [4, 15], [5, 15], [6, 10], [7, 30], [8, 30]].map(a => ({ ex: a[0], t: a[1] }))
   };
   function cleanProg(p, keepId) {
@@ -2804,7 +2863,8 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     if (!items.length) return null;
     const name = String(p.name || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'برنامج بدون اسم';
     const rounds = typeof p.rounds === 'number' && isFinite(p.rounds) && p.rounds > 0 ? Math.min(Math.round(p.rounds), 10) : 0;
-    return { id: keepId && typeof p.id === 'string' && PID_RE.test(p.id) ? p.id : newId(), name, rounds, items };
+    const perDay = p.perDay === undefined ? 1 : typeof p.perDay === 'number' && isFinite(p.perDay) && p.perDay > 0 ? Math.min(Math.round(p.perDay), 4) : 0;
+    return { id: keepId && typeof p.id === 'string' && PID_RE.test(p.id) ? p.id : newId(), name, rounds, perDay, items };
   }
   function loadProgs() {
     let o = null;
@@ -2836,7 +2896,8 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     return out;
   }
   const fmtTarget = (ex, t) => (!t ? 'بدون هدف' : ex.tool === 'hold' ? fmt(t) : t + ' تكرار');
-  const progMeta = p => p.items.length + (p.items.length > 10 ? ' تمرين' : p.items.length > 2 ? ' تمارين' : p.items.length === 2 ? ' تمرينين' : ' تمرين') + (p.rounds ? ' · ' + roundsAr(p.rounds) : '');
+  const perDayAr = n => (n === 1 ? 'مرة باليوم' : n === 2 ? 'مرتين باليوم' : n + ' مرات باليوم');
+  const progMeta = p => p.items.length + (p.items.length > 10 ? ' تمرين' : p.items.length > 2 ? ' تمارين' : p.items.length === 2 ? ' تمرينين' : ' تمرين') + (p.rounds ? ' · ' + roundsAr(p.rounds) : '') + (p.perDay ? ' · ' + perDayAr(p.perDay) : '');
 
   /* ---------- share links ---------- */
   function b64url(str) {
@@ -2852,7 +2913,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     return new TextDecoder().decode(bytes);
   }
   function shareUrl(p) {
-    const payload = { v: 1, n: p.name, r: p.rounds || 0, i: p.items.map(it => [it.ex, it.t || 0]) };
+    const payload = { v: 1, n: p.name, r: p.rounds || 0, d: p.perDay || 0, i: p.items.map(it => [it.ex, it.t || 0]) };
     return location.origin + location.pathname + '#p=' + b64url(JSON.stringify(payload));
   }
   function progFromHash(h) {
@@ -2861,10 +2922,10 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     try {
       const o = JSON.parse(unb64url(m[1]));
       if (!o || o.v !== 1 || !Array.isArray(o.i)) return null;
-      return cleanProg({ name: o.n, rounds: o.r, items: o.i.map(a => ({ ex: Array.isArray(a) ? a[0] : null, t: Array.isArray(a) ? a[1] : 0 })) }, false);
+      return cleanProg({ name: o.n, rounds: o.r, perDay: typeof o.d === 'number' ? o.d : 1, items: o.i.map(a => ({ ex: Array.isArray(a) ? a[0] : null, t: Array.isArray(a) ? a[1] : 0 })) }, false);
     } catch (e) { return null; }
   }
-  const sameProg = (a, b) => a.name === b.name && a.rounds === b.rounds && JSON.stringify(a.items) === JSON.stringify(b.items);
+  const sameProg = (a, b) => a.name === b.name && a.rounds === b.rounds && a.perDay === b.perDay && JSON.stringify(a.items) === JSON.stringify(b.items);
 
   function sideSum(ex, s) {
     if (ex.tool === 'hold') {
@@ -5791,7 +5852,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
   /* ---------- editor ---------- */
   function openEditor(id, from) {
     const src = id ? progById(id) : null;
-    pe = src ? JSON.parse(JSON.stringify(src)) : { id: null, name: '', rounds: 3, items: [] };
+    pe = src ? JSON.parse(JSON.stringify(src)) : { id: null, name: '', rounds: 3, perDay: 1, items: [] };
     peDelArmed = false;
     $('peTitle').textContent = src ? 'تعديل البرنامج' : 'برنامج جديد';
     $('peName').value = pe.name;
@@ -5803,6 +5864,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
   function renderEditor() {
     pe.name = $('peName').value;
     $('peRounds').textContent = pe.rounds || 'بدون';
+    $('pePerDay').textContent = pe.perDay || 'بدون';
     $('peCount').textContent = pe.items.length ? pe.items.length + ' من ' + EX.length : '';
     $('peItems').innerHTML = pe.items.length ? pe.items.map((it, i) => {
       const ex = exById(it.ex), hold = ex.tool === 'hold';
@@ -5839,6 +5901,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
       it.t = clamp((it.t || 0) + Number(b.getAttribute('data-v')) * step, 0, ex.tool === 'hold' ? 600 : 100);
     }
     else if (act === 'pe-rounds') pe.rounds = clamp((pe.rounds || 0) + Number(b.getAttribute('data-v')), 0, 10);
+    else if (act === 'pe-perday') pe.perDay = clamp((pe.perDay || 0) + Number(b.getAttribute('data-v')), 0, 4);
     else if (act === 'pe-save') { saveEditor(); return; }
     else if (act === 'pe-dup') {
       pe.name = $('peName').value;
@@ -6027,7 +6090,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
       if (ex.tool === 'reps') reps += tot;
       per[ex.id] = { done: ok, reps: tot, best, count: cnt, bySide };
     });
-    return { done, reps, any, per, goal, log: logStats(rec) };
+    return { done, reps, any, per, goal, log: logStats(rec), dose: rec ? doseOf(rec) : null };
   }
   // Sessions, sets and timed holds for one day (null for days logged before sets were kept)
   function logStats(rec) {
@@ -6047,34 +6110,36 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
   function daysSource() { return sampleMode ? (sampleDays || (sampleDays = makeSample())) : hist.days; }
 
   // A realistic year of practice for previewing the page. Never saved.
+  // A believable year: the current program, missed days, a weaker left leg in the clamshell,
+  // reps that fade by the last round of the leg raise, a calf stretch that often gets skipped.
   function makeSample() {
     let seed = 20261128, sq = 0;
     const rnd = () => (seed = (seed * 48271) % 2147483647) / 2147483647;
-    const days = {}, end = pd(today()), N = 300;
+    const P = activeProg(), days = {}, end = pd(today()), N = 300;
     for (let i = N; i >= 0; i--) {
       const p = 1 - i / N, day = addD(end, -i);
-      if (rnd() > 0.5 + 0.42 * p) continue;
+      if (rnd() > 0.5 + 0.38 * p) continue;
       const L = newLog();
       const starts = [7 * 60 + rnd() * 80];
-      if (rnd() < 0.3 + 0.35 * p) starts.push(19 * 60 + rnd() * 120);
+      if (P.perDay > 1 || rnd() < 0.12) starts.push(19 * 60 + rnd() * 120);
       starts.forEach(min => {
         let t = day.getTime() + min * 60000;
-        const sid = 'x' + (sq++).toString(36), ses = { id: sid, start: t, end: 0, rounds: [] };
-        const nR = 2 + (rnd() < 0.25 + 0.4 * p ? 1 : 0);
+        const sid = 'x' + (sq++).toString(36), ses = { id: sid, start: t, end: 0, rounds: [], prog: P.id, pname: P.name };
+        const nR = Math.max(1, (P.rounds || 3) - (rnd() < 0.32 - 0.2 * p ? 1 : 0));
+        const skip = {};
+        P.items.forEach(it => { skip[it.ex] = rnd() < (it.ex === 8 ? 0.4 : 0.05); });
+        const cap = 0.72 + 0.38 * p;
         for (let r = 1; r <= nR; r++) {
           ses.rounds.push(t);
-          EX.forEach(ex => {
-            if (rnd() < 0.06 + 0.12 * (1 - p)) return;
+          P.items.forEach(it => {
+            const ex = exById(it.ex);
+            if (!ex || skip[ex.id]) return;
+            const base = it.t || (ex.tool === 'hold' ? 30 : 12);
             sidesOf(ex).forEach(sd => {
-              let v;
-              if (ex.tool === 'hold') {
-                const base = ex.id === 3 ? 20 + 58 * p : ex.id === 7 ? 28 + 64 * p : 30 + 42 * p;
-                v = Math.max(8, Math.round(base + (rnd() - 0.5) * 16 - (r - 1) * 3));
-              } else {
-                v = Math.round(9 + 9 * p + (rnd() - 0.5) * 5 - (r - 1) * 1.2);
-                if (ex.id === 5 && sd === 'L') v = Math.round(v * (0.74 + 0.22 * p));
-                v = Math.max(4, v);
-              }
+              const fade = 1 - (ex.id === 1 ? 0.12 : ex.id === 3 ? 0.07 : 0.03) * (r - 1);
+              const weak = ex.id === 5 && sd === 'L' ? 0.8 + 0.06 * p : 1;
+              let v = base * cap * fade * weak * (0.9 + rnd() * 0.2);
+              v = ex.tool === 'hold' ? Math.max(8, Math.round(v)) : Math.max(3, Math.round(v));
               const dur = ex.tool === 'hold' ? v * 1000 : v * 2500;
               L.sets.push({ id: 's' + (sq++).toString(36), ex: ex.id, side: sd, k: ex.tool === 'hold' ? 't' : 'r', v, t, u: t + dur, src: 'sample', ses: sid, r });
               t += dur + 15000 + rnd() * 25000;
@@ -6100,7 +6165,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     const list = [];
     for (let dt = start; dt <= end; dt = addD(dt, 1)) {
       const k = dk(dt), rec = days[k];
-      list.push({ k, dt, st: rec ? dayStats(rec) : null, before: !first || dt < first });
+      list.push({ k, dt, rec, st: rec ? dayStats(rec) : null, before: !first || dt < first });
     }
     return { days, keys, first, end, start, list };
   }
@@ -6154,37 +6219,185 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     return { cur: curS, best };
   }
 
+  /* ==========================================================================
+     WHAT A PHYSIO LOOKS AT
+     1. Adherence: how much of the prescribed dose you did (sessions × rounds × target).
+     2. Progress: what you manage per round, early in the period against now, against the target.
+     3. Flags: one leg weaker, reps falling away across rounds, an exercise skipped, ready to progress.
+     ========================================================================== */
+  // The program a day ran (first session's), else the one in use now
+  function dayProg(rec) {
+    const L = rec && rec.log;
+    const s = L && Array.isArray(L.sessions) ? L.sessions.find(x => x.prog && progById(x.prog)) : null;
+    return s ? progById(s.prog) : activeProg();
+  }
+  // Share of the day's prescribed volume that was done (each exercise and leg capped at 100%)
+  function doseOf(rec) {
+    const p = dayProg(rec), d = (rec && rec.d) || {}, L = rec && rec.log;
+    let need = 0, got = 0;
+    p.items.forEach(it => {
+      const ex = exById(it.ex);
+      if (!ex || !it.t) return;
+      sidesOf(ex).forEach(sd => {
+        const vol = it.t * Math.max(1, p.rounds || 1) * Math.max(1, p.perDay || 1);
+        let done;
+        if (ex.tool === 'hold') {
+          done = L && Array.isArray(L.sets) ? L.sets.reduce((a, x) => a + (x.ex === ex.id && x.side === sd && x.k === 't' ? x.v : 0), 0) : 0;
+          const b = L && L.base && L.base[ex.id] && L.base[ex.id][sd];
+          const o = !L ? (d[ex.id] || {})[sd] : b;
+          if (o && typeof o === 'object') done += (o.best || 0) * (o.n || 0);
+        } else {
+          const v = (d[ex.id] || d[String(ex.id)] || {})[sd];
+          done = typeof v === 'number' ? v : 0;
+        }
+        need += vol;
+        got += Math.min(done, vol);
+      });
+    });
+    return need ? { pct: got / need, perDay: p.perDay || 0, prog: p } : null;
+  }
+
+  // Every set logged inside a session in the period, with the target it was done against
+  function roundSetsIn(eff) {
+    const out = [];
+    eff.forEach(x => {
+      const rec = x.rec, L = rec && rec.log;
+      if (!L || !Array.isArray(L.sets) || !Array.isArray(L.sessions)) return;
+      L.sessions.forEach(s => {
+        const p = (s.prog && progById(s.prog)) || activeProg();
+        L.sets.forEach(st => {
+          if (st.ses !== s.id) return;
+          const it = p.items.find(i => i.ex === st.ex);
+          out.push({ ex: st.ex, side: st.side, k: st.k, v: st.v, r: st.r, ses: s.id, t: st.t, day: x.k, dt: x.dt, target: it ? it.t : 0, inProg: !!it, rounds: s.rounds.length });
+        });
+      });
+    });
+    return out.sort((a, b) => a.t - b.t);
+  }
+  function sessionsIn(eff) {
+    const out = [];
+    eff.forEach(x => {
+      const L = x.rec && x.rec.log;
+      if (!L || !Array.isArray(L.sessions)) return;
+      L.sessions.forEach(s => {
+        if (!L.sets.some(st => st.ses === s.id)) return;
+        const p = (s.prog && progById(s.prog)) || activeProg();
+        out.push({ id: s.id, start: s.start, prog: p, items: p.items.map(i => i.ex), rounds: s.rounds.length, ms: s.end ? sessionMs(Object.assign({ pauses: [] }, s)) : null });
+      });
+    });
+    return out.sort((a, b) => a.start - b.start);
+  }
+  const mean = a => (a.length ? a.reduce((s, v) => s + v, 0) / a.length : null);
+
   function exMetrics(info, bks) {
     const eff = info.list.filter(x => !x.before);
-    return EX.map(ex => {
-      let doneDays = 0, practiced = 0, sum = 0, best = 0, cnt = 0, lgDays = 0, lgSets = 0, lgSum = 0, lgT = 0;
-      const side = { R: 0, L: 0 };
-      eff.forEach(x => {
-        if (!x.st) return;
-        const lp = x.st.log && x.st.log.per[ex.id];
-        if (lp) { lgDays++; lgSets += lp.rsets; lgSum += lp.rsum; lgT += lp.tsum; }
-        const p = x.st.per[ex.id];
-        if (p.done) doneDays++;
-        if (ex.tool === 'reps' ? p.reps > 0 : p.count > 0) practiced++;
-        if (ex.tool === 'hold') { best = Math.max(best, p.best); cnt += p.count; }
-        else {
-          sum += ex.tool === 'reps' ? p.reps : p.count;
-          if (ex.sides) { side.R += p.bySide.R || 0; side.L += p.bySide.L || 0; }
+    const sets = roundSetsIn(eff), sess = sessionsIn(eff);
+    const order = PX.slice();
+    EX.forEach(ex => { if (!order.includes(ex) && sets.some(s => s.ex === ex.id)) order.push(ex); });
+    return order.map(ex => {
+      const kind = ex.tool === 'hold' ? 't' : 'r';
+      const mine = sets.filter(s => s.ex === ex.id && s.k === kind);
+      const m = { ex, n: mine.length, target: targetOf(ex.id) };
+      if (!mine.length) return m;
+      // one number per session: the average round (both legs together)
+      const bySes = {};
+      mine.forEach(s => { (bySes[s.ses] || (bySes[s.ses] = [])).push(s); });
+      const sesIds = Object.keys(bySes).sort((a, b) => bySes[a][0].t - bySes[b][0].t);
+      const sesAvg = sesIds.map(id => mean(bySes[id].map(s => s.v)));
+      const q = Math.max(1, Math.min(3, Math.floor(sesAvg.length / 3)));
+      m.now = mean(sesAvg.slice(-q));
+      m.start = sesAvg.length >= 4 ? mean(sesAvg.slice(0, q)) : null;
+      m.change = m.start ? (m.now - m.start) / m.start : null;
+      const withT = mine.filter(s => s.target > 0);
+      m.hit = withT.length ? withT.filter(s => s.v >= s.target).length / withT.length : null;
+      // the last five sessions all on target: time to talk about progressing
+      const last5 = sesIds.slice(-5);
+      m.ready = last5.length === 5 && last5.every(id => bySes[id].every(s => s.target > 0 && s.v >= s.target));
+      if (ex.sides) {
+        const r = mean(mine.filter(s => s.side === 'R').map(s => s.v)), l = mean(mine.filter(s => s.side === 'L').map(s => s.v));
+        if (r && l && mine.filter(s => s.side === 'R').length >= 3 && mine.filter(s => s.side === 'L').length >= 3) {
+          m.lsi = Math.min(r, l) / Math.max(r, l);
+          m.weak = r < l ? 'R' : 'L';
         }
+      }
+      // first round against last round in the same session
+      const drops = [];
+      sesIds.forEach(id => {
+        sidesOf(ex).forEach(sd => {
+          const ss = bySes[id].filter(s => s.side === sd).sort((a, b) => a.r - b.r);
+          if (ss.length >= 2 && ss[0].v > 0) drops.push((ss[0].v - ss[ss.length - 1].v) / ss[0].v);
+        });
       });
-      const series = bks.map(b => {
-        if (!b.eff) return null;
-        const items = b.items.filter(x => !x.before && x.st);
-        if (ex.tool === 'hold') {
-          let m = 0;
-          items.forEach(x => { m = Math.max(m, x.st.per[ex.id].best); });
-          return m || null;
-        }
-        const vals = items.map(x => (ex.tool === 'reps' ? x.st.per[ex.id].reps : x.st.per[ex.id].count)).filter(v => v > 0);
-        return vals.length ? vals.reduce((a, v) => a + v, 0) / vals.length : null;
+      m.fatigue = drops.length >= 3 ? mean(drops) : null;
+      const planned = sess.filter(s => s.items.includes(ex.id));
+      m.missed = planned.length >= 4 ? planned.filter(s => !bySes[s.id]).length / planned.length : null;
+      m.missedN = planned.length >= 4 ? [planned.filter(s => !bySes[s.id]).length, planned.length] : null;
+      m.series = bks.map(b => {
+        const v = mine.filter(s => s.dt >= b.from && s.dt <= b.to).map(s => s.v);
+        return v.length ? mean(v) : null;
       });
-      return { ex, pct: eff.length ? doneDays / eff.length : 0, doneDays, practiced, sum, best, cnt, side, series, lgDays, lgSets, lgSum, lgT };
+      return m;
     });
+  }
+  const fmtVal = (ex, v) => (ex.tool === 'hold' ? fmt(Math.round(v)) : String(Math.round(v)));
+  const unitOf = ex => (ex.tool === 'hold' ? '' : ' تكرار');
+  const sideAr = sd => (sd === 'L' ? 'اليسرى' : 'اليمنى');
+  function nextTarget(ex, t) { return ex.tool === 'hold' ? t + (t >= 45 ? 15 : 10) : t + Math.max(2, Math.round(t * 0.15)); }
+
+  // Short, ranked notes: what needs attention first, then what went well
+  function insightsFor(ctx, mets) {
+    const out = [];
+    const add = (kind, title, body, ex) => out.push({ kind, title, body, ex });
+    if (ctx.pct != null) {
+      if (ctx.pct < 0.6) {
+        const sesShort = ctx.sesNeed && ctx.sesDone / ctx.sesNeed < 0.8;
+        add('warn', 'التزامك ' + Math.round(ctx.pct * 100) + '% من البرنامج',
+          sesShort ? 'سويت ' + ctx.sesDone + ' جلسة من ' + ctx.sesNeed + ' مطلوبة. التحسّن يحتاج التزام 80% أو أكثر، فحاول ما تفوّت جلسات.'
+                   : 'الجلسات شبه كاملة، بس الجولات أو التكرار أقل من الهدف. كمّل جولات البرنامج كاملة.');
+      } else if (ctx.delta != null && ctx.delta <= -15) {
+        add('warn', 'التزامك نزل ' + (-ctx.delta) + ' نقطة', 'عن الفترة اللي قبلها. إذا السبب ألم أو تعب، بلّغ أخصائيك.');
+      }
+    }
+    mets.filter(m => m.lsi != null && m.lsi < 0.9).sort((a, b) => a.lsi - b.lsi).forEach(m => {
+      add('warn', m.ex.name + ': ' + sideAr(m.weak) + ' أضعف بـ ' + Math.round((1 - m.lsi) * 100) + '%',
+        'الفرق الطبيعي بين الرجلين أقل من 10%. ابدأ بالرجل الأضعف وخلّ الثانية توقف على نفس العدد، وإذا ما قلّ الفرق خلال أسبوعين بلّغ أخصائيك.', m.ex.id);
+    });
+    mets.filter(m => m.missed != null && m.missed >= 0.3).forEach(m => {
+      add('warn', m.ex.name + ': فاتك في ' + m.missedN[0] + ' من ' + m.missedN[1] + (m.missedN[1] <= 10 ? ' جلسات' : ' جلسة'), 'هو جزء من برنامجك، فلا تتخطاه.', m.ex.id);
+    });
+    mets.filter(m => m.change != null && m.change <= -0.15).forEach(m => {
+      add('warn', m.ex.name + ': نزل أداؤك ' + Math.round(-m.change * 100) + '%',
+        'من ' + fmtVal(m.ex, m.start) + ' إلى ' + fmtVal(m.ex, m.now) + unitOf(m.ex) + ' بالجولة. إذا يصاحبه ألم بلّغ أخصائيك.', m.ex.id);
+    });
+    mets.filter(m => m.fatigue != null && m.fatigue >= 0.2).forEach(m => {
+      add('info', m.ex.name + ': ينزل ' + Math.round(m.fatigue * 100) + '% من أول جولة لآخر جولة',
+        'هذي علامة تعب. خذ راحة دقيقة إلى دقيقتين بين الجولات، وإذا استمر ناقش مع أخصائيك تقليل الهدف.', m.ex.id);
+    });
+    mets.filter(m => m.ready && m.target).slice(0, 2).forEach(m => {
+      add('good', m.ex.name + ': حققت الهدف في آخر 5 جلسات',
+        'جاهز للتدرّج. ناقش مع أخصائيك رفع الهدف من ' + fmtTarget(m.ex, m.target) + ' إلى ' + fmtTarget(m.ex, nextTarget(m.ex, m.target)) + '.', m.ex.id);
+    });
+    mets.filter(m => m.change != null && m.change >= 0.15 && !m.ready).forEach(m => {
+      add('good', m.ex.name + ': تحسّنت ' + Math.round(m.change * 100) + '%', 'من ' + fmtVal(m.ex, m.start) + ' إلى ' + fmtVal(m.ex, m.now) + unitOf(m.ex) + ' بالجولة.', m.ex.id);
+    });
+    if (ctx.pct != null && ctx.pct >= 0.8) add('good', 'التزامك ' + Math.round(ctx.pct * 100) + '% من البرنامج', 'هذا مستوى الالتزام اللي يجيب نتيجة. كمّل.');
+    const rank = { warn: 0, info: 1, good: 2 };
+    return out.sort((a, b) => rank[a.kind] - rank[b.kind]).slice(0, 5);
+  }
+  const INS_ICON = {
+    warn: '<path d="M12 4l9 16H3z"></path><path d="M12 10v4M12 17h.01"></path>',
+    info: '<circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path>',
+    good: '<path d="M5 12.5l4.5 4.5L19 7.5"></path>'
+  };
+  const INS_LABEL = { warn: 'تنبيه', info: 'ملاحظة', good: 'تقدّم' };
+  function insightsHtml(list, hasRounds) {
+    if (!list.length) {
+      return '<p class="ins-none">' + (hasRounds ? 'كل شي ماشي حسب البرنامج في هالفترة.' : 'الملاحظات تبدأ بعد كم جلسة مسجّلة بالجولات.') + '</p>';
+    }
+    return '<ul class="ins">' + list.map(i =>
+      '<li class="' + i.kind + '"><span class="ins-ic">' + ICON(INS_ICON[i.kind]) + '</span><div class="ins-t"><span class="ins-k">' + INS_LABEL[i.kind] + '</span><b>' + esc(i.title) + '</b><p>' + esc(i.body) + '</p>' +
+      (i.ex ? '<button type="button" class="linkbtn" data-act="dash-ex" data-ex="' + i.ex + '">التفاصيل</button>' : '') + '</div></li>'
+    ).join('') + '</ul>';
   }
 
   /* ---------- tooltip ---------- */
@@ -6218,34 +6431,37 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
       'L' + (x + w - r) + ',' + y + 'Q' + (x + w) + ',' + y + ' ' + (x + w) + ',' + (y + r) + 'L' + (x + w) + ',' + (y + h) + 'Z';
   }
 
-  // Completed exercises (0-8) per day, or the daily average per week/month. Time runs right to left.
+  // Share of the program done (0–100%) per day, or the average per week/month. Time runs right to left.
   function barChart(el, bks, opt) {
     const W = Math.max(260, Math.round(el.clientWidth || 320)), H = 196;
-    const padT = 22, padB = 26, padR = 24, padL = 4;
+    const padT = 22, padB = 26, padR = 34, padL = 4;
     const pw = W - padR - padL, ph = H - padT - padB, n = bks.length, slot = pw / n;
     const bw = Math.max(3, Math.min(24, slot * 0.62));
-    const y = v => padT + ph - (v / 8) * ph;
+    const vals = bks.map(opt.val);
+    const y = v => padT + ph - Math.min(1, v) * ph;
     const cx = i => W - padR - (i + 0.5) * slot;
     let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="group" aria-label="' + esc(opt.title) + '">';
-    [0, 2, 4, 6, 8].forEach(t => {
+    [0, 0.5, 1].forEach(t => {
       const yy = Math.round(y(t)) + 0.5;
       s += '<line class="' + (t === 0 ? 'base-l' : 'grid-l') + '" x1="' + padL + '" x2="' + (W - padR + 6) + '" y1="' + yy + '" y2="' + yy + '"></line>';
-      s += '<text class="ax" x="' + (W - 2) + '" y="' + (yy + 4) + '" text-anchor="end">' + t + '</text>';
+      s += '<text class="ax" x="' + (W - 2) + '" y="' + (yy + 4) + '" text-anchor="end">' + Math.round(t * 100) + '%</text>';
     });
     const every = Math.max(1, Math.ceil(n / Math.max(2, Math.floor(pw / 44))));
     bks.forEach((b, i) => {
-      if (b.avgDone != null && b.avgDone > 0) {
-        const top = y(b.avgDone);
-        s += '<path class="bar-m" data-i="' + i + '" d="' + barPath(cx(i) - bw / 2, top, bw, padT + ph - top, 4) + '"></path>';
+      const v = vals[i];
+      if (v != null && v > 0) {
+        const top = y(v);
+        s += '<path class="bar-m' + (v >= 0.8 ? '' : ' low') + '" data-i="' + i + '" d="' + barPath(cx(i) - bw / 2, top, bw, padT + ph - top, 4) + '"></path>';
       }
       if ((n - 1 - i) % every === 0) s += '<text class="ax" x="' + cx(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(opt.xl(b)) + '</text>';
     });
-    const last = bks[n - 1];
-    if (last && last.avgDone > 0) {
-      s += '<text class="ax-strong" x="' + cx(n - 1) + '" y="' + (y(last.avgDone) - 7) + '" text-anchor="middle">' + fmtAvg(last.avgDone) + '</text>';
-    }
+    const ry = Math.round(y(0.8)) + 0.5;
+    s += '<line class="ref-l" x1="' + padL + '" x2="' + (W - padR + 6) + '" y1="' + ry + '" y2="' + ry + '"></line>';
+    s += '<text class="ax ref-t" x="' + (W - 2) + '" y="' + (ry + 4) + '" text-anchor="end">80%</text>';
+    const lv = vals[n - 1];
+    if (lv != null && lv > 0) s += '<text class="ax-strong" x="' + cx(n - 1) + '" y="' + (y(lv) - 7) + '" text-anchor="middle">' + Math.round(lv * 100) + '%</text>';
     bks.forEach((b, i) => {
-      s += '<rect class="hit" tabindex="0" role="img" data-i="' + i + '" x="' + (cx(i) - slot / 2) + '" y="' + padT + '" width="' + slot + '" height="' + (ph + padB) + '" aria-label="' + esc(opt.aria(b)) + '"></rect>';
+      s += '<rect class="hit" tabindex="0" role="img" data-i="' + i + '" x="' + (cx(i) - slot / 2) + '" y="' + padT + '" width="' + slot + '" height="' + (ph + padB) + '" aria-label="' + esc(opt.aria(b, vals[i])) + '"></rect>';
     });
     el.innerHTML = s + '</svg>';
     const show = h => {
@@ -6254,7 +6470,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
       el.classList.add('has-hover');
       const bar = el.querySelector('.bar-m[data-i="' + i + '"]');
       if (bar) bar.classList.add('on');
-      const tv = opt.tip(b);
+      const tv = opt.tip(b, vals[i]);
       showTipRect((bar || h).getBoundingClientRect(), tv[0], tv[1]);
     };
     el.querySelectorAll('.hit').forEach(h => {
@@ -6266,32 +6482,44 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     });
   }
 
+  function niceRepStep(max) {
+    const steps = [1, 2, 5, 10, 20, 50];
+    for (const st of steps) if (max / st <= 4) return st;
+    return 100;
+  }
   function niceStep(max) {
     const steps = [5, 10, 15, 30, 60, 120, 300];
     for (const st of steps) if (max / st <= 4) return st;
     return 600;
   }
 
-  // Best hold time per day/week/month, one series. Crosshair snaps to the nearest period.
-  function lineChart(el, bks, id, opt) {
-    const W = Math.max(260, Math.round(el.clientWidth || 320)), H = 156;
+  // One value per day/week/month (average round), with the target as a dashed line. Crosshair snaps to the nearest period.
+  function lineChart(el, bks, opt) {
+    const id = opt.key;
+    const W = Math.max(260, Math.round(el.clientWidth || 320)), H = 170;
     const padT = 22, padB = 26, padR = 38, padL = 8;
     const pw = W - padR - padL, ph = H - padT - padB, n = bks.length;
-    const vals = bks.map(b => b.hold(id));
+    const vals = opt.vals;
     const real = vals.filter(v => v != null);
     if (!real.length) {
-      el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="ما فيه تسجيل ثبات"><line class="base-l" x1="' + padL + '" x2="' + (W - padR) + '" y1="' + (padT + ph + 0.5) + '" y2="' + (padT + ph + 0.5) + '"></line><text class="empty-note" x="' + (W / 2) + '" y="' + (H / 2) + '" text-anchor="middle">ما فيه تسجيل ثبات في هالفترة</text></svg>';
+      el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc(opt.empty) + '"><line class="base-l" x1="' + padL + '" x2="' + (W - padR) + '" y1="' + (padT + ph + 0.5) + '" y2="' + (padT + ph + 0.5) + '"></line><text class="empty-note" x="' + (W / 2) + '" y="' + (H / 2) + '" text-anchor="middle">' + esc(opt.empty) + '</text></svg>';
       return;
     }
-    const st = niceStep(Math.max(...real) * 1.1);
-    const top = Math.max(st, Math.ceil((Math.max(...real) * 1.05) / st) * st);
+    const hiV = Math.max(...real, opt.target || 0);
+    const st = opt.step(hiV * 1.1);
+    const top = Math.max(st, Math.ceil((hiV * 1.08) / st) * st);
     const y = v => padT + ph - (v / top) * ph;
     const x = i => (n > 1 ? W - padR - i * (pw / (n - 1)) : W - padR - pw / 2);
     let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc(opt.title) + '">';
     for (let t = 0; t <= top + 0.001; t += st) {
       const yy = Math.round(y(t)) + 0.5;
       s += '<line class="' + (t === 0 ? 'base-l' : 'grid-l') + '" x1="' + padL + '" x2="' + (W - padR + 6) + '" y1="' + yy + '" y2="' + yy + '"></line>';
-      s += '<text class="ax" x="' + (W - 2) + '" y="' + (yy + 4) + '" text-anchor="end">' + fmt(t) + '</text>';
+      s += '<text class="ax" x="' + (W - 2) + '" y="' + (yy + 4) + '" text-anchor="end">' + opt.fmt(t) + '</text>';
+    }
+    if (opt.target) {
+      const ty = Math.round(y(opt.target)) + 0.5;
+      s += '<line class="ref-l" x1="' + padL + '" x2="' + (W - padR + 6) + '" y1="' + ty + '" y2="' + ty + '"></line>';
+      s += '<text class="ax ref-t" x="' + (W - padR - 36) + '" y="' + (ty - 6) + '" text-anchor="middle">الهدف ' + opt.fmt(opt.target) + '</text>';
     }
     const every = Math.max(1, Math.ceil(n / Math.max(2, Math.floor(pw / 48))));
     bks.forEach((b, i) => {
@@ -6306,7 +6534,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     }
     const lp = pts[pts.length - 1];
     s += '<circle class="dot-m" cx="' + lp[0] + '" cy="' + lp[1] + '" r="4.5"></circle>';
-    s += '<text class="ax-strong" x="' + lp[0] + '" y="' + (lp[1] - 10) + '" text-anchor="middle">' + fmt(lp[3]) + '</text>';
+    s += '<text class="ax-strong" x="' + lp[0] + '" y="' + (lp[1] - 10) + '" text-anchor="middle">' + opt.fmt(lp[3]) + '</text>';
     s += '<line class="xhair" id="xh-' + id + '" x1="0" x2="0" y1="' + padT + '" y2="' + (padT + ph) + '" visibility="hidden"></line>';
     s += '<circle class="dot-m" id="xd-' + id + '" cx="0" cy="0" r="4.5" visibility="hidden"></circle>';
     s += '<rect class="hit" tabindex="0" x="' + padL + '" y="' + padT + '" width="' + (W - padL - padR + 10) + '" height="' + (ph + padB) + '" aria-label="' + esc(opt.title + '. استخدم الأسهم للتنقل بين الفترات') + '"></rect>';
@@ -6321,10 +6549,10 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
       const r = svg.getBoundingClientRect(), sc = r.width / W;
       if (v != null) {
         xd.setAttribute('cx', xx); xd.setAttribute('cy', y(v)); xd.setAttribute('visibility', 'visible');
-        showTipRect({ left: r.left + xx * sc, width: 0, top: r.top + y(v) * sc, bottom: r.top + y(v) * sc }, fmt(v), opt.tipLabel(b));
+        showTipRect({ left: r.left + xx * sc, width: 0, top: r.top + y(v) * sc, bottom: r.top + y(v) * sc }, opt.fmt(v), opt.tipLabel(b));
       } else {
         xd.setAttribute('visibility', 'hidden');
-        showTipRect({ left: r.left + xx * sc, width: 0, top: r.top + padT * sc, bottom: r.top + padT * sc }, '—', 'ما سجّلت ثبات · ' + opt.tipLabel(b));
+        showTipRect({ left: r.left + xx * sc, width: 0, top: r.top + padT * sc, bottom: r.top + padT * sc }, '—', 'ما فيه جولات · ' + opt.tipLabel(b));
       }
     };
     const fromEvent = e => {
@@ -6344,23 +6572,25 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     });
   }
 
-  function spark(series) {
+  function spark(series, target) {
     const W = 84, H = 30, pts = [];
     series.forEach((v, i) => { if (v != null) pts.push([i, v]); });
     if (pts.length < 2) return '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"></svg>';
-    const vs = pts.map(p => p[1]), lo = Math.min(...vs), hi = Math.max(...vs), n = series.length;
+    const vs = pts.map(p => p[1]).concat(target ? [target] : []), lo = Math.min(...vs), hi = Math.max(...vs), n = series.length;
     const x = i => W - 4 - (n > 1 ? i * ((W - 8) / (n - 1)) : 0);
     const y = v => (hi === lo ? H / 2 : H - 4 - ((v - lo) / (hi - lo)) * (H - 8));
     const d = pts.map((p, k) => (k ? 'L' : 'M') + x(p[0]).toFixed(1) + ',' + y(p[1]).toFixed(1)).join('');
     const l = pts[pts.length - 1];
-    return '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><path class="spark-l" d="' + d + '"></path><circle class="spark-d" cx="' + x(l[0]).toFixed(1) + '" cy="' + y(l[1]).toFixed(1) + '" r="4"></circle></svg>';
+    const tl = target ? '<line class="spark-t" x1="2" x2="' + (W - 2) + '" y1="' + y(target).toFixed(1) + '" y2="' + y(target).toFixed(1) + '"></line>' : '';
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">' + tl + '<path class="spark-l" d="' + d + '"></path><circle class="spark-d" cx="' + x(l[0]).toFixed(1) + '" cy="' + y(l[1]).toFixed(1) + '" r="4"></circle></svg>';
   }
 
   /* ---------- calendar ---------- */
   function heatLevel(st) {
     if (!st || !st.any) return 'e';
-    const d = st.done;
-    return d >= 8 ? 4 : d >= 5 ? 3 : d >= 3 ? 2 : 1;
+    if (!st.dose) return 4;
+    const p = st.dose.pct;
+    return p >= 1 ? 4 : p >= 0.7 ? 3 : p >= 0.4 ? 2 : 1;
   }
   function heatTextClass(lv) {
     if (lv === 'e') return '';
@@ -6370,9 +6600,9 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
   function cellTip(x) {
     const when = AR_DAYS[x.dt.getDay()] + ' ' + fmtDay(x.dt);
     if (x.before) return ['—', 'قبل بداية تسجيلك · ' + when];
-    if (x.st && x.st.log) return [x.st.done + ' من 8', 'تمارين مكتملة · ' + sesAr(x.st.log.sessions) + ' · ' + when];
     if (!x.st || !x.st.any) return ['راحة', 'ما فيه تمرين · ' + when];
-    return [x.st.done + ' من 8', 'تمارين مكتملة · ' + when];
+    const pc = x.st.dose ? Math.round(Math.min(1, x.st.dose.pct) * 100) + '%' : '✓';
+    return [pc, 'من البرنامج' + (x.st.log ? ' · ' + sesAr(x.st.log.sessions) : '') + ' · ' + when];
   }
 
   function heatmap(el, r, info) {
@@ -6425,9 +6655,9 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
       });
       html += '</div>';
     }
-    html += '<div class="legend"><span>راحة</span><i class="cell-e" style="background:var(--heat-empty)"></i><span class="gap"></span><span>تمارين مكتملة:</span>' +
-      '<i style="background:var(--heat-1)"></i><span>1–2</span><i style="background:var(--heat-2)"></i><span>3–4</span>' +
-      '<i style="background:var(--heat-3)"></i><span>5–7</span><i style="background:var(--heat-4)"></i><span>8</span></div>';
+    html += '<div class="legend"><span>راحة</span><i class="cell-e" style="background:var(--heat-empty)"></i><span class="gap"></span><span>من البرنامج:</span>' +
+      '<i style="background:var(--heat-1)"></i><span>أقل من 40%</span><i style="background:var(--heat-2)"></i><span>40–69%</span>' +
+      '<i style="background:var(--heat-3)"></i><span>70–99%</span><i style="background:var(--heat-4)"></i><span>كامل</span></div>';
     el.innerHTML = html;
     el.querySelectorAll('.cell-hit').forEach(h => {
       const x = byKey[h.getAttribute('data-k')];
@@ -6469,7 +6699,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     if (!anyData) {
       body.innerHTML = '<section class="card empty">' +
         ICON('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>', ' class="big-ic"') +
-        '<h3>ما فيه نتائج للحين</h3><p>كل تكرار تسجّله في التمارين ينحفظ هنا تلقائياً، وتشوف تطوّرك يوم بيوم. وإذا عندك نسخة احتياطية، استرجعها من الأسفل.</p>' +
+        '<h3>ما فيه نتائج للحين</h3><p>ابدأ جلسة وسجّل جولاتك، وهنا بتشوف التزامك بالبرنامج، وتطوّرك في كل تمرين، وأي شي يحتاج انتباه. وإذا عندك نسخة احتياطية، استرجعها من الأسفل.</p>' +
         '<div class="btn-row" style="justify-content:center"><button type="button" class="dbtn primary" data-act="dash-close">ابدأ التمارين</button>' +
         '<button type="button" class="dbtn" data-act="dash-sample-on">معاينة ببيانات تجريبية</button></div></section>';
       renderDataCard();
@@ -6478,128 +6708,142 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
 
     const bks = makeBuckets(r, info);
     const eff = info.list.filter(x => !x.before);
-    const active = eff.filter(x => x.st && x.st.any).length;
-    const pct = eff.length ? active / eff.length : 0;
-    const doneTot = eff.reduce((a, x) => a + (x.st ? x.st.done : 0), 0);
-    const repsTot = eff.reduce((a, x) => a + (x.st ? x.st.reps : 0), 0);
-    const best3 = eff.reduce((a, x) => Math.max(a, x.st ? x.st.per[3].best : 0), 0);
-    const best7 = eff.reduce((a, x) => Math.max(a, x.st ? x.st.per[7].best : 0), 0);
-    const lg = eff.filter(x => x.st && x.st.log).map(x => x.st.log);
-    const lgSes = lg.reduce((a, l) => a + l.sessions, 0);
-    const lgRounded = lg.reduce((a, l) => a + l.rounded, 0), lgRounds = lg.reduce((a, l) => a + l.rounds, 0);
-    const lgTimed = lg.reduce((a, l) => a + l.timed, 0), lgMs = lg.reduce((a, l) => a + l.ms, 0);
+    const dayPct = x => (x.st && x.st.dose ? Math.min(1, x.st.dose.pct) : x.st && !x.st.dose ? (x.st.any ? 1 : 0) : 0);
+    const pct = eff.length ? mean(eff.map(dayPct)) : 0;
+    const sesDone = eff.reduce((a, x) => a + (x.st && x.st.log ? x.st.log.sessions : 0), 0);
+    const sesNeed = eff.reduce((a, x) => a + ((x.st && x.st.dose ? x.st.dose.perDay : activeProg().perDay) || 0), 0);
+    const sess = sessionsIn(eff);
+    const avgRounds = sess.length ? mean(sess.map(s => s.rounds)) : null;
+    const timed = sess.filter(s => s.ms);
+    const avgMs = timed.length ? mean(timed.map(s => s.ms)) : null;
     const sk = streaks(info.days);
+    const prog = activeProg();
 
-    // previous period of the same length, for the delta
-    let delta = '';
+    // the same calculation over the period before, for the change
+    let deltaPts = null, delta = '';
     if (info.first) {
-      let pe = 0, pa = 0;
+      const prev = [];
       for (let i = 1; i <= r.days; i++) {
         const dt = addD(info.start, -i);
         if (dt < info.first) break;
-        pe++;
-        const rec = info.days[dk(dt)];
-        if (rec && dayStats(rec).any) pa++;
+        const rec = info.days[dk(dt)], st = rec ? dayStats(rec) : null;
+        prev.push(dayPct({ st }));
       }
-      if (pe >= 3) {
-        const diff = Math.round((pct - pa / pe) * 100);
-        if (diff > 0) delta = '<span class="delta up">' + ICON('<path d="M12 19V5M6 11l6-6 6 6"></path>') + 'أعلى بـ ' + diff + ' نقطة من الفترة اللي قبلها</span>';
-        else if (diff < 0) delta = '<span class="delta down">' + ICON('<path d="M12 5v14M6 13l6 6 6-6"></path>') + 'أقل بـ ' + (-diff) + ' نقطة من الفترة اللي قبلها</span>';
+      if (prev.length >= 3) {
+        deltaPts = Math.round((pct - mean(prev)) * 100);
+        if (deltaPts > 0) delta = '<span class="delta up">' + ICON('<path d="M12 19V5M6 11l6-6 6 6"></path>') + 'أعلى بـ ' + deltaPts + ' نقطة من الفترة اللي قبلها</span>';
+        else if (deltaPts < 0) delta = '<span class="delta down">' + ICON('<path d="M12 5v14M6 13l6 6 6-6"></path>') + 'أقل بـ ' + (-deltaPts) + ' نقطة من الفترة اللي قبلها</span>';
         else delta = '<span class="delta">' + ICON('<path d="M5 12h14"></path>') + 'نفس مستوى الفترة اللي قبلها</span>';
       }
     }
-
-    const per = r.bucket === 'day' ? 'كل يوم' : r.bucket === 'week' ? 'متوسط يومي لكل أسبوع' : 'متوسط يومي لكل شهر';
-    const holdPer = r.bucket === 'day' ? 'أفضل وقت في كل يوم' : r.bucket === 'week' ? 'أفضل وقت في كل أسبوع' : 'أفضل وقت في كل شهر';
     const mets = exMetrics(info, bks);
+    const ins = insightsFor({ pct, delta: deltaPts, sesDone, sesNeed }, mets);
+    const hasRounds = mets.some(m => m.n);
+    const pctN = Math.round(pct * 100);
 
     let h = '<div class="hero-row">' +
-      '<section class="card hero" aria-label="الالتزام">' +
-        '<span class="lbl">الالتزام في هالفترة</span>' +
-        '<span class="big">' + Math.round(pct * 100) + '<small>%</small></span>' +
-        '<span class="sub">تمرّنت <b>' + active + '</b> يوم من ' + eff.length + '</span>' +
-        '<div class="meter" role="img" aria-label="' + Math.round(pct * 100) + '٪"><i style="width:' + (pct * 100).toFixed(1) + '%"></i></div>' +
+      '<section class="card hero" aria-label="الالتزام بالبرنامج">' +
+        '<span class="lbl">الالتزام بالبرنامج</span>' +
+        '<span class="big">' + pctN + '<small>%</small></span>' +
+        '<span class="sub">من المطلوب في «' + esc(prog.name) + '»</span>' +
+        '<div class="meter goal" role="img" aria-label="' + pctN + '٪، والالتزام الجيد 80٪"><i style="width:' + (pct * 100).toFixed(1) + '%"></i><span class="mk" style="inset-inline-start:80%"></span></div>' +
+        '<span class="hint">الالتزام الجيد 80% أو أكثر</span>' +
         delta +
       '</section>' +
       '<div class="tiles">' +
-        tile(ICON('<path d="M12 3c2 3 5 4.5 5 9a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-7.5z"></path>'), 'السلسلة الحالية', sk.cur, 'يوم', 'الأطول: ' + sk.best + ' يوم') +
-        tile(ICON('<path d="M5 12.5l4.5 4.5L19 7.5"></path>'), 'تمارين مكتملة', fmtNum(doneTot), '', 'من ' + fmtNum(eff.length * 8) + ' ممكنة') +
-        tile(ICON('<path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path>'), 'مجموع التكرارات', fmtNum(repsTot), '', active ? 'متوسط يومي ' + fmtNum(repsTot / active) : '—') +
-        tile(ICON('<circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path>'), 'أطول ثبات', best3 ? fmt(best3) : '—', '', 'ثبات الحشرة الميتة') +
-        tile(ICON('<rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path>'), 'الجلسات في اليوم', lg.length ? fmtAvg(lgSes / lg.length) : '—', '', lg.length ? sesAr(lgSes) + ' خلال ' + (lg.length === 1 ? 'يوم واحد' : lg.length + ' يوم') : 'التفاصيل تبدأ من أول جلسة') +
-        tile(ICON('<path d="M20 12a8 8 0 1 1-2.3-5.6"></path><path d="M20 4v5h-5"></path>'), 'الجولات في الجلسة', lgRounded ? fmtAvg(lgRounds / lgRounded) : '—', '', lgTimed ? 'متوسط مدة الجلسة ' + fmtSpan(lgMs / lgTimed) : lgRounded ? 'مجموع ' + roundsAr(lgRounds) : 'تبدأ من أول جلسة') +
+        tile(ICON('<rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path>'), 'الجلسات', fmtNum(sesDone), sesNeed ? 'من ' + fmtNum(sesNeed) : '', prog.perDay ? 'المطلوب ' + perDayAr(prog.perDay) : 'بدون هدف يومي') +
+        tile(ICON('<path d="M20 12a8 8 0 1 1-2.3-5.6"></path><path d="M20 4v5h-5"></path>'), 'الجولات في الجلسة', avgRounds ? fmtAvg(avgRounds) : '—', avgRounds && prog.rounds ? 'من ' + prog.rounds : '', avgRounds ? 'متوسط ' + sesAr(sess.length) : 'تبدأ من أول جلسة') +
+        tile(ICON('<circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path>'), 'مدة الجلسة', avgMs ? fmtSpan(avgMs) : '—', '', avgMs ? 'متوسط التمرين الفعلي' : 'تبدأ من أول جلسة') +
+        tile(ICON('<path d="M12 3c2 3 5 4.5 5 9a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-7.5z"></path>'), 'الاستمرارية', sk.cur, 'يوم', 'الأطول ' + sk.best + ' يوم') +
       '</div></div>';
 
+    h += '<section class="card"><div class="card-h"><div><h3>الخلاصة</h3><p>اللي يحتاج انتباهك، واللي تحسّن</p></div></div>' + insightsHtml(ins, hasRounds) + '</section>';
+
+    const per = r.bucket === 'day' ? 'كل يوم' : r.bucket === 'week' ? 'متوسط كل أسبوع' : 'متوسط كل شهر';
     h += '<div class="dgrid main">' +
-      '<section class="card"><div class="card-h"><div><h3>التمارين المكتملة</h3><p>' + per + '، من 8 تمارين</p></div>' +
+      '<section class="card"><div class="card-h"><div><h3>الالتزام</h3><p>نسبة المطلوب اللي سويته، ' + per + '</p></div>' +
       '<button type="button" class="linkbtn" data-act="dash-table" aria-expanded="false" aria-controls="tblBox">جدول</button></div>' +
       '<div class="chart" id="cBars"></div><div class="tbl-wrap tbl-scroll" id="tblBox" hidden></div></section>' +
-      '<section class="card"><div class="card-h"><div><h3>أيام التمرين</h3><p>كل مربع يوم، ولونه حسب التمارين المكتملة</p></div></div><div id="cHeat"></div></section>' +
+      '<section class="card"><div class="card-h"><div><h3>أيام التمرين</h3><p>لون كل يوم حسب نسبة البرنامج اللي سويتها. اضغط اليوم تشوف سجله</p></div></div><div id="cHeat"></div></section>' +
       '</div>';
 
-    h += '<div class="holds">' +
-      '<section class="card"><div class="card-h"><div><h3>أطول ثبات: الحشرة الميتة</h3><p>' + holdPer + '</p></div></div><div class="chart" id="cHold3"></div></section>' +
-      '<section class="card"><div class="card-h"><div><h3>أطول إطالة: الكمثرية</h3><p>' + holdPer + '، أفضل رجل</p></div></div><div class="chart" id="cHold7"></div></section>' +
-      '<section class="card"><div class="card-h"><div><h3>أطول إطالة: السمانة</h3><p>' + holdPer + '، أفضل رجل</p></div></div><div class="chart" id="cHold8"></div></section>' +
-      '</div>';
-
-    h += '<section class="card"><div class="card-h"><div><h3>كل تمرين</h3><p>نسبة الأيام اللي خلّصت فيها التمرين كامل، واتجاهه عبر الفترة</p></div></div><div class="exs">' +
+    h += '<section class="card"><div class="card-h"><div><h3>تطوّرك في كل تمرين</h3><p>مستواك بالجولة: أول الفترة مقارنة بالحين، ونسبة تحقيق الهدف. اضغط التمرين تشوف الرسم</p></div></div><div class="exs2">' +
       mets.map(exRow).join('') + '</div></section>';
 
     body.innerHTML = h;
 
     const xl = b => bucketLabel(r, b);
     barChart($('cBars'), bks, {
-      title: 'التمارين المكتملة ' + per,
+      title: 'الالتزام ' + per,
       xl,
-      aria: b => bucketName(r, b) + ': ' + (b.avgDone == null ? 'قبل بداية التسجيل' : fmtAvg(b.avgDone) + ' من 8'),
-      tip: b => {
-        if (b.avgDone == null) return ['—', 'قبل بداية تسجيلك · ' + bucketName(r, b)];
-        if (r.bucket === 'day') return [fmtAvg(b.avgDone) + ' من 8', (b.active ? 'تمارين مكتملة' : 'يوم راحة') + ' · ' + bucketName(r, b)];
-        return [fmtAvg(b.avgDone) + ' من 8', 'متوسط يومي · ' + bucketName(r, b) + ' · تمرّنت ' + b.active + ' من ' + b.eff + ' يوم'];
-      }
+      val: b => (b.eff ? mean(b.items.filter(x => !x.before).map(dayPct)) : null),
+      aria: (b, v) => bucketName(r, b) + ': ' + (v == null ? 'قبل بداية التسجيل' : Math.round(v * 100) + '٪'),
+      tip: (b, v) => (v == null ? ['—', 'قبل بداية تسجيلك · ' + bucketName(r, b)]
+        : [Math.round(v * 100) + '%', (r.bucket === 'day' ? (v ? 'من البرنامج' : 'يوم راحة') : 'متوسط · تمرّنت ' + b.active + ' من ' + b.eff + ' يوم') + ' · ' + bucketName(r, b)])
     });
     heatmap($('cHeat'), r, info);
-    lineChart($('cHold3'), bks, 3, { title: 'أطول ثبات في الحشرة الميتة', xl, tipLabel: b => bucketName(r, b) });
-    lineChart($('cHold7'), bks, 7, { title: 'أطول إطالة للكمثرية', xl, tipLabel: b => bucketName(r, b) });
-    lineChart($('cHold8'), bks, 8, { title: 'أطول إطالة للسمانة', xl, tipLabel: b => bucketName(r, b) });
-    $('tblBox').innerHTML = '<table class="tbl"><thead><tr><th scope="col">الفترة</th><th scope="col">تمارين مكتملة</th><th scope="col">أيام التمرين</th><th scope="col">التكرارات</th></tr></thead><tbody>' +
-      bks.slice().reverse().map(b => '<tr><td>' + esc(bucketName(r, b)) + '</td><td>' + (b.avgDone == null ? '—' : fmtAvg(b.avgDone) + (r.bucket === 'day' ? '' : ' (متوسط)')) + '</td><td>' + (b.eff ? b.active + ' من ' + b.eff : '—') + '</td><td>' + (b.eff ? fmtNum(b.reps) : '—') + '</td></tr>').join('') +
-      '</tbody></table>';
+    $('tblBox').innerHTML = '<table class="tbl"><thead><tr><th scope="col">الفترة</th><th scope="col">الالتزام</th><th scope="col">الجلسات</th><th scope="col">أيام التمرين</th></tr></thead><tbody>' +
+      bks.slice().reverse().map(b => {
+        const e = b.items.filter(x => !x.before);
+        return '<tr><td>' + esc(bucketName(r, b)) + '</td><td>' + (e.length ? Math.round(mean(e.map(dayPct)) * 100) + '%' : '—') + '</td><td>' + (e.length ? e.reduce((a, x) => a + (x.st && x.st.log ? x.st.log.sessions : 0), 0) : '—') + '</td><td>' + (b.eff ? b.active + ' من ' + b.eff : '—') + '</td></tr>';
+      }).join('') + '</tbody></table>';
+    dashMets = { mets, bks, r };
+    if (dashOpenEx != null) toggleExChart(dashOpenEx, true);
+    ensureThumbs();
     renderDataCard();
   }
+  let dashMets = null, dashOpenEx = null;
 
   function tile(ic, label, val, unit, sub) {
     return '<div class="tile"><span class="lbl">' + ic + label + '</span><span class="val">' + val + (unit ? '<small>' + unit + '</small>' : '') + '</span><span class="sub">' + sub + '</span></div>';
   }
 
   function exRow(m) {
-    const ex = m.ex, pctN = Math.round(m.pct * 100);
-    let meta = '';
-    if (ex.tool === 'reps') {
-      const avg = m.practiced ? m.sum / m.practiced / (ex.sides ? 2 : 1) : 0;
-      meta += '<span>متوسط <b>' + fmtNum(avg) + '</b> تكرار' + (ex.sides ? ' لكل رجل' : '') + '</span>';
-      if (m.lgSets) meta += '<span>بمعدل <b>' + fmtNum(m.lgSum / m.lgSets) + '</b> بالجولة</span>';
-    } else if (ex.tool === 'hold') {
-      meta += '<span>أطول ثبات <b>' + (m.best ? fmt(m.best) : '—') + '</b></span><span><b>' + fmtNum(m.cnt) + '</b> مرة</span>';
-      if (m.lgT) meta += '<span>مجموع الوقت <b>' + fmtDur(m.lgT) + '</b></span>';
-    } else {
-      const avg = m.practiced ? m.sum / m.practiced / 2 : 0;
-      meta += '<span>متوسط <b>' + fmtAvg(avg) + '</b> مرة لكل رجل</span>';
+    const ex = m.ex, unit = ex.tool === 'hold' ? (ex.tags.includes('time') ? 'إطالة بالجولة' : 'ثبات بالجولة') : 'تكرار بالجولة';
+    const head = '<span class="thumb ex2-th">' + thumbImg(ex) + '</span><span class="ex2-t"><b>' + esc(ex.name) + '</b><span>' + unit + (ex.sides ? '، لكل رجل' : '') + '</span></span>';
+    if (!m.n) {
+      return '<div class="ex2 nodata" data-ex="' + ex.id + '"><div class="ex2-h">' + head + '<span class="ex2-v"><small>ما سجّلته بالجولات في هالفترة</small></span></div></div>';
     }
-    if (ex.sides && ex.tool !== 'hold' && m.side.R + m.side.L > 0) {
-      meta += '<span>يمين <b>' + fmtNum(m.side.R) + '</b> · يسار <b>' + fmtNum(m.side.L) + '</b></span>';
-      const mx = Math.max(m.side.R, m.side.L), diff = mx ? Math.abs(m.side.R - m.side.L) / mx : 0;
-      if (diff >= 0.1) {
-        meta += '<span class="chip-warn">' + ICON('<path d="M12 4l9 16H3z"></path><path d="M12 10v4M12 17h.01"></path>') +
-          'الرجل ' + (m.side.R < m.side.L ? 'اليمنى' : 'اليسرى') + ' أقل بـ ' + Math.round(diff * 100) + '%</span>';
-      }
+    let chg = '';
+    if (m.change != null) {
+      const up = m.change >= 0.05, down = m.change <= -0.05;
+      chg = '<span class="ex2-d' + (up ? ' up' : down ? ' down' : '') + '">' + (up ? '▲ ' : down ? '▼ ' : '') + (Math.abs(m.change) < 0.05 ? 'ثابت' : Math.round(Math.abs(m.change) * 100) + '%') + '</span>';
     }
-    return '<div class="exr"><span class="n">' + ex.id + '</span>' +
-      '<div class="row2"><div class="nm"><span>' + esc(ex.name) + '</span><span class="pct">' + pctN + '%</span></div>' +
-      '<div class="meter" role="img" aria-label="أكملت التمرين في ' + pctN + '٪ من الأيام"><i style="width:' + pctN + '%"></i></div>' +
-      '<div class="meta">' + meta + '</div></div>' +
-      '<div class="spark">' + spark(m.series) + '</div></div>';
+    const chips = [];
+    if (m.target) chips.push('<span class="c2">الهدف <b>' + fmtTarget(ex, m.target).replace(' تكرار', '') + '</b>' + (m.hit != null ? ' · حققته <b>' + Math.round(m.hit * 100) + '%</b>' : '') + '</span>');
+    if (m.lsi != null) chips.push('<span class="c2' + (m.lsi < 0.9 ? ' warn' : '') + '">' + (m.lsi < 0.9 ? ICON(INS_ICON.warn) : '') + 'توازن الرجلين <b>' + Math.round(m.lsi * 100) + '%</b>' + (m.lsi < 0.9 ? ' · ' + sideAr(m.weak) + ' أضعف' : '') + '</span>');
+    if (m.fatigue != null && m.fatigue >= 0.2) chips.push('<span class="c2">ينزل <b>' + Math.round(m.fatigue * 100) + '%</b> بآخر جولة</span>');
+    if (m.missed != null && m.missed >= 0.3) chips.push('<span class="c2 warn">' + ICON(INS_ICON.warn) + 'فاتك <b>' + m.missedN[0] + ' من ' + m.missedN[1] + '</b></span>');
+    if (m.ready) chips.push('<span class="c2 good">' + ICON(INS_ICON.good) + 'جاهز للتدرّج</span>');
+    return '<div class="ex2" data-ex="' + ex.id + '">' +
+      '<button type="button" class="ex2-h" data-act="dash-ex" data-ex="' + ex.id + '" aria-expanded="false" aria-controls="exc-' + ex.id + '">' + head +
+        '<span class="ex2-v"><b>' + fmtVal(ex, m.now) + '</b>' + (m.start != null ? '<small>كان ' + fmtVal(ex, m.start) + '</small>' : '<small>الحين</small>') + chg + '</span>' +
+        '<span class="spark">' + spark(m.series, m.target) + '</span></button>' +
+      (chips.length ? '<div class="ex2-c">' + chips.join('') + '</div>' : '') +
+      '<div class="ex2-chart chart" id="exc-' + ex.id + '" hidden></div></div>';
+  }
+  function toggleExChart(id, force) {
+    if (!dashMets) return;
+    const m = dashMets.mets.find(x => x.ex.id === Number(id));
+    const box = $('exc-' + id), btn = document.querySelector('.ex2-h[data-ex="' + id + '"]');
+    if (!m || !box || !btn) return;
+    const open = force != null ? force : box.hidden;
+    box.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    dashOpenEx = open ? Number(id) : (dashOpenEx === Number(id) ? null : dashOpenEx);
+    if (!open) return;
+    const ex = m.ex, r = dashMets.r;
+    lineChart(box, dashMets.bks, {
+      key: 'ex' + id,
+      vals: m.series,
+      target: m.target || null,
+      fmt: v => fmtVal(ex, v),
+      step: ex.tool === 'hold' ? niceStep : niceRepStep,
+      title: ex.name + ': ' + (ex.tool === 'hold' ? 'الثبات' : 'التكرار') + ' بالجولة',
+      empty: 'ما فيه جولات مسجّلة في هالفترة',
+      xl: b => bucketLabel(r, b),
+      tipLabel: b => 'متوسط الجولة · ' + bucketName(r, b)
+    });
   }
 
   /* ---------- backup & restore ---------- */
@@ -6877,6 +7121,14 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
     const act = b.getAttribute('data-act');
     if (act === 'dash-close') { closeDash(); return; }
     if (act === 'dash-range') { dashRange = b.getAttribute('data-r'); renderDash(); const s = $('rng').querySelector('[data-r="' + dashRange + '"]'); if (s) s.focus({ preventScroll: true }); return; }
+    if (act === 'dash-ex') {
+      const id = b.getAttribute('data-ex');
+      if (b.classList.contains('ex2-h')) { toggleExChart(id); return; }
+      toggleExChart(id, true);
+      const row = document.querySelector('.ex2[data-ex="' + id + '"]');
+      if (row) row.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      return;
+    }
     if (act === 'dash-table') {
       const box = $('tblBox'), open = box.hidden;
       box.hidden = !open;
@@ -6958,7 +7210,7 @@ body.dash-on #entrySheet, body.lib-on #entrySheet { z-index: 78; }
 /* In-app updates for the installed app: a new version downloads quietly,
    then the person chooses when to apply it. Results live in localStorage and are untouched. */
 (function () {
-  var APP_VERSION = 19;
+  var APP_VERSION = 20;
   var bar = document.getElementById('updBar');
   var row = document.getElementById('updRow');
   var ver = document.getElementById('verTxt');

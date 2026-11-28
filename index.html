@@ -981,7 +981,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     min-height: 0;
   }
   .detail .sheet-head { display: none; }
-  #listSheet, #entrySheet {
+  #listSheet, #entrySheet, #logSheet {
     inset: auto;
     top: 50%;
     left: 50%;
@@ -993,8 +993,9 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     opacity: 0;
     padding-bottom: 20px;
   }
-  #listSheet.open, #entrySheet.open { transform: translate(-50%, -50%); opacity: 1; }
-  #listSheet .grab, #entrySheet .grab { display: none; }
+  #listSheet.open, #entrySheet.open, #logSheet.open { transform: translate(-50%, -50%); opacity: 1; }
+  #listSheet .grab, #entrySheet .grab, #logSheet .grab { display: none; }
+  #logSheet { width: min(560px, 94vw); }
   #entrySheet { width: min(440px, 92vw); }
 }
 
@@ -1413,6 +1414,142 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 @media (prefers-reduced-motion: reduce) {
   .rng button, .bar-m { transition: none; }
 }
+
+/* ---------- today box in the exercise list ---------- */
+.today-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+.today-box .tb-t { flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; line-height: 1.35; }
+.today-box .tb-btn { flex: 1 1 0; justify-content: center; }
+.today-box .tb-t b { font-size: 0.98rem; }
+.today-box .tb-t span { font-size: 0.8rem; color: var(--muted); }
+.tb-btn {
+  min-height: 40px;
+  padding-inline: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-weight: 600;
+  font-size: 0.84rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.tb-btn svg { width: 16px; height: 16px; }
+.tb-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+/* ---------- current set on the +1 button ---------- */
+.act { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.15; }
+.act-sub { font-family: var(--f-body); font-size: 0.72rem; font-weight: 600; opacity: 0.82; }
+
+/* ---------- day log sheet ---------- */
+.log-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 2px 0 10px; }
+.log-nav button {
+  min-height: 38px;
+  padding-inline: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.log-nav button svg { width: 16px; height: 16px; }
+.log-nav button:disabled { opacity: 0.35; cursor: default; }
+.log-sum { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.log-sum span {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.ses {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: var(--surface);
+}
+.ses.legacy { border-style: dashed; }
+.ses.pending { border-color: var(--accent); background: var(--accent-tint); }
+.ses-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ses-h > div { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+.ses-h b { font-family: var(--f-display); font-size: 1rem; }
+.ses-h span { color: var(--muted); font-size: 0.8rem; }
+.ses-btn {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding-inline: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.ses-btn svg { width: 15px; height: 15px; color: var(--accent); }
+.lg-l { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; }
+.lg-row { display: flex; gap: 10px; padding-block: 8px; border-top: 1px solid var(--line); }
+.lg-row .n {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.lg-x { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.lg-n { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.lg-n b { font-size: 0.9rem; font-weight: 600; }
+.lg-n small { font-size: 0.75rem; color: var(--muted); }
+.lg-m { font-size: 0.76rem; color: var(--muted); }
+.lg-c { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.set-chip {
+  min-width: 44px;
+  min-height: 36px;
+  padding-inline: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.set-chip:hover { border-color: var(--accent); }
+.lg-empty { padding: 22px 8px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+.log-foot { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.log-foot .tb-btn { min-height: 46px; justify-content: center; font-size: 0.92rem; }
+.log-hint { margin: 0; font-size: 0.76rem; color: var(--muted); text-align: center; }
+
+/* ---------- entry sheet: edit extras ---------- */
+.e-extra { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.e-extra .soft { display: inline-flex; align-items: center; gap: 6px; font-size: 0.86rem; }
+.e-extra svg { width: 16px; height: 16px; }
+.e-extra .e-del { color: var(--muscle-ink); }
+
+/* sheets opened over the progress page */
+body.dash-on .scrim { z-index: 72; }
+body.dash-on #logSheet { z-index: 75; }
+body.dash-on #entrySheet { z-index: 78; }
 </style>
 </head>
 <body>
@@ -1431,7 +1568,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       </button>
 
       <div class="bar-t">
-        <small>تمرين <span id="exNum">1</span> من 8</small>
+        <small>تمرين <span id="exNum">1</span> من 8<span id="sesTag"></span></small>
         <h1 id="exTitle"></h1>
       </div>
 
@@ -1555,7 +1692,45 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     </button>
   </div>
   <div class="daysum">إنجاز اليوم <b><span class="doneCount">0</span> من 8</b><span class="daybar"><i id="dayBar"></i></span></div>
+  <div class="today-box">
+    <div class="tb-t"><b id="tbNow">المرة الأولى</b><span id="tbSub"></span></div>
+    <button type="button" class="tb-btn" data-act="log-new">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      مرة جديدة
+    </button>
+    <button type="button" class="tb-btn" data-act="log-open">سجل اليوم</button>
+  </div>
   <div class="exlist" id="exlist"></div>
+</div>
+
+<!-- DAY LOG: sessions and sets -->
+<div class="sheet" id="logSheet" dir="rtl" lang="ar" aria-labelledby="logTitle">
+  <div class="sheet-head">
+    <span class="grab"></span>
+    <h2 id="logTitle">سجل اليوم</h2>
+    <button type="button" class="close" data-act="close" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+  </div>
+  <div class="log-nav">
+    <button type="button" id="logPrev" data-act="log-day" aria-label="اليوم اللي قبل">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+      اليوم اللي قبل
+    </button>
+    <button type="button" id="logNext" data-act="log-day" aria-label="اليوم اللي بعد">
+      اليوم اللي بعد
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+    </button>
+  </div>
+  <div class="log-sum" id="logSum"></div>
+  <div id="logBody"></div>
+  <div class="log-foot" id="logFoot">
+    <button type="button" class="tb-btn primary" data-act="log-new">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      بدء مرة جديدة
+    </button>
+  </div>
+  <p class="log-hint" id="logHint"></p>
 </div>
 
 
@@ -1590,6 +1765,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     </div>
     <div class="e-chips" id="eChips"></div>
     <p class="e-hint" id="eHint"></p>
+    <div class="e-extra" id="eExtra" hidden></div>
     <div class="e-actions">
       <button type="submit" class="act e-save">حفظ</button>
       <button type="button" class="soft e-cancel" data-act="entry-cancel">إلغاء</button>
@@ -1890,10 +2066,13 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       });
     });
   }
-  function archiveDay(date, d, goal) {
+  function archiveDay(date, d, goal, log) {
     if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
-    if (hasValues(d)) hist.days[date] = { goal: typeof goal === 'number' ? goal : 0, d: JSON.parse(JSON.stringify(d)) };
-    else delete hist.days[date];
+    if (hasValues(d)) {
+      const o = { goal: typeof goal === 'number' ? goal : 0, d: JSON.parse(JSON.stringify(d)) };
+      if (log) o.log = JSON.parse(JSON.stringify(log));
+      hist.days[date] = o;
+    } else delete hist.days[date];
   }
   function loadStore() {
     let s = null;
@@ -1901,11 +2080,18 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     if (!s || typeof s !== 'object') s = {};
     if (typeof s.goal !== 'number') s.goal = 100;
     if (!s.side || typeof s.side !== 'object') s.side = {};
+    if (s.d && typeof s.d === 'object' && (!s.log || typeof s.log !== 'object')) {
+      s.log = newLog();
+      s.log.base = JSON.parse(JSON.stringify(s.d));       // totals logged before sets were kept
+    }
     if (s.date !== today() || !s.d || typeof s.d !== 'object') {
-      if (s.date && s.d && typeof s.d === 'object') { archiveDay(s.date, s.d, s.goalOn === true ? s.goal : 0); saveHistory(); }
+      if (s.date && s.d && typeof s.d === 'object') { archiveDay(s.date, s.d, s.goalOn === true ? s.goal : 0, s.log); saveHistory(); }
       s.date = today();
       s.d = {};
+      s.log = newLog();
     }
+    ensureLog(s);
+    s.d = aggregate(s.log);
     if (s.theme !== 'light' && s.theme !== 'dark') s.theme = 'dark';
     if (typeof s.goalOn !== 'boolean') s.goalOn = false;
     return s;
@@ -1913,10 +2099,10 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   const store = loadStore();
   // The daily target is optional: with it off, an exercise counts as done once you log it.
   const goalNow = () => (store.goalOn ? store.goal : 0);
-  if (hasValues(store.d)) { archiveDay(store.date, store.d, goalNow()); saveHistory(); }
+  if (hasValues(store.d)) { archiveDay(store.date, store.d, goalNow(), store.log); saveHistory(); }
   function saveStore() {
     try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {}
-    archiveDay(store.date, store.d, goalNow());
+    archiveDay(store.date, store.d, goalNow(), store.log);
     saveHistory();
   }
 
@@ -1942,6 +2128,147 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     sec = Math.max(0, Math.floor(sec));
     return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
   }
+
+  /* ==========================================================================
+     SESSIONS & SETS
+     Every rep set and every timed hold is kept with its clock time. Sessions ("مرات")
+     and sets are worked out from those times; the daily totals are always derived.
+       log.sets   [{id, ex, side, k:'r'|'t', v, t, u, src}]   v = reps, or seconds
+       log.splits [ms]        "new session" taps
+       log.joined [setId]     sessions merged back into the one before
+       log.base   {ex:{side}} totals logged before details were kept
+     ========================================================================== */
+  const SESSION_GAP = 2 * 60 * 60 * 1000;
+  const SET_GAP = 2 * 60 * 1000;
+  let setSeq = 0;
+  const newId = () => Date.now().toString(36) + (setSeq++).toString(36) + Math.floor(Math.random() * 1296).toString(36);
+  function newLog() { return { sets: [], splits: [], joined: [], base: {} }; }
+  function ensureLog(o) {
+    if (!o.log || typeof o.log !== 'object') o.log = newLog();
+    const L = o.log;
+    if (!Array.isArray(L.sets)) L.sets = [];
+    if (!Array.isArray(L.splits)) L.splits = [];
+    if (!Array.isArray(L.joined)) L.joined = [];
+    if (!L.base || typeof L.base !== 'object') L.base = {};
+    return L;
+  }
+  function exById(id) { return EX.find(e => String(e.id) === String(id)); }
+  function aggregate(L) {
+    const d = {};
+    Object.keys(L.base || {}).forEach(id => {
+      const ex = exById(id), r = L.base[id];
+      if (!ex || !r || typeof r !== 'object') return;
+      Object.keys(r).forEach(s => {
+        const v = r[s];
+        const t = d[ex.id] || (d[ex.id] = {});
+        if (ex.tool === 'hold') {
+          const o = typeof v === 'number' ? { best: v > 0 ? 30 : 0, n: v } : (v && typeof v === 'object' ? v : null);
+          if (o && (o.n || o.best)) t[s] = { best: o.best || 0, n: o.n || 0 };
+        } else if (typeof v === 'number' && v > 0) t[s] = v;
+      });
+    });
+    (L.sets || []).forEach(st => {
+      const ex = exById(st.ex);
+      if (!ex) return;
+      const t = d[ex.id] || (d[ex.id] = {});
+      if (st.k === 't') {
+        const o = t[st.side] && typeof t[st.side] === 'object' ? t[st.side] : { best: 0, n: 0 };
+        t[st.side] = { best: Math.max(o.best, st.v), n: o.n + 1 };
+      } else {
+        t[st.side] = (typeof t[st.side] === 'number' ? t[st.side] : 0) + st.v;
+      }
+    });
+    return d;
+  }
+  function sortSets(L) { L.sets.sort((a, b) => a.t - b.t); }
+  function sessionsOf(L) {
+    const sets = L.sets.slice().sort((a, b) => a.t - b.t);
+    const joined = new Set(L.joined);
+    const out = [];
+    let cs = null, prev = null;
+    sets.forEach(st => {
+      let brk = !cs, manual = false;
+      if (cs && !joined.has(st.id)) {
+        manual = L.splits.some(x => x > prev.t && x <= st.t);
+        if (manual || st.t - prev.u > SESSION_GAP) brk = true;
+      }
+      if (brk) { cs = { start: st.t, end: st.u, sets: [], first: st.id, manual }; out.push(cs); }
+      cs.sets.push(st);
+      cs.end = Math.max(cs.end, st.u);
+      prev = st;
+    });
+    return out;
+  }
+  // A "new session" tapped after the last logged set, still waiting for its first set
+  function pendingSplit(L) {
+    const lastT = L.sets.reduce((m, s) => Math.max(m, s.t), 0);
+    const p = L.splits.filter(x => x > lastT);
+    return p.length ? Math.max(...p) : null;
+  }
+  function commitToday() {
+    store.d = aggregate(store.log);
+    saveStore();
+  }
+  function openTapSet(L, exId, side) {
+    const last = L.sets.length ? L.sets.reduce((a, b) => (b.t >= a.t ? b : a)) : null;
+    if (!last || last.ex !== exId || last.side !== side || last.k !== 'r' || last.src !== 'tap') return null;
+    if (Date.now() - last.u > SET_GAP) return null;
+    if (L.splits.some(x => x > last.t)) return null;
+    return last;
+  }
+  function logTap(exId, side, dv) {
+    const L = store.log, now = Date.now();
+    if (dv > 0) {
+      const open = openTapSet(L, exId, side);
+      if (open) { open.v += dv; open.u = now; }
+      else { L.sets.push({ id: newId(), ex: exId, side, k: 'r', v: dv, t: now, u: now, src: 'tap' }); sortSets(L); }
+    } else {
+      for (let i = L.sets.length - 1; i >= 0; i--) {
+        const st = L.sets[i];
+        if (st.ex === exId && st.side === side && st.k === 'r') {
+          st.v += dv;
+          if (st.v <= 0) L.sets.splice(i, 1);
+          commitToday();
+          return;
+        }
+      }
+      const b = L.base[exId];
+      if (b && typeof b[side] === 'number' && b[side] > 0) b[side] = Math.max(0, b[side] + dv);
+    }
+    commitToday();
+  }
+  function logSet(exId, side, k, v, t, src) {
+    const L = store.log;
+    const st = { id: newId(), ex: exId, side, k, v, t, u: k === 't' ? t + v * 1000 : t, src };
+    L.sets.push(st);
+    sortSets(L);
+    commitToday();
+    return st;
+  }
+  function clearExSide(exId, side) {
+    const L = store.log;
+    L.sets = L.sets.filter(st => !(st.ex === exId && st.side === side));
+    if (L.base[exId]) delete L.base[exId][side];
+    commitToday();
+  }
+  function currentSessionNo() {
+    const L = store.log, n = sessionsOf(L).length;
+    return pendingSplit(L) ? n + 1 : Math.max(1, n);
+  }
+  const fmtClock = ms => {
+    const d = new Date(ms);
+    let h = d.getHours();
+    const m = String(d.getMinutes()).padStart(2, '0'), ap = h < 12 ? 'ص' : 'م';
+    h = h % 12 || 12;
+    return h + ':' + m + ' ' + ap;
+  };
+  const ORD = ['الأولى', 'الثانية', 'الثالثة', 'الرابعة', 'الخامسة', 'السادسة', 'السابعة', 'الثامنة', 'التاسعة', 'العاشرة'];
+  const sesName = i => 'المرة ' + (ORD[i] || (i + 1));
+  const timesAr = n => (n === 1 ? 'مرة وحدة' : n === 2 ? 'مرتين' : n + (n <= 10 ? ' مرات' : ' مرة'));
+  const setsAr = n => (n === 1 ? 'مجموعة وحدة' : n === 2 ? 'مجموعتين' : n + (n <= 10 ? ' مجموعات' : ' مجموعة'));
+  // Long totals read as hours and minutes ("5 س 12 د"); short ones as m:ss
+  const fmtDur = sec => (sec >= 3600 ? Math.floor(sec / 3600) + ' س ' + Math.floor((sec % 3600) / 60) + ' د' : fmt(sec));
+
   function sideSum(ex, s) {
     if (ex.tool === 'hold') {
       const v = getN(ex, s);
@@ -3698,10 +4025,9 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   function onAutoCycle() {
     const ex = EX[cur];
     if (!autoCount || ex.tool !== 'reps') return;
-    const s = curSide(ex), r = rec(ex), before = getN(ex, s);
-    r[s] = before + 1;
-    saveStore();
-    if (store.goalOn && before < store.goal && r[s] >= store.goal) toast('أحسنت، وصلت للهدف');
+    const s = curSide(ex), before = getN(ex, s);
+    logTap(ex.id, s, 1);
+    if (store.goalOn && before < store.goal && getN(ex, s) >= store.goal) toast('أحسنت، وصلت للهدف');
     renderTool();
     renderNav();
   }
@@ -3780,7 +4106,21 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     renderTool();
   }
 
+  function renderToday() {
+    const L = store.log, ses = sessionsOf(L), pend = pendingSplit(L);
+    const n = currentSessionNo();
+    const tag = $('sesTag');
+    if (tag) tag.textContent = L.sets.length || pend ? ' · ' + sesName(n - 1) : '';
+    if (!$('tbNow')) return;
+    $('tbNow').textContent = (L.sets.length || pend ? sesName(n - 1) : 'اليوم');
+    if (pend) $('tbSub').textContent = 'بدأت ' + fmtClock(pend) + ' · ما سجّلت فيها شي للحين';
+    else if (ses.length) {
+      const last = ses[ses.length - 1], exN = new Set(last.sets.map(x => x.ex)).size;
+      $('tbSub').textContent = 'من ' + fmtClock(last.start) + ' · ' + exN + ' ' + (exN === 1 ? 'تمرين' : 'تمارين') + ' · ' + setsAr(last.sets.length) + (ses.length > 1 ? ' · اليوم ' + timesAr(ses.length) : '');
+    } else $('tbSub').textContent = 'ما سجّلت شي للحين';
+  }
   function renderNav() {
+    renderToday();
     $('segs').innerHTML = EX.map((ex, i) =>
       '<button type="button" class="seg-b' + (isDone(ex) ? ' done' : '') + '" data-act="go" data-i="' + i + '" aria-label="تمرين ' + ex.id + ': ' + ex.name + '"' + (i === cur ? ' aria-current="step"' : '') + '><i></i></button>'
     ).join('');
@@ -3808,6 +4148,22 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     return '<button type="button" class="soft' + (resetArmed ? ' armed' : '') + '" data-act="reset">' + (resetArmed ? 'اضغط مرة ثانية للتأكيد' : 'تصفير عدّاد اليوم') + '</button>';
   }
 
+  let openSetId = null;
+  function openSetLabel(ex, s) {
+    const st = openTapSet(store.log, ex.id, s);
+    openSetId = st ? st.id : null;
+    if (!st) return '';
+    const ses = sessionsOf(store.log), curS = ses[ses.length - 1];
+    const idx = curS ? curS.sets.filter(x => x.ex === ex.id && x.side === s && x.k === 'r').findIndex(x => x.id === st.id) + 1 : 1;
+    return '<span class="act-sub">المجموعة ' + idx + ' · ' + st.v + '</span>';
+  }
+  // A paused set closes after two minutes; refresh the label when that happens.
+  setInterval(() => {
+    const ex = EX[cur];
+    if (!ex || ex.tool !== 'reps' || openSetId == null) return;
+    const st = openTapSet(store.log, ex.id, curSide(ex));
+    if (!st) renderTool();
+  }, 15000);
   function renderTool() {
     const ex = EX[cur], s = curSide(ex);
     const run = timer && timer.ex === ex.id;
@@ -3828,7 +4184,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         '<button type="button" class="mring-btn" data-act="entry-reps" aria-label="إدخال عدد التكرار يدوياً' + sideName + '، العدد الحالي ' + n + '">' +
           (store.goalOn ? mring(n / store.goal, n, 'من ' + store.goal) : mring(0, n, 'تكرار', true)) +
           '<span class="pen">' + PEN + '</span></button>' +
-        '<button type="button" class="act" data-act="plus" data-v="1">+1 تكرار</button>' +
+        '<button type="button" class="act" data-act="plus" data-v="1">+1 تكرار' + openSetLabel(ex, s) + '</button>' +
         '<button type="button" class="round" dir="ltr" data-act="plus" data-v="-1" aria-label="إنقاص تكرار واحد">−1</button>' +
       '</div>';
 
@@ -3867,9 +4223,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     const ex = EX.find(e => e.id === timer.ex);
     const sec = (performance.now() - timer.t0) / 1000;
     if (record && ex.tool === 'hold' && sec >= 1) {
-      const r = rec(ex), v = getN(ex, timer.side);
-      r[timer.side] = { best: Math.max(v.best, Math.floor(sec)), n: v.n + 1 };
-      saveStore();
+      logSet(ex.id, timer.side, 't', Math.floor(sec), timer.w || Date.now() - sec * 1000, 'timer');
       toast('سُجّل الثبات: ' + fmt(sec));
     }
     timer = null;
@@ -3915,7 +4269,12 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   function closeSheet(silent) {
     if (!openSheet) return;
     if (openSheet.id === 'entrySheet') setTimeout(placeEntrySheet, 0);
-    if (openSheet.id === 'entrySheet' && entry) { const e = entry; entry = null; if (e.fromTimer && !silent) toast('ما انحفظ الوقت'); }
+    if (openSheet.id === 'entrySheet' && entry) {
+      const e = entry;
+      entry = null;
+      if (e.fromTimer && !silent) toast('ما انحفظ الوقت');
+      if (!silent && e.back === 'log') setTimeout(() => openLog(e.day), 0);
+    }
     openSheet.classList.remove('open');
     openSheet.removeAttribute('role');
     openSheet.removeAttribute('aria-modal');
@@ -4006,6 +4365,14 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     if (act === 'entry-step') { entryStep(Number(b.getAttribute('data-v'))); return; }
     if (act === 'entry-save') { saveEntry(); return; }
     if (act === 'entry-cancel') { cancelEntry(); return; }
+    if (act === 'entry-del') { deleteEntrySet(); return; }
+    if (act === 'entry-merge') { mergeEntrySet(); return; }
+    if (act.indexOf('log-') === 0) {
+      if (b.closest('#logSheet')) return;
+      if (act === 'log-open') openLog(store.date, b);
+      else if (act === 'log-new' && startNewSession()) renderNav();
+      return;
+    }
     if (act === 'auto') {
       autoCount = !autoCount;
       if (autoCount && !playing) { playing = true; syncPlay(); }
@@ -4027,10 +4394,10 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         }
       }
     } else if (act === 'plus') {
-      const dv = Number(b.getAttribute('data-v')), r = rec(ex), before = getN(ex, s);
-      r[s] = Math.max(0, before + dv);
-      saveStore();
-      if (store.goalOn && dv > 0 && before < store.goal && r[s] >= store.goal) toast('أحسنت، وصلت للهدف');
+      const dv = Number(b.getAttribute('data-v')), before = getN(ex, s);
+      if (dv < 0 && before <= 0) return;
+      logTap(ex.id, s, dv);
+      if (store.goalOn && dv > 0 && before < store.goal && getN(ex, s) >= store.goal) toast('أحسنت، وصلت للهدف');
     } else if (act === 'goal') {
       store.goal = clamp(store.goal + Number(b.getAttribute('data-v')), 10, 500);
       saveStore();
@@ -4047,19 +4414,18 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         resetArmed = false;
         clearTimeout(resetT);
         if (timer && timer.ex === ex.id) timer = null;
-        delete rec(ex)[s];
-        saveStore();
+        clearExSide(ex.id, s);
         toast('تم تصفير عدّاد اليوم');
       }
     } else if (act === 'hold') {
       if (timer && timer.ex === ex.id) {
-        const sec = Math.floor((performance.now() - timer.t0) / 1000);
+        const sec = Math.floor((performance.now() - timer.t0) / 1000), wall = timer.w;
         timer = null;
         renderTool();
-        openEntry('time', b, sec, true);
+        openEntry('time', b, sec, true, { wall });
         return;
       }
-      timer = { ex: ex.id, side: s, t0: performance.now() };
+      timer = { ex: ex.id, side: s, t0: performance.now(), w: Date.now() };
     } else if (act === 'cd') {
       if (timer && timer.ex === ex.id) { stopTimer(false); toast('أُوقف المؤقّت'); }
       else timer = { ex: ex.id, side: s, t0: performance.now() };
@@ -4181,28 +4547,61 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   }
   window.addEventListener('resize', placeEntrySheet);
 
-  function openEntry(mode, from, sec, fromTimer) {
-    const ex = EX[cur], s = curSide(ex);
-    entry = { mode, exId: ex.id, side: s, fromTimer: !!fromTimer, measured: sec || 0 };
+  function openEntry(mode, from, sec, fromTimer, extra) {
+    extra = extra || {};
+    let ex = EX[cur], s = curSide(ex), editSet = null;
+    if (mode === 'edit') {
+      editSet = (dayLog(extra.day) || newLog()).sets.find(st => st.id === extra.id);
+      if (!editSet) return;
+      ex = exById(editSet.ex);
+      s = editSet.side;
+    }
+    entry = {
+      mode, exId: ex.id, side: s, fromTimer: !!fromTimer, measured: sec || 0, wall: extra.wall || null,
+      day: extra.day || null, setId: editSet ? editSet.id : null, back: extra.back || null,
+      kind: editSet ? editSet.k : (mode === 'reps' ? 'r' : 't')
+    };
     const sideTxt = ex.sides ? (s === 'L' ? ' · الرجل اليسرى' : ' · الرجل اليمنى') : '';
-    $('eSub').textContent = ex.name + sideTxt;
-    const field = $('eField'), chips = $('eChips');
-    if (mode === 'reps') {
-      $('eTitle').textContent = 'عدد التكرار اليوم';
-      field.innerHTML = '<input id="eReps" class="e-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="9999" aria-label="عدد التكرار">';
-      $('eReps').value = getN(ex, s);
+    $('eSub').textContent = ex.name + sideTxt + (editSet ? ' · ' + fmtClock(editSet.t) : '');
+    const field = $('eField'), chips = $('eChips'), extraBox = $('eExtra');
+    extraBox.hidden = true;
+    extraBox.innerHTML = '';
+    if (entry.kind === 'r') {
+      field.innerHTML = '<input id="eReps" class="e-input" type="number" inputmode="numeric" pattern="[0-9]*" min="1" max="9999" aria-label="عدد التكرار">';
       $('eMinus').textContent = '−1'; $('eMinus').setAttribute('data-v', '-1'); $('eMinus').setAttribute('aria-label', 'إنقاص 1');
       $('ePlus').textContent = '+1'; $('ePlus').setAttribute('data-v', '1'); $('ePlus').setAttribute('aria-label', 'زيادة 1');
       chips.innerHTML = [5, 10, 20, 50].map(v => '<button type="button" class="chip" dir="ltr" data-act="entry-step" data-v="' + v + '" aria-label="زيادة ' + v + '">+' + v + '</button>').join('');
-      $('eHint').textContent = 'هذا العدد الكلي لليوم. اكتبه مباشرة أو استخدم الأزرار.';
+      if (editSet) {
+        $('eTitle').textContent = 'تعديل المجموعة';
+        $('eReps').value = editSet.v;
+        $('eHint').textContent = 'عدّل عدد التكرار في هالمجموعة.';
+      } else {
+        const lastSame = store.log.sets.filter(st => st.ex === ex.id && st.side === s && st.k === 'r').pop();
+        $('eTitle').textContent = 'إضافة مجموعة';
+        $('eReps').value = lastSame ? lastSame.v : 10;
+        $('eHint').textContent = 'تنضاف كمجموعة جديدة في ' + sesName(currentSessionNo() - 1) + '.';
+      }
     } else {
-      $('eTitle').textContent = fromTimer ? 'راجع الوقت قبل الحفظ' : 'إضافة وقت ثبات';
       field.innerHTML = '<div class="e-mmss" dir="ltr"><input id="eMin" class="e-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="59" aria-label="دقائق"><span aria-hidden="true">:</span><input id="eSec" class="e-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="59" aria-label="ثواني"></div>';
-      setEntrySec(entry.measured);
       $('eMinus').textContent = '−5'; $('eMinus').setAttribute('data-v', '-5'); $('eMinus').setAttribute('aria-label', 'إنقاص 5 ثواني');
       $('ePlus').textContent = '+5'; $('ePlus').setAttribute('data-v', '5'); $('ePlus').setAttribute('aria-label', 'زيادة 5 ثواني');
       chips.innerHTML = [-1, 1, 10, 30].map(v => '<button type="button" class="chip" data-act="entry-step" data-v="' + v + '" aria-label="' + (v > 0 ? 'زيادة ' : 'إنقاص ') + Math.abs(v) + ' ثانية"><span dir="ltr">' + (v > 0 ? '+' : '−') + Math.abs(v) + '</span> ث</button>').join('');
-      $('eHint').textContent = fromTimer ? 'المؤقّت سجّل ' + fmt(entry.measured) + '. عدّل الوقت إذا تحتاج، ثم احفظ.' : 'اكتب الدقائق والثواني، أو استخدم الأزرار.';
+      if (editSet) {
+        $('eTitle').textContent = 'تعديل وقت الثبات';
+        setEntrySec(editSet.v);
+        $('eHint').textContent = 'عدّل مدة هالمرة من الثبات.';
+      } else {
+        $('eTitle').textContent = fromTimer ? 'راجع الوقت قبل الحفظ' : 'إضافة وقت ثبات';
+        setEntrySec(entry.measured);
+        $('eHint').textContent = fromTimer ? 'المؤقّت سجّل ' + fmt(entry.measured) + '. عدّل الوقت إذا تحتاج، ثم احفظ.' : 'اكتب الدقائق والثواني، أو استخدم الأزرار.';
+      }
+    }
+    if (editSet) {
+      const prev = mergeTarget(entry.day, editSet);
+      extraBox.innerHTML =
+        '<button type="button" class="soft e-del" data-act="entry-del">' + ICON_TRASH + 'حذف المجموعة</button>' +
+        (prev ? '<button type="button" class="soft" data-act="entry-merge">' + ICON_MERGE + 'دمج مع السابقة (' + prev.v + ')</button>' : '');
+      extraBox.hidden = false;
     }
     showSheet($('entrySheet'), from);
     placeEntrySheet();
@@ -4222,48 +4621,255 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   }
   function entryStep(dv) {
     if (!entry) return;
-    if (entry.mode === 'reps') {
+    if (entry.kind === 'r') {
       const f = $('eReps'), v = parseInt(f.value, 10);
-      f.value = clamp((isNaN(v) ? 0 : v) + dv, 0, 9999);
+      f.value = clamp((isNaN(v) ? 0 : v) + dv, 1, 9999);
     } else {
       setEntrySec(entrySec() + dv);
     }
   }
-  function saveEntry() {
-    if (!entry) return;
-    const ex = EX.find(e => e.id === entry.exId), s = entry.side, r = rec(ex);
-    if (entry.mode === 'reps') {
-      const v = parseInt($('eReps').value, 10);
-      if (isNaN(v) || v < 0) { $('eHint').textContent = 'اكتب رقم صحيح، صفر أو أكثر.'; return; }
-      const before = getN(ex, s), val = clamp(v, 0, 9999);
-      r[s] = val;
-      saveStore();
-      entry = null;
-      closeSheet(true);
-      toast(store.goalOn && before < store.goal && val >= store.goal ? 'أحسنت، وصلت للهدف' : 'انحفظ: ' + val + ' تكرار');
-    } else {
-      const sec = entrySec();
-      if (sec < 1) { $('eHint').textContent = 'الوقت لازم يكون ثانية وحدة على الأقل.'; return; }
-      const v = getN(ex, s);
-      r[s] = { best: Math.max(v.best || 0, sec), n: (v.n || 0) + 1 };
-      saveStore();
-      entry = null;
-      closeSheet(true);
-      toast('انحفظ الثبات: ' + fmt(sec) + (sec > (v.best || 0) && v.n ? ' · رقم جديد' : ''));
-    }
+  function finishEntry(msg) {
+    const e = entry;
+    entry = null;
+    closeSheet(true);
+    if (msg) toast(msg);
     renderTool();
     renderNav();
+    if (dashOpen) renderDash();
+    if (e && e.back === 'log') { openLog(e.day); return; }
     const back = $('tool').querySelector('.act');
     if (back) back.focus({ preventScroll: true });
+  }
+  function saveEntry() {
+    if (!entry) return;
+    const ex = exById(entry.exId), s = entry.side;
+    let val;
+    if (entry.kind === 'r') {
+      val = parseInt($('eReps').value, 10);
+      if (isNaN(val) || val < 1) { $('eHint').textContent = entry.setId ? 'اكتب رقم أكبر من صفر، أو احذف المجموعة.' : 'اكتب رقم أكبر من صفر.'; return; }
+      val = clamp(val, 1, 9999);
+    } else {
+      val = entrySec();
+      if (val < 1) { $('eHint').textContent = 'الوقت لازم يكون ثانية وحدة على الأقل.'; return; }
+    }
+    if (entry.setId) {
+      const L = dayLog(entry.day), st = L && L.sets.find(x => x.id === entry.setId);
+      if (st) {
+        st.v = val;
+        if (st.k === 't') st.u = st.t + val * 1000;
+        commitDay(entry.day);
+      }
+      finishEntry('انحفظ التعديل');
+      return;
+    }
+    if (entry.kind === 'r') {
+      const before = getN(ex, s);
+      logSet(ex.id, s, 'r', val, Date.now(), 'manual');
+      finishEntry(store.goalOn && before < store.goal && getN(ex, s) >= store.goal ? 'أحسنت، وصلت للهدف' : 'انحفظت مجموعة: ' + val + ' تكرار');
+    } else {
+      const v = getN(ex, s);
+      logSet(ex.id, s, 't', val, entry.wall || Date.now() - val * 1000, entry.fromTimer ? 'timer' : 'manual');
+      finishEntry('انحفظ الثبات: ' + fmt(val) + (val > (v.best || 0) && v.n ? ' · رقم جديد' : ''));
+    }
   }
   function cancelEntry() {
     if (!entry) { closeSheet(); return; }
     const e = entry;
     entry = null;
-    closeSheet();
+    closeSheet(true);
     if (e.fromTimer) toast('ما انحفظ الوقت');
+    if (e.back === 'log') openLog(e.day);
+  }
+  function deleteEntrySet() {
+    if (!entry || !entry.setId) return;
+    const L = dayLog(entry.day);
+    if (L) {
+      L.sets = L.sets.filter(x => x.id !== entry.setId);
+      L.joined = L.joined.filter(x => x !== entry.setId);
+      commitDay(entry.day);
+    }
+    finishEntry('انحذفت المجموعة');
+  }
+  // The set just before this one, same exercise and leg, inside the same session
+  function mergeTarget(day, st) {
+    if (!st || st.k !== 'r') return null;
+    const L = dayLog(day);
+    if (!L) return null;
+    const ses = sessionsOf(L).find(x => x.sets.some(y => y.id === st.id));
+    if (!ses) return null;
+    const same = ses.sets.filter(x => x.ex === st.ex && x.side === st.side && x.k === 'r');
+    const i = same.findIndex(x => x.id === st.id);
+    return i > 0 ? same[i - 1] : null;
+  }
+  function mergeEntrySet() {
+    if (!entry || !entry.setId) return;
+    const L = dayLog(entry.day), st = L && L.sets.find(x => x.id === entry.setId), prev = mergeTarget(entry.day, st);
+    if (st && prev) {
+      prev.v += st.v;
+      prev.u = Math.max(prev.u, st.u);
+      L.sets = L.sets.filter(x => x.id !== st.id);
+      L.joined = L.joined.filter(x => x !== st.id);
+      commitDay(entry.day);
+      finishEntry('اندمجت المجموعتين: ' + prev.v + ' تكرار');
+    }
   }
   $('eForm').addEventListener('submit', ev => { ev.preventDefault(); saveEntry(); });
+
+  /* ==========================================================================
+     DAY LOG: sessions, sets, merge, new session
+     ========================================================================== */
+  const ICON_TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>';
+  const ICON_MERGE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v5a5 5 0 0 0 5 5h0a5 5 0 0 1 5 5v1M17 4v5a5 5 0 0 1-5 5"></path></svg>';
+  const ICON_PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>';
+  let logDayKey = null;
+
+  // The log for a day: today's lives in the store, other days in the history
+  function dayLog(k) {
+    if (!k || k === store.date) return store.log;
+    const o = hist.days[k];
+    if (!o) return null;
+    if (!o.log) return { sets: [], splits: [], joined: [], base: o.d || {} };
+    return ensureLog(o);
+  }
+  function commitDay(k) {
+    if (!k || k === store.date) { commitToday(); return; }
+    const o = hist.days[k];
+    if (!o || !o.log) return;
+    o.d = aggregate(o.log);
+    if (!hasValues(o.d)) delete hist.days[k];
+    saveHistory();
+  }
+  function startNewSession() {
+    const L = store.log;
+    if (pendingSplit(L)) { toast(sesName(currentSessionNo() - 1) + ' جاهزة، ابدأ التمرين'); return false; }
+    if (!L.sets.length) { toast('هذي أول مرة اليوم، ابدأ التمرين'); return false; }
+    L.splits.push(Date.now());
+    commitToday();
+    toast('بدأت ' + sesName(currentSessionNo() - 1));
+    return true;
+  }
+  function mergeSession(k, i) {
+    const L = dayLog(k);
+    if (!L || !L.sets) return;
+    const ses = sessionsOf(L);
+    if (i < 1 || i >= ses.length) return;
+    const a = ses[i - 1], b = ses[i];
+    if (!L.joined.includes(b.first)) L.joined.push(b.first);
+    const lastA = a.sets[a.sets.length - 1].t, firstB = b.sets[0].t;
+    L.splits = L.splits.filter(x => !(x > lastA && x <= firstB));
+    commitDay(k);
+    toast('اندمجت ' + sesName(i) + ' مع ' + sesName(i - 1));
+  }
+  function cancelPending() {
+    const L = store.log, p = pendingSplit(L);
+    if (p == null) return;
+    const lastT = L.sets.reduce((m, s) => Math.max(m, s.t), 0);
+    L.splits = L.splits.filter(x => x <= lastT);
+    commitToday();
+    toast('رجعت ل' + sesName(sessionsOf(L).length - 1));
+  }
+  function availableDays() {
+    const ks = new Set(Object.keys(hist.days).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k) && k <= today()));
+    ks.add(store.date);
+    return [...ks].sort();
+  }
+  function dayTitle(k) {
+    if (k === store.date) return 'سجل اليوم';
+    const a = k.split('-').map(Number), dt = new Date(a[0], a[1] - 1, a[2]);
+    const y = new Date(); y.setDate(y.getDate() - 1);
+    if (dt.toDateString() === y.toDateString()) return 'سجل أمس';
+    return 'سجل ' + AR_DAYS[dt.getDay()] + ' ' + fmtDay(dt);
+  }
+  function chipFor(st, i) {
+    const label = st.k === 't' ? fmt(st.v) : String(st.v);
+    return '<button type="button" class="set-chip" data-act="log-set" data-id="' + st.id + '" aria-label="المجموعة ' + (i + 1) + ': ' + (st.k === 't' ? 'ثبات ' + fmt(st.v) : st.v + ' تكرار') + '، اضغط للتعديل"><span dir="ltr">' + label + '</span></button>';
+  }
+  function groupSets(sets) {
+    const order = [], map = {};
+    sets.forEach(st => {
+      const key = st.ex + '|' + st.side;
+      if (!map[key]) { map[key] = { ex: exById(st.ex), side: st.side, sets: [] }; order.push(key); }
+      map[key].sets.push(st);
+    });
+    return order.map(k => map[k]).sort((a, b) => a.ex.id - b.ex.id || (a.side === 'L') - (b.side === 'L'));
+  }
+  function groupRow(g, chips) {
+    const sideTxt = g.ex.sides ? (g.side === 'L' ? 'اليسرى' : 'اليمنى') : '';
+    const tot = g.sets.reduce((a, s) => a + s.v, 0);
+    const sum = g.sets[0] && g.sets[0].k === 't' ? 'مجموع ' + fmt(tot) : tot + ' تكرار';
+    return '<li class="lg-row"><span class="n">' + g.ex.id + '</span><div class="lg-x"><div class="lg-n"><b>' + esc(g.ex.name) + '</b>' + (sideTxt ? '<small>' + sideTxt + '</small>' : '') + '</div>' +
+      '<div class="lg-m">' + setsAr(g.sets.length) + ' · ' + sum + '</div><div class="lg-c">' + chips + '</div></div></li>';
+  }
+  function renderLog() {
+    const k = logDayKey || store.date, isToday = k === store.date;
+    const L = dayLog(k) || newLog();
+    const ses = sessionsOf(L), pend = isToday ? pendingSplit(L) : null;
+    const days = availableDays(), di = days.indexOf(k);
+    $('logTitle').textContent = dayTitle(k);
+    const prevK = di > 0 ? days[di - 1] : null, nextK = di >= 0 && di < days.length - 1 ? days[di + 1] : null;
+    $('logPrev').disabled = !prevK; $('logPrev').setAttribute('data-k', prevK || '');
+    $('logNext').disabled = !nextK; $('logNext').setAttribute('data-k', nextK || '');
+    const sets = L.sets.length, reps = L.sets.filter(s => s.k === 'r').reduce((a, s) => a + s.v, 0);
+    const hold = L.sets.filter(s => s.k === 't').reduce((a, s) => a + s.v, 0);
+    const baseD = aggregate({ sets: [], base: L.base || {} });
+    const hasBase = hasValues(baseD);
+    const sum = [];
+    if (ses.length) sum.push(timesAr(ses.length));
+    if (sets) sum.push(setsAr(sets));
+    if (reps) sum.push(fmtNum(reps) + ' تكرار');
+    if (hold) sum.push(fmt(hold) + ' ثبات');
+    $('logSum').innerHTML = sum.map(t => '<span>' + t + '</span>').join('');
+    let h = '';
+    if (hasBase) {
+      h += '<section class="ses legacy"><div class="ses-h"><div><b>قبل التسجيل المفصّل</b><span>مجموع بدون أوقات أو مجموعات</span></div></div><ul class="lg-l">';
+      EX.forEach(ex => {
+        const r = baseD[ex.id];
+        if (!r) return;
+        sidesOf(ex).forEach(s => {
+          const v = r[s];
+          if (!v) return;
+          const txt = ex.tool === 'hold' ? 'أطول ثبات ' + fmt(v.best) + ' · ' + timesAr(v.n) : v + ' تكرار';
+          const sideTxt = ex.sides ? (s === 'L' ? 'اليسرى' : 'اليمنى') : '';
+          h += '<li class="lg-row"><span class="n">' + ex.id + '</span><div class="lg-x"><div class="lg-n"><b>' + esc(ex.name) + '</b>' + (sideTxt ? '<small>' + sideTxt + '</small>' : '') + '</div><div class="lg-m">' + txt + '</div></div></li>';
+        });
+      });
+      h += '</ul></section>';
+    }
+    ses.forEach((x, i) => {
+      const groups = groupSets(x.sets);
+      const range = fmtClock(x.start) + (x.end - x.start > 60000 ? ' – ' + fmtClock(x.end) : '');
+      h += '<section class="ses" aria-label="' + sesName(i) + '"><div class="ses-h"><div><b>' + sesName(i) + '</b><span>' + range + ' · ' + groups.length + ' ' + (groups.length === 1 ? 'تمرين' : 'تمارين') + '</span></div>' +
+        (i > 0 ? '<button type="button" class="ses-btn" data-act="log-merge" data-i="' + i + '">' + ICON_MERGE + 'دمج مع ' + sesName(i - 1) + '</button>' : '') + '</div>' +
+        '<ul class="lg-l">' + groups.map(g => groupRow(g, g.sets.map(chipFor).join(''))).join('') + '</ul></section>';
+    });
+    if (pend) {
+      h += '<section class="ses pending"><div class="ses-h"><div><b>' + sesName(ses.length) + '</b><span>بدأت ' + fmtClock(pend) + ' · ما سجّلت فيها شي للحين</span></div>' +
+        '<button type="button" class="ses-btn" data-act="log-unsplit">إلغاء</button></div></section>';
+    }
+    if (!ses.length && !hasBase && !pend) {
+      h += '<div class="lg-empty">' + (isToday ? 'ما سجّلت تمارين اليوم للحين. كل تكرار أو ثبات تسجّله يظهر هنا بوقته.' : 'ما فيه تمارين مسجّلة في هاليوم.') + '</div>';
+    }
+    $('logBody').innerHTML = h;
+    $('logFoot').hidden = !isToday;
+    $('logHint').textContent = 'كل ما يمر أكثر من ساعتين بين تمرين والثاني تبدأ مرة جديدة تلقائياً. اضغط على أي رقم لتعديله.';
+  }
+  function openLog(k, from) {
+    logDayKey = k || store.date;
+    renderLog();
+    showSheet($('logSheet'), from);
+  }
+
+  $('logSheet').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-act]');
+    if (!b) return;
+    const act = b.getAttribute('data-act');
+    if (act === 'log-day') { const k = b.getAttribute('data-k'); if (k) { logDayKey = k; renderLog(); } }
+    else if (act === 'log-set') openEntry('edit', b, 0, false, { day: logDayKey, id: b.getAttribute('data-id'), back: 'log' });
+    else if (act === 'log-merge') { mergeSession(logDayKey, Number(b.getAttribute('data-i'))); renderLog(); renderNav(); if (dashOpen) renderDash(); }
+    else if (act === 'log-unsplit') { cancelPending(); renderLog(); renderNav(); }
+    else if (act === 'log-new') { if (startNewSession()) { renderLog(); renderNav(); } }
+  });
+
 
   /* ==========================================================================
      PROGRESS DASHBOARD + BACKUP / RESTORE
@@ -4327,39 +4933,59 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       if (ex.tool === 'reps') reps += tot;
       per[ex.id] = { done: ok, reps: tot, best, count: cnt, bySide };
     });
-    return { done, reps, any, per, goal };
+    return { done, reps, any, per, goal, log: logStats(rec) };
+  }
+  // Sessions, sets and timed holds for one day (null for days logged before sets were kept)
+  function logStats(rec) {
+    const L = rec && rec.log;
+    if (!L || !Array.isArray(L.sets) || !L.sets.length) return null;
+    const out = { sessions: sessionsOf(ensureLog({ log: L })).length, sets: L.sets.length, repSets: 0, repSum: 0, holdSum: 0, per: {} };
+    L.sets.forEach(st => {
+      const p = out.per[st.ex] || (out.per[st.ex] = { sets: 0, sum: 0, tsum: 0 });
+      p.sets++;
+      if (st.k === 'r') { out.repSets++; out.repSum += st.v; p.sum += st.v; }
+      else { out.holdSum += st.v; p.tsum += st.v; }
+    });
+    return out;
   }
 
   function daysSource() { return sampleMode ? (sampleDays || (sampleDays = makeSample())) : hist.days; }
 
   // A realistic year of practice for previewing the page. Never saved.
   function makeSample() {
-    let seed = 20261127;
+    let seed = 20261127, sq = 0;
     const rnd = () => (seed = (seed * 48271) % 2147483647) / 2147483647;
     const days = {}, end = pd(today()), N = 300;
     for (let i = N; i >= 0; i--) {
-      const p = 1 - i / N;
+      const p = 1 - i / N, day = addD(end, -i);
       if (rnd() > 0.5 + 0.42 * p) continue;
-      const d = {};
-      EX.forEach(ex => {
-        if (rnd() < 0.08 + 0.12 * (1 - p)) return;
-        const r = {};
-        sidesOf(ex).forEach(s => {
-          if (ex.tool === 'reps') {
-            let v = Math.round(58 + 46 * p + (rnd() - 0.45) * 30);
-            if (ex.id === 5 && s === 'L') v = Math.round(v * (0.74 + 0.22 * p));
-            if (rnd() < 0.2 + 0.55 * p) v = Math.max(v, 100);
-            r[s] = Math.max(10, Math.min(120, v));
-          } else if (ex.tool === 'hold') {
-            const base = ex.id === 3 ? 20 + 58 * p : ex.id === 7 ? 28 + 64 * p : 30 + 42 * p;
-            r[s] = { best: Math.max(8, Math.round(base + (rnd() - 0.5) * 16)), n: 1 + Math.floor(rnd() * 3) };
-          } else {
-            r[s] = 1 + Math.floor(rnd() * (2 + p * 2));
-          }
+      const L = newLog();
+      const starts = [7 * 60 + rnd() * 80];
+      if (rnd() < 0.3 + 0.35 * p) starts.push(19 * 60 + rnd() * 120);
+      starts.forEach(min => {
+        let t = day.getTime() + min * 60000;
+        EX.forEach(ex => {
+          if (rnd() < 0.08 + 0.12 * (1 - p)) return;
+          sidesOf(ex).forEach(s => {
+            const n = ex.tool === 'hold' ? 1 + Math.floor(rnd() * 2) : 2 + Math.floor(rnd() * 2.6);
+            for (let k = 0; k < n; k++) {
+              let v;
+              if (ex.tool === 'hold') {
+                const base = ex.id === 3 ? 20 + 58 * p : ex.id === 7 ? 28 + 64 * p : 30 + 42 * p;
+                v = Math.max(8, Math.round(base + (rnd() - 0.5) * 16));
+              } else {
+                v = Math.round(9 + 9 * p + (rnd() - 0.5) * 6);
+                if (ex.id === 5 && s === 'L') v = Math.round(v * (0.74 + 0.22 * p));
+                v = Math.max(4, v);
+              }
+              const dur = ex.tool === 'hold' ? v * 1000 : v * 2500;
+              L.sets.push({ id: 's' + (sq++).toString(36), ex: ex.id, side: s, k: ex.tool === 'hold' ? 't' : 'r', v, t, u: t + dur, src: 'sample' });
+              t += dur + 30000 + rnd() * 40000;
+            }
+          });
         });
-        d[ex.id] = r;
       });
-      if (Object.keys(d).length) days[dk(addD(end, -i))] = { goal: 100, d };
+      if (L.sets.length) days[dk(day)] = { goal: 0, d: aggregate(L), log: L };
     }
     return days;
   }
@@ -4431,10 +5057,12 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   function exMetrics(info, bks) {
     const eff = info.list.filter(x => !x.before);
     return EX.map(ex => {
-      let doneDays = 0, practiced = 0, sum = 0, best = 0, cnt = 0;
+      let doneDays = 0, practiced = 0, sum = 0, best = 0, cnt = 0, lgDays = 0, lgSets = 0, lgSum = 0, lgT = 0;
       const side = { R: 0, L: 0 };
       eff.forEach(x => {
         if (!x.st) return;
+        const lp = x.st.log && x.st.log.per[ex.id];
+        if (lp) { lgDays++; lgSets += lp.sets; lgSum += lp.sum; lgT += lp.tsum; }
         const p = x.st.per[ex.id];
         if (p.done) doneDays++;
         if (ex.tool === 'reps' ? p.reps > 0 : p.count > 0) practiced++;
@@ -4455,7 +5083,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         const vals = items.map(x => (ex.tool === 'reps' ? x.st.per[ex.id].reps : x.st.per[ex.id].count)).filter(v => v > 0);
         return vals.length ? vals.reduce((a, v) => a + v, 0) / vals.length : null;
       });
-      return { ex, pct: eff.length ? doneDays / eff.length : 0, doneDays, practiced, sum, best, cnt, side, series };
+      return { ex, pct: eff.length ? doneDays / eff.length : 0, doneDays, practiced, sum, best, cnt, side, series, lgDays, lgSets, lgSum, lgT };
     });
   }
 
@@ -4642,6 +5270,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   function cellTip(x) {
     const when = AR_DAYS[x.dt.getDay()] + ' ' + fmtDay(x.dt);
     if (x.before) return ['—', 'قبل بداية تسجيلك · ' + when];
+    if (x.st && x.st.log) return [x.st.done + ' من 8', 'تمارين مكتملة · ' + timesAr(x.st.log.sessions) + ' · ' + when];
     if (!x.st || !x.st.any) return ['راحة', 'ما فيه تمرين · ' + when];
     return [x.st.done + ' من 8', 'تمارين مكتملة · ' + when];
   }
@@ -4706,7 +5335,10 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       const show = () => { const tv = cellTip(x); showTipRect(h.getBoundingClientRect(), tv[0], tv[1]); };
       h.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') show(); });
       h.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hideTip(); });
-      h.addEventListener('click', show);
+      h.addEventListener('click', () => {
+        if (!sampleMode && (hist.days[x.k] || x.k === store.date)) { hideTip(); openLog(x.k, h); }
+        else show();
+      });
     });
   }
 
@@ -4752,6 +5384,9 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     const repsTot = eff.reduce((a, x) => a + (x.st ? x.st.reps : 0), 0);
     const best3 = eff.reduce((a, x) => Math.max(a, x.st ? x.st.per[3].best : 0), 0);
     const best7 = eff.reduce((a, x) => Math.max(a, x.st ? x.st.per[7].best : 0), 0);
+    const lg = eff.filter(x => x.st && x.st.log).map(x => x.st.log);
+    const lgSes = lg.reduce((a, l) => a + l.sessions, 0), lgSets = lg.reduce((a, l) => a + l.sets, 0);
+    const lgRepSets = lg.reduce((a, l) => a + l.repSets, 0), lgRepSum = lg.reduce((a, l) => a + l.repSum, 0);
     const sk = streaks(info.days);
 
     // previous period of the same length, for the delta
@@ -4790,6 +5425,8 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
         tile(ICON('<path d="M5 12.5l4.5 4.5L19 7.5"></path>'), 'تمارين مكتملة', fmtNum(doneTot), '', 'من ' + fmtNum(eff.length * 8) + ' ممكنة') +
         tile(ICON('<path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path>'), 'مجموع التكرارات', fmtNum(repsTot), '', active ? 'متوسط يومي ' + fmtNum(repsTot / active) : '—') +
         tile(ICON('<circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path>'), 'أطول ثبات', best3 ? fmt(best3) : '—', '', 'تمرين الثبات (3)') +
+        tile(ICON('<rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path>'), 'المرات في اليوم', lg.length ? fmtAvg(lgSes / lg.length) : '—', '', lg.length ? timesAr(lgSes) + ' خلال ' + (lg.length === 1 ? 'يوم واحد' : lg.length + ' يوم') : 'التفاصيل تبدأ من أول تسجيل') +
+        tile(ICON('<path d="M4 7h16M4 12h16M4 17h10"></path>'), 'متوسط المجموعة', lgRepSets ? fmtNum(lgRepSum / lgRepSets) : '—', lgRepSets ? 'تكرار' : '', lg.length ? 'من ' + setsAr(lgSets) : '—') +
       '</div></div>';
 
     h += '<div class="dgrid main">' +
@@ -4841,8 +5478,10 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     if (ex.tool === 'reps') {
       const avg = m.practiced ? m.sum / m.practiced / (ex.sides ? 2 : 1) : 0;
       meta += '<span>متوسط <b>' + fmtNum(avg) + '</b> تكرار' + (ex.sides ? ' لكل رجل' : '') + '</span>';
+      if (m.lgSets) meta += '<span><b>' + fmtAvg(m.lgSets / m.lgDays / (ex.sides ? 2 : 1)) + '</b> مجموعة × <b>' + fmtNum(m.lgSum / m.lgSets) + '</b> تكرار باليوم</span>';
     } else if (ex.tool === 'hold') {
       meta += '<span>أطول ثبات <b>' + (m.best ? fmt(m.best) : '—') + '</b></span><span><b>' + fmtNum(m.cnt) + '</b> مرة</span>';
+      if (m.lgT) meta += '<span>مجموع الوقت <b>' + fmtDur(m.lgT) + '</b></span>';
     } else {
       const avg = m.practiced ? m.sum / m.practiced / 2 : 0;
       meta += '<span>متوسط <b>' + fmtAvg(avg) + '</b> مرة لكل رجل</span>';
@@ -4925,11 +5564,43 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     }
   }
   const num = (v, lo, hi) => (typeof v === 'number' && isFinite(v) ? Math.round(Math.max(lo, Math.min(hi, v))) : 0);
-  function cleanDay(rec) {
-    if (!rec || typeof rec !== 'object' || !rec.d || typeof rec.d !== 'object') return null;
-    const out = { goal: typeof rec.goal === 'number' ? num(rec.goal, 0, 500) : 100, d: {} };
+  const ID_RE = /^[a-z0-9]{1,40}$/i;
+  function cleanLog(L, k) {
+    if (!L || typeof L !== 'object') return null;
+    const out = newLog(), d0 = pd(k).getTime() - 6 * 3600e3, d1 = d0 + 36 * 3600e3;
+    (Array.isArray(L.sets) ? L.sets : []).forEach(st => {
+      if (!st || typeof st !== 'object') return;
+      const ex = exById(st.ex);
+      if (!ex || !sidesOf(ex).includes(st.side)) return;
+      const kk = st.k === 't' ? 't' : 'r';
+      if ((kk === 't') !== (ex.tool === 'hold')) return;
+      const v = num(st.v, 0, kk === 't' ? 3600 : 9999);
+      if (!v || typeof st.t !== 'number' || !isFinite(st.t) || st.t < d0 || st.t > d1) return;
+      const u = typeof st.u === 'number' && isFinite(st.u) && st.u >= st.t ? Math.min(st.u, st.t + 4 * 3600e3) : st.t;
+      out.sets.push({ id: typeof st.id === 'string' && ID_RE.test(st.id) ? st.id : newId(), ex: ex.id, side: st.side, k: kk, v, t: st.t, u, src: ['tap', 'manual', 'timer', 'sample'].includes(st.src) ? st.src : 'manual' });
+    });
+    (Array.isArray(L.splits) ? L.splits : []).forEach(x => { if (typeof x === 'number' && isFinite(x) && x >= d0 && x <= d1) out.splits.push(x); });
+    (Array.isArray(L.joined) ? L.joined : []).forEach(x => { if (typeof x === 'string' && ID_RE.test(x)) out.joined.push(x); });
+    out.base = cleanTotals(L.base) || {};
+    sortSets(out);
+    return out;
+  }
+  function cleanDay(rec, k) {
+    if (!rec || typeof rec !== 'object') return null;
+    const goal = typeof rec.goal === 'number' ? num(rec.goal, 0, 500) : 100;
+    const log = k ? cleanLog(rec.log, k) : null;
+    if (log && (log.sets.length || hasValues(log.base))) {
+      const d = aggregate(log);
+      return hasValues(d) ? { goal, d, log } : null;
+    }
+    const d = cleanTotals(rec.d);
+    return d ? { goal, d } : null;
+  }
+  function cleanTotals(dIn) {
+    if (!dIn || typeof dIn !== 'object') return null;
+    const out = { d: {} };
     EX.forEach(ex => {
-      const r = rec.d[ex.id] || rec.d[String(ex.id)];
+      const r = dIn[ex.id] || dIn[String(ex.id)];
       if (!r || typeof r !== 'object') return;
       const o = {};
       sidesOf(ex).forEach(s => {
@@ -4947,7 +5618,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
       });
       if (Object.keys(o).length) out.d[ex.id] = o;
     });
-    return Object.keys(out.d).length ? out : null;
+    return Object.keys(out.d).length ? out.d : null;
   }
   function parseImport(text) {
     let o;
@@ -4956,7 +5627,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     const days = {};
     Object.keys(o.days).forEach(k => {
       if (!DAY_RE.test(k) || k > today()) return;
-      const c = cleanDay(o.days[k]);
+      const c = cleanDay(o.days[k], k);
       if (c) days[k] = c;
     });
     const keys = Object.keys(days).sort();
@@ -4980,8 +5651,21 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     dStatus('');
     box.querySelector('[data-act="dash-import-ok"]').focus();
   }
+  // Two copies of the same day: keep every set from both (by id) and the larger older totals
   function mergeDay(a, b) {
-    const out = { goal: a.goal || b.goal || 100, d: JSON.parse(JSON.stringify(a.d || {})) };
+    if (a.log || b.log) {
+      const la = a.log ? JSON.parse(JSON.stringify(a.log)) : Object.assign(newLog(), { base: JSON.parse(JSON.stringify(a.d || {})) });
+      const lb = b.log ? b.log : Object.assign(newLog(), { base: b.d || {} });
+      ensureLog({ log: la });
+      const ids = new Set(la.sets.map(x => x.id));
+      (lb.sets || []).forEach(x => { if (!ids.has(x.id)) la.sets.push(JSON.parse(JSON.stringify(x))); });
+      (lb.splits || []).forEach(x => { if (!la.splits.includes(x)) la.splits.push(x); });
+      (lb.joined || []).forEach(x => { if (!la.joined.includes(x)) la.joined.push(x); });
+      la.base = mergeDay({ d: la.base || {} }, { d: lb.base || {} }).d;
+      sortSets(la);
+      return { goal: typeof a.goal === 'number' ? a.goal : b.goal, d: aggregate(la), log: la };
+    }
+    const out = { goal: typeof a.goal === 'number' ? a.goal : (typeof b.goal === 'number' ? b.goal : 100), d: JSON.parse(JSON.stringify(a.d || {})) };
     Object.keys(b.d).forEach(id => {
       const ex = EX.find(e => String(e.id) === String(id));
       if (!ex) return;
@@ -5003,7 +5687,12 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     if (!p) return;
     const keys = Object.keys(p.days);
     keys.forEach(k => { hist.days[k] = hist.days[k] ? mergeDay(hist.days[k], p.days[k]) : p.days[k]; });
-    if (hist.days[store.date]) store.d = JSON.parse(JSON.stringify(hist.days[store.date].d));
+    if (hist.days[store.date]) {
+      const o = hist.days[store.date];
+      store.log = o.log ? JSON.parse(JSON.stringify(o.log)) : Object.assign(newLog(), { base: JSON.parse(JSON.stringify(o.d)) });
+      ensureLog(store);
+      store.d = aggregate(store.log);
+    }
     if (p.fresh) {
       if (p.goal) store.goal = p.goal;
       if (p.goalOn != null) store.goalOn = p.goalOn;
@@ -5025,6 +5714,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
     closeSheet(true);
     if (timer) stopTimer(true);
     dashOpen = true;
+    document.body.classList.add('dash-on');
     $('dash').hidden = false;
     $('dash').scrollTop = 0;
     document.querySelector('.shell').setAttribute('aria-hidden', 'true');
@@ -5036,6 +5726,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   function closeDash(fromHash) {
     if (!dashOpen) return;
     dashOpen = false;
+    document.body.classList.remove('dash-on');
     hideTip();
     pendingImport = null;
     $('impBox').hidden = true;
@@ -5135,7 +5826,7 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
 /* In-app updates for the installed app: a new version downloads quietly,
    then the person chooses when to apply it. Results live in localStorage and are untouched. */
 (function () {
-  var APP_VERSION = 14;
+  var APP_VERSION = 15;
   var bar = document.getElementById('updBar');
   var row = document.getElementById('updRow');
   var ver = document.getElementById('verTxt');

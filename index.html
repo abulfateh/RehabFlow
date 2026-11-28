@@ -1415,136 +1415,248 @@ button:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; 
   .rng button, .bar-m { transition: none; }
 }
 
-/* ---------- today box in the exercise list ---------- */
-.today-box {
+/* ==========================================================================
+   SESSIONS & SETS — main-screen set strip, today card, day log
+   ========================================================================== */
+
+/* ---------- set strip inside the counter card ---------- */
+.toolrow { flex-wrap: wrap; row-gap: 8px; }
+.setline {
+  order: -1;
+  flex: 1 1 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 16px;
+  min-height: 26px;
+  margin: -2px -4px 0;
+  padding: 0 4px 8px;
+  border-bottom: 1px solid var(--line-subtle);
+  text-align: start;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.setline .sl-k { flex-shrink: 0; white-space: nowrap; }
+.setline .sl-p { flex: 1; min-width: 0; display: flex; gap: 4px; overflow: hidden; justify-content: flex-start; }
+.setline .sl-p i {
+  font-style: normal;
+  flex-shrink: 0;
+  min-width: 26px;
+  height: 22px;
+  padding-inline: 6px;
+  border-radius: 7px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--f-display);
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+}
+.setline .sl-p i.on { background: var(--accent-tint); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.setline .sl-p i.next { background: none; box-shadow: inset 0 0 0 1px var(--line-strong); color: var(--muted); }
+.setline .sl-p i.more { background: none; min-width: 0; padding: 0 2px; color: var(--muted); }
+.setline svg { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.7; }
+.setline:hover { color: var(--ink); }
+
+/* ---------- today card in the exercise list ---------- */
+.today-card {
+  margin-bottom: 12px;
+  border-radius: 18px;
   background: var(--surface-2);
   border: 1px solid var(--line);
+  overflow: hidden;
 }
-.today-box .tb-t { flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; line-height: 1.35; }
-.today-box .tb-btn { flex: 1 1 0; justify-content: center; }
-.today-box .tb-t b { font-size: 0.98rem; }
-.today-box .tb-t span { font-size: 0.8rem; color: var(--muted); }
-.tb-btn {
-  min-height: 40px;
-  padding-inline: 12px;
+.tc-top { display: flex; align-items: center; gap: 12px; padding: 13px 14px 12px; }
+.tc-t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; line-height: 1.3; }
+.tc-t b { font-family: var(--f-display); font-size: 1.02rem; font-weight: 600; }
+.tc-t span { font-size: 0.78rem; color: var(--muted); }
+.tc-live { display: inline-flex; align-items: center; gap: 6px; }
+.tc-live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
+.tc-new {
+  flex-shrink: 0;
+  min-height: 38px;
+  padding-inline: 12px 14px;
   border-radius: 12px;
-  border: 1px solid var(--line);
   background: var(--surface);
+  border: 1px solid var(--line);
   font-weight: 600;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
-.tb-btn svg { width: 16px; height: 16px; }
-.tb-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-
-/* ---------- current set on the +1 button ---------- */
-.act { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.15; }
-.act-sub { font-family: var(--f-body); font-size: 0.72rem; font-weight: 600; opacity: 0.82; }
+.tc-new svg { width: 15px; height: 15px; color: var(--accent); }
+.tc-new:hover { border-color: var(--accent); }
+.tc-new:disabled { opacity: 0.45; cursor: default; border-color: var(--line); }
+.log-foot .act:disabled { opacity: 0.45; box-shadow: none; cursor: default; }
+.tc-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-top: 1px solid var(--line-subtle);
+  text-align: start;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+.tc-link .tc-s { flex: 1; min-width: 0; color: var(--muted); font-weight: 500; font-size: 0.78rem; text-align: end; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tc-link svg { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
+.tc-link:hover { background: var(--surface-3); }
 
 /* ---------- day log sheet ---------- */
-.log-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 2px 0 10px; }
-.log-nav button {
-  min-height: 38px;
-  padding-inline: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: var(--surface-2);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
-  display: inline-flex;
+.log-pager {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  margin: 2px 0 12px;
 }
-.log-nav button svg { width: 16px; height: 16px; }
-.log-nav button:disabled { opacity: 0.35; cursor: default; }
-.log-sum { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.log-sum span {
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: var(--accent-soft);
+.lp-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
   color: var(--ink);
-  font-size: 0.8rem;
-  font-weight: 600;
+  background: var(--surface-2);
 }
-.ses {
-  border: 1px solid var(--line);
+.lp-btn svg { width: 18px; height: 18px; }
+.lp-btn:hover { background: var(--surface-3); }
+.lp-btn:disabled { opacity: 0.3; cursor: default; background: none; }
+.lp-day { text-align: center; display: flex; flex-direction: column; line-height: 1.3; }
+.lp-day b { font-size: 0.95rem; font-weight: 600; }
+.lp-day span { font-size: 0.76rem; color: var(--muted); }
+
+.log-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 16px;
+  padding: 12px 4px;
   border-radius: 16px;
-  padding: 12px;
-  margin-bottom: 10px;
-  background: var(--surface);
+  background: var(--surface-2);
 }
-.ses.legacy { border-style: dashed; }
-.ses.pending { border-color: var(--accent); background: var(--accent-tint); }
-.ses-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.ses-h > div { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
-.ses-h b { font-family: var(--f-display); font-size: 1rem; }
-.ses-h span { color: var(--muted); font-size: 0.8rem; }
-.ses-btn {
+.log-stats > div { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
+.log-stats > div + div { border-inline-start: 1px solid var(--line-subtle); }
+.log-stats b { font-family: var(--f-display); font-size: 1.28rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.log-stats span { font-size: 0.72rem; color: var(--muted); }
+.log-stats .nil b { color: var(--muted); font-weight: 500; }
+
+/* timeline: one rail, a dot per session, rests between them */
+.tl { list-style: none; margin: 0; padding: 0; position: relative; }
+.tl::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 7px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--line);
+}
+.tl > li { position: relative; padding-inline-start: 28px; }
+.tl-dot {
+  position: absolute;
+  inset-inline-start: 1px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--bg-sheet, var(--surface));
+}
+.tl-ses.pending .tl-dot { background: var(--surface); box-shadow: inset 0 0 0 2px var(--accent), 0 0 0 4px var(--surface); }
+.tl-ses.legacy .tl-dot { background: var(--surface-3); border-radius: 4px; }
+.tl-h { display: flex; align-items: flex-start; gap: 10px; min-height: 28px; }
+.tl-tt { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.tl-tt b { font-family: var(--f-display); font-size: 1rem; font-weight: 600; }
+.tl-tt span { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tl-meta { flex-shrink: 0; font-size: 0.76rem; color: var(--muted); padding-top: 3px; }
+.tl-act {
   flex-shrink: 0;
-  min-height: 36px;
+  min-height: 32px;
   padding-inline: 10px;
   border-radius: 10px;
   border: 1px solid var(--line);
-  background: var(--surface-2);
   font-size: 0.78rem;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  color: var(--ink);
 }
-.ses-btn svg { width: 15px; height: 15px; color: var(--accent); }
-.lg-l { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; }
-.lg-row { display: flex; gap: 10px; padding-block: 8px; border-top: 1px solid var(--line); }
-.lg-row .n {
-  width: 28px;
-  height: 28px;
+.tl-act svg { width: 14px; height: 14px; color: var(--accent); }
+.tl-act:hover { border-color: var(--accent); }
+.tl-body { margin: 10px 0 4px; display: flex; flex-direction: column; gap: 2px; }
+.tl-empty { margin: 6px 0 2px; font-size: 0.8rem; color: var(--muted); }
+
+.tl-gap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  margin: 4px 0 8px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+.tl-gap .g { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; }
+.tl-gap .g::after { content: ""; flex: 1; height: 1px; background: repeating-linear-gradient(90deg, var(--line) 0 4px, transparent 4px 8px); }
+.tl-gap .tl-act { min-height: 30px; font-size: 0.74rem; color: var(--muted); }
+
+/* one exercise inside a session */
+.lx { padding: 10px 12px; border-radius: 14px; background: var(--surface-2); }
+.lx + .lx { margin-top: 6px; }
+.lx-h { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.lx-n {
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: 7px;
   display: grid;
   place-items: center;
-  background: var(--surface-2);
+  background: var(--surface);
   font-family: var(--f-display);
+  font-size: 0.74rem;
   font-weight: 700;
-  font-size: 0.82rem;
 }
-.lg-x { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.lg-n { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.lg-n b { font-size: 0.9rem; font-weight: 600; }
-.lg-n small { font-size: 0.75rem; color: var(--muted); }
-.lg-m { font-size: 0.76rem; color: var(--muted); }
-.lg-c { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.lx-h b { font-size: 0.88rem; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lx-r { display: flex; align-items: center; gap: 8px; min-height: 36px; }
+.lx-r + .lx-r { border-top: 1px solid var(--line-subtle); }
+.lx-s { width: 30px; flex-shrink: 0; font-size: 0.74rem; color: var(--muted); }
+.lx-c { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 5px; padding-block: 4px; }
+.lx-t { flex-shrink: 0; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 42px; text-align: end; }
+.lx-t b { color: var(--ink); font-family: var(--f-display); font-weight: 600; }
 .set-chip {
-  min-width: 44px;
-  min-height: 36px;
-  padding-inline: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--line-strong);
-  background: var(--surface-2);
-  font-weight: 700;
-  font-size: 0.9rem;
+  min-width: 40px;
+  height: 30px;
+  padding-inline: 9px;
+  border-radius: 9px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line-subtle);
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 0.86rem;
   font-variant-numeric: tabular-nums;
+  transition: box-shadow 0.15s, background 0.15s;
 }
-.set-chip:hover { border-color: var(--accent); }
-.lg-empty { padding: 22px 8px; text-align: center; color: var(--muted); font-size: 0.9rem; }
-.log-foot { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-.log-foot .tb-btn { min-height: 46px; justify-content: center; font-size: 0.92rem; }
-.log-hint { margin: 0; font-size: 0.76rem; color: var(--muted); text-align: center; }
+.set-chip:hover { box-shadow: inset 0 0 0 1px var(--accent); }
+.set-chip:active { background: var(--accent-tint); }
+.set-chip.ro { cursor: default; box-shadow: none; background: none; padding-inline: 0; min-width: 0; color: var(--muted); font-weight: 500; }
+
+.lg-empty { padding: 26px 8px 18px; text-align: center; color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+.log-foot { margin-top: 12px; }
+.log-foot .act { width: 100%; flex: none; min-height: 50px; display: inline-flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px; font-size: 0.98rem; }
+.log-foot .act svg { width: 18px; height: 18px; }
+.log-hint { margin: 10px 0 0; font-size: 0.74rem; color: var(--muted); text-align: center; line-height: 1.5; }
 
 /* ---------- entry sheet: edit extras ---------- */
 .e-extra { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-.e-extra .soft { display: inline-flex; align-items: center; gap: 6px; font-size: 0.86rem; }
+.e-extra .soft { display: inline-flex; align-items: center; gap: 6px; font-size: 0.84rem; }
 .e-extra svg { width: 16px; height: 16px; }
 .e-extra .e-del { color: var(--muscle-ink); }
+.e-extra .e-del.armed svg { color: inherit; }
 
 /* sheets opened over the progress page */
 body.dash-on .scrim { z-index: 72; }
@@ -1568,7 +1680,7 @@ body.dash-on #entrySheet { z-index: 78; }
       </button>
 
       <div class="bar-t">
-        <small>تمرين <span id="exNum">1</span> من 8<span id="sesTag"></span></small>
+        <small>تمرين <span id="exNum">1</span> من 8</small>
         <h1 id="exTitle"></h1>
       </div>
 
@@ -1692,13 +1804,12 @@ body.dash-on #entrySheet { z-index: 78; }
     </button>
   </div>
   <div class="daysum">إنجاز اليوم <b><span class="doneCount">0</span> من 8</b><span class="daybar"><i id="dayBar"></i></span></div>
-  <div class="today-box">
-    <div class="tb-t"><b id="tbNow">المرة الأولى</b><span id="tbSub"></span></div>
-    <button type="button" class="tb-btn" data-act="log-new">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
-      مرة جديدة
-    </button>
-    <button type="button" class="tb-btn" data-act="log-open">سجل اليوم</button>
+  <div class="today-card">
+    <div class="tc-top">
+      <div class="tc-t"><b id="tbNow">اليوم</b><span id="tbSub"></span></div>
+      <button type="button" class="tc-new" data-act="log-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>مرة جديدة</button>
+    </div>
+    <button type="button" class="tc-link" data-act="log-open"><span>سجل اليوم</span><span class="tc-s" id="tbStats"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
   </div>
   <div class="exlist" id="exlist"></div>
 </div>
@@ -1707,28 +1818,20 @@ body.dash-on #entrySheet { z-index: 78; }
 <div class="sheet" id="logSheet" dir="rtl" lang="ar" aria-labelledby="logTitle">
   <div class="sheet-head">
     <span class="grab"></span>
-    <h2 id="logTitle">سجل اليوم</h2>
+    <h2 id="logTitle">سجل التمارين</h2>
     <button type="button" class="close" data-act="close" aria-label="إغلاق">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
     </button>
   </div>
-  <div class="log-nav">
-    <button type="button" id="logPrev" data-act="log-day" aria-label="اليوم اللي قبل">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
-      اليوم اللي قبل
-    </button>
-    <button type="button" id="logNext" data-act="log-day" aria-label="اليوم اللي بعد">
-      اليوم اللي بعد
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
-    </button>
+  <div class="log-pager">
+    <button type="button" class="lp-btn" id="logPrev" data-act="log-day" aria-label="اليوم اللي قبل"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+    <div class="lp-day" aria-live="polite"><b id="logDay">اليوم</b><span id="logDate"></span></div>
+    <button type="button" class="lp-btn" id="logNext" data-act="log-day" aria-label="اليوم اللي بعد"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
   </div>
-  <div class="log-sum" id="logSum"></div>
+  <div class="log-stats" id="logSum"></div>
   <div id="logBody"></div>
   <div class="log-foot" id="logFoot">
-    <button type="button" class="tb-btn primary" data-act="log-new">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
-      بدء مرة جديدة
-    </button>
+    <button type="button" class="act" data-act="log-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>بدء مرة جديدة</button>
   </div>
   <p class="log-hint" id="logHint"></p>
 </div>
@@ -4107,17 +4210,27 @@ body.dash-on #entrySheet { z-index: 78; }
   }
 
   function renderToday() {
-    const L = store.log, ses = sessionsOf(L), pend = pendingSplit(L);
-    const n = currentSessionNo();
-    const tag = $('sesTag');
-    if (tag) tag.textContent = L.sets.length || pend ? ' · ' + sesName(n - 1) : '';
     if (!$('tbNow')) return;
-    $('tbNow').textContent = (L.sets.length || pend ? sesName(n - 1) : 'اليوم');
-    if (pend) $('tbSub').textContent = 'بدأت ' + fmtClock(pend) + ' · ما سجّلت فيها شي للحين';
-    else if (ses.length) {
-      const last = ses[ses.length - 1], exN = new Set(last.sets.map(x => x.ex)).size;
-      $('tbSub').textContent = 'من ' + fmtClock(last.start) + ' · ' + exN + ' ' + (exN === 1 ? 'تمرين' : 'تمارين') + ' · ' + setsAr(last.sets.length) + (ses.length > 1 ? ' · اليوم ' + timesAr(ses.length) : '');
-    } else $('tbSub').textContent = 'ما سجّلت شي للحين';
+    const L = store.log, ses = sessionsOf(L), pend = pendingSplit(L), last = ses[ses.length - 1];
+    const live = !pend && last && Date.now() - last.end < SESSION_GAP;
+    const now = $('tbNow'), sub = $('tbSub');
+    now.classList.toggle('tc-live', !!(pend || live));
+    if (pend) {
+      now.textContent = sesName(ses.length);
+      sub.textContent = 'بدأت ' + fmtClock(pend) + ' · بانتظار أول تمرين';
+    } else if (live) {
+      now.textContent = sesName(ses.length - 1);
+      sub.textContent = 'من ' + fmtClock(last.start) + ' · ' + setsAr(last.sets.length);
+    } else if (last) {
+      now.textContent = 'تمرّنت اليوم ' + timesAr(ses.length);
+      sub.textContent = 'آخر مرة ' + fmtClock(last.end) + ' · الجاية تبدأ مع أول تمرين';
+    } else {
+      now.textContent = 'اليوم';
+      sub.textContent = 'ما بدأت للحين';
+    }
+    const reps = L.sets.reduce((a, x) => a + (x.k === 'r' ? x.v : 0), 0);
+    $('tbStats').textContent = ses.length ? [timesAr(ses.length), setsAr(L.sets.length)].concat(reps ? [fmtNum(reps) + ' تكرار'] : []).join(' · ') : '';
+    document.querySelectorAll('[data-act="log-new"]').forEach(b => { b.disabled = !L.sets.length || !!pend; });
   }
   function renderNav() {
     renderToday();
@@ -4149,13 +4262,20 @@ body.dash-on #entrySheet { z-index: 78; }
   }
 
   let openSetId = null;
-  function openSetLabel(ex, s) {
-    const st = openTapSet(store.log, ex.id, s);
-    openSetId = st ? st.id : null;
-    if (!st) return '';
-    const ses = sessionsOf(store.log), curS = ses[ses.length - 1];
-    const idx = curS ? curS.sets.filter(x => x.ex === ex.id && x.side === s && x.k === 'r').findIndex(x => x.id === st.id) + 1 : 1;
-    return '<span class="act-sub">المجموعة ' + idx + ' · ' + st.v + '</span>';
+  const CHEV_START = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>';
+  // This exercise's sets (this leg) in the current session; the live one is highlighted, an empty slot waits for the next
+  function setLine(ex, s) {
+    const L = store.log, pend = pendingSplit(L), ses = sessionsOf(L), last = ses[ses.length - 1];
+    const cs = !pend && last && Date.now() - last.end < SESSION_GAP ? last : null;
+    const name = cs ? sesName(ses.length - 1) : sesName(ses.length);
+    const mine = cs ? cs.sets.filter(x => x.ex === ex.id && x.side === s) : [];
+    const open = ex.tool === 'reps' ? openTapSet(L, ex.id, s) : null;
+    openSetId = open ? open.id : null;
+    let pills = mine.map(x => '<i' + (open && x.id === open.id ? ' class="on"' : '') + '>' + (x.k === 't' ? fmt(x.v) : x.v) + '</i>');
+    if (pills.length > 6) pills = ['<i class="more">…</i>'].concat(pills.slice(-6));
+    if (!open) pills.push('<i class="next"></i>');
+    const say = name + (mine.length ? '، مجموعات هالتمرين: ' + mine.map(x => (x.k === 't' ? fmt(x.v) : x.v)).join('، ') : '') + '. افتح سجل اليوم';
+    return '<button type="button" class="setline" data-act="log-open" aria-label="' + say + '"><span class="sl-k">' + name + '</span><span class="sl-p" dir="rtl">' + pills.join('') + '</span>' + CHEV_START + '</button>';
   }
   // A paused set closes after two minutes; refresh the label when that happens.
   setInterval(() => {
@@ -4180,11 +4300,11 @@ body.dash-on #entrySheet { z-index: 78; }
     const sideName = ex.sides ? (s === 'L' ? ' للرجل اليسرى' : ' للرجل اليمنى') : '';
     if (ex.tool === 'reps') {
       const n = getN(ex, s);
-      h += '<div class="toolrow">' +
+      h += '<div class="toolrow">' + setLine(ex, s) +
         '<button type="button" class="mring-btn" data-act="entry-reps" aria-label="إدخال عدد التكرار يدوياً' + sideName + '، العدد الحالي ' + n + '">' +
           (store.goalOn ? mring(n / store.goal, n, 'من ' + store.goal) : mring(0, n, 'تكرار', true)) +
           '<span class="pen">' + PEN + '</span></button>' +
-        '<button type="button" class="act" data-act="plus" data-v="1">+1 تكرار' + openSetLabel(ex, s) + '</button>' +
+        '<button type="button" class="act" data-act="plus" data-v="1">+1 تكرار</button>' +
         '<button type="button" class="round" dir="ltr" data-act="plus" data-v="-1" aria-label="إنقاص تكرار واحد">−1</button>' +
       '</div>';
 
@@ -4199,7 +4319,7 @@ body.dash-on #entrySheet { z-index: 78; }
     } else if (ex.tool === 'hold') {
       const v = getN(ex, s);
       const stats = 'أفضل ' + (v.n ? fmt(v.best) : '—') + ' · ' + (v.n === 1 ? 'مرة وحدة' : v.n === 2 ? 'مرتين' : v.n + ' مرات');
-      h += '<div class="toolrow">' +
+      h += '<div class="toolrow">' + setLine(ex, s) +
         (run
           ? '<div class="clockbox"><b id="clock">' + fmt((performance.now() - timer.t0) / 1000) + '</b><span>' + stats + '</span></div>'
           : '<button type="button" class="clockbox clock-btn" data-act="entry-time" aria-label="إضافة وقت يدوياً' + sideName + '"><b id="clock">0:00</b><span>' + stats + '</span><span class="pen">' + PEN + '</span></button>') +
@@ -4561,8 +4681,9 @@ body.dash-on #entrySheet { z-index: 78; }
       day: extra.day || null, setId: editSet ? editSet.id : null, back: extra.back || null,
       kind: editSet ? editSet.k : (mode === 'reps' ? 'r' : 't')
     };
-    const sideTxt = ex.sides ? (s === 'L' ? ' · الرجل اليسرى' : ' · الرجل اليمنى') : '';
-    $('eSub').textContent = ex.name + sideTxt + (editSet ? ' · ' + fmtClock(editSet.t) : '');
+    const sideTxt = ex.sides ? (s === 'L' ? ' · اليسرى' : ' · اليمنى') : '';
+    const pos = editSet ? setPos(extra.day, editSet) : null;
+    $('eSub').textContent = ex.name + sideTxt + (editSet ? ' · ' + (pos.si >= 0 ? sesName(pos.si) + ' ' : '') + fmtClock(editSet.t) : '');
     const field = $('eField'), chips = $('eChips'), extraBox = $('eExtra');
     extraBox.hidden = true;
     extraBox.innerHTML = '';
@@ -4600,8 +4721,9 @@ body.dash-on #entrySheet { z-index: 78; }
       const prev = mergeTarget(entry.day, editSet);
       extraBox.innerHTML =
         '<button type="button" class="soft e-del" data-act="entry-del">' + ICON_TRASH + 'حذف المجموعة</button>' +
-        (prev ? '<button type="button" class="soft" data-act="entry-merge">' + ICON_MERGE + 'دمج مع السابقة (' + prev.v + ')</button>' : '');
+        (prev ? '<button type="button" class="soft" data-act="entry-merge">' + ICON_MERGE + 'دمج مع اللي قبلها</button>' : '');
       extraBox.hidden = false;
+      $('eTitle').textContent = 'تعديل المجموعة ' + (pos.n || '');
     }
     showSheet($('entrySheet'), from);
     placeEntrySheet();
@@ -4680,8 +4802,20 @@ body.dash-on #entrySheet { z-index: 78; }
     if (e.fromTimer) toast('ما انحفظ الوقت');
     if (e.back === 'log') openLog(e.day);
   }
+  function setPos(day, st) {
+    const ses = sessionsOf(dayLog(day) || newLog());
+    const si = ses.findIndex(x => x.sets.some(y => y.id === st.id));
+    const same = si >= 0 ? ses[si].sets.filter(x => x.ex === st.ex && x.side === st.side) : [];
+    return { si, n: same.findIndex(x => x.id === st.id) + 1 };
+  }
   function deleteEntrySet() {
     if (!entry || !entry.setId) return;
+    const btn = $('eExtra').querySelector('.e-del');
+    if (btn && !btn.classList.contains('armed')) {
+      btn.classList.add('armed');
+      btn.innerHTML = ICON_TRASH + 'اضغط مرة ثانية للحذف';
+      return;
+    }
     const L = dayLog(entry.day);
     if (L) {
       L.sets = L.sets.filter(x => x.id !== entry.setId);
@@ -4719,7 +4853,7 @@ body.dash-on #entrySheet { z-index: 78; }
      DAY LOG: sessions, sets, merge, new session
      ========================================================================== */
   const ICON_TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg>';
-  const ICON_MERGE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v5a5 5 0 0 0 5 5h0a5 5 0 0 1 5 5v1M17 4v5a5 5 0 0 1-5 5"></path></svg>';
+  const ICON_MERGE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v2a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4"></path><path d="M12 12v8"></path></svg>';
   const ICON_PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>';
   let logDayKey = null;
 
@@ -4773,85 +4907,98 @@ body.dash-on #entrySheet { z-index: 78; }
     ks.add(store.date);
     return [...ks].sort();
   }
-  function dayTitle(k) {
-    if (k === store.date) return 'سجل اليوم';
-    const a = k.split('-').map(Number), dt = new Date(a[0], a[1] - 1, a[2]);
-    const y = new Date(); y.setDate(y.getDate() - 1);
-    if (dt.toDateString() === y.toDateString()) return 'سجل أمس';
-    return 'سجل ' + AR_DAYS[dt.getDay()] + ' ' + fmtDay(dt);
+  function dayLabel(k) {
+    const dt = pd(k), t = pd(store.date), diff = Math.round((t - dt) / 864e5);
+    const big = diff === 0 ? 'اليوم' : diff === 1 ? 'أمس' : AR_DAYS[dt.getDay()];
+    const small = (diff <= 1 ? AR_DAYS[dt.getDay()] + ' ' : '') + fmtDay(dt) + (dt.getFullYear() !== t.getFullYear() ? ' ' + dt.getFullYear() : '');
+    return [big, small];
   }
+  const fmtSpan = ms => {
+    const m = Math.round(ms / 60000);
+    if (m < 1) return 'أقل من دقيقة';
+    if (m < 60) return m + ' د';
+    return Math.floor(m / 60) + ' س' + (m % 60 ? ' ' + (m % 60) + ' د' : '');
+  };
   function chipFor(st, i) {
     const label = st.k === 't' ? fmt(st.v) : String(st.v);
     return '<button type="button" class="set-chip" data-act="log-set" data-id="' + st.id + '" aria-label="المجموعة ' + (i + 1) + ': ' + (st.k === 't' ? 'ثبات ' + fmt(st.v) : st.v + ' تكرار') + '، اضغط للتعديل"><span dir="ltr">' + label + '</span></button>';
   }
-  function groupSets(sets) {
-    const order = [], map = {};
-    sets.forEach(st => {
-      const key = st.ex + '|' + st.side;
-      if (!map[key]) { map[key] = { ex: exById(st.ex), side: st.side, sets: [] }; order.push(key); }
-      map[key].sets.push(st);
-    });
-    return order.map(k => map[k]).sort((a, b) => a.ex.id - b.ex.id || (a.side === 'L') - (b.side === 'L'));
+  // One exercise inside a session: a row per leg, sets in the order they were done, and their total
+  function exBlock(ex, rows) {
+    return '<div class="lx"><div class="lx-h"><span class="lx-n">' + ex.id + '</span><b>' + esc(ex.name) + '</b></div>' + rows + '</div>';
   }
-  function groupRow(g, chips) {
-    const sideTxt = g.ex.sides ? (g.side === 'L' ? 'اليسرى' : 'اليمنى') : '';
-    const tot = g.sets.reduce((a, s) => a + s.v, 0);
-    const sum = g.sets[0] && g.sets[0].k === 't' ? 'مجموع ' + fmt(tot) : tot + ' تكرار';
-    return '<li class="lg-row"><span class="n">' + g.ex.id + '</span><div class="lg-x"><div class="lg-n"><b>' + esc(g.ex.name) + '</b>' + (sideTxt ? '<small>' + sideTxt + '</small>' : '') + '</div>' +
-      '<div class="lg-m">' + setsAr(g.sets.length) + ' · ' + sum + '</div><div class="lg-c">' + chips + '</div></div></li>';
+  function exRows(ex, sets) {
+    return sidesOf(ex).map(sd => {
+      const ss = sets.filter(x => x.side === sd);
+      if (!ss.length) return '';
+      const tot = ss.reduce((a, x) => a + x.v, 0), hold = ss[0].k === 't';
+      const totTxt = ss.length > 1 ? (hold ? 'مجموع <b>' + fmt(tot) + '</b>' : '<b>' + tot + '</b> تكرار') : '';
+      return '<div class="lx-r">' + (ex.sides ? '<span class="lx-s">' + (sd === 'L' ? 'يسار' : 'يمين') + '</span>' : '') +
+        '<div class="lx-c">' + ss.map(chipFor).join('') + '</div>' + (totTxt ? '<span class="lx-t">' + totTxt + '</span>' : '') + '</div>';
+    }).join('');
   }
   function renderLog() {
     const k = logDayKey || store.date, isToday = k === store.date;
     const L = dayLog(k) || newLog();
     const ses = sessionsOf(L), pend = isToday ? pendingSplit(L) : null;
     const days = availableDays(), di = days.indexOf(k);
-    $('logTitle').textContent = dayTitle(k);
+    const lbl = dayLabel(k);
+    $('logDay').textContent = lbl[0];
+    $('logDate').textContent = lbl[1];
     const prevK = di > 0 ? days[di - 1] : null, nextK = di >= 0 && di < days.length - 1 ? days[di + 1] : null;
     $('logPrev').disabled = !prevK; $('logPrev').setAttribute('data-k', prevK || '');
     $('logNext').disabled = !nextK; $('logNext').setAttribute('data-k', nextK || '');
-    const sets = L.sets.length, reps = L.sets.filter(s => s.k === 'r').reduce((a, s) => a + s.v, 0);
-    const hold = L.sets.filter(s => s.k === 't').reduce((a, s) => a + s.v, 0);
+
+    // Totals include anything logged before sets were kept
+    const all = aggregate(L);
+    let reps = 0;
+    EX.forEach(ex => { if (ex.tool !== 'hold' && all[ex.id]) Object.values(all[ex.id]).forEach(v => { reps += typeof v === 'number' ? v : 0; }); });
+    const hold = L.sets.filter(x => x.k === 't').reduce((a, x) => a + x.v, 0);
+    const cell = (v, label) => '<div' + (v ? '' : ' class="nil"') + '><b>' + (v || '—') + '</b><span>' + label + '</span></div>';
+    $('logSum').innerHTML = cell(ses.length, 'المرات') + cell(L.sets.length, 'المجموعات') + cell(reps ? fmtNum(reps) : 0, 'التكرار') + cell(hold ? fmt(hold) : 0, 'الثبات');
+
     const baseD = aggregate({ sets: [], base: L.base || {} });
     const hasBase = hasValues(baseD);
-    const sum = [];
-    if (ses.length) sum.push(timesAr(ses.length));
-    if (sets) sum.push(setsAr(sets));
-    if (reps) sum.push(fmtNum(reps) + ' تكرار');
-    if (hold) sum.push(fmt(hold) + ' ثبات');
-    $('logSum').innerHTML = sum.map(t => '<span>' + t + '</span>').join('');
     let h = '';
     if (hasBase) {
-      h += '<section class="ses legacy"><div class="ses-h"><div><b>قبل التسجيل المفصّل</b><span>مجموع بدون أوقات أو مجموعات</span></div></div><ul class="lg-l">';
+      let rows = '';
       EX.forEach(ex => {
         const r = baseD[ex.id];
         if (!r) return;
-        sidesOf(ex).forEach(s => {
-          const v = r[s];
-          if (!v) return;
-          const txt = ex.tool === 'hold' ? 'أطول ثبات ' + fmt(v.best) + ' · ' + timesAr(v.n) : v + ' تكرار';
-          const sideTxt = ex.sides ? (s === 'L' ? 'اليسرى' : 'اليمنى') : '';
-          h += '<li class="lg-row"><span class="n">' + ex.id + '</span><div class="lg-x"><div class="lg-n"><b>' + esc(ex.name) + '</b>' + (sideTxt ? '<small>' + sideTxt + '</small>' : '') + '</div><div class="lg-m">' + txt + '</div></div></li>';
-        });
+        const lines = sidesOf(ex).map(sd => {
+          const v = r[sd];
+          if (!v) return '';
+          const txt = ex.tool === 'hold' ? 'أفضل ' + fmt(v.best) + ' · ' + timesAr(v.n) : v + ' تكرار';
+          return '<div class="lx-r">' + (ex.sides ? '<span class="lx-s">' + (sd === 'L' ? 'يسار' : 'يمين') + '</span>' : '') + '<div class="lx-c"><span class="set-chip ro">' + txt + '</span></div></div>';
+        }).join('');
+        rows += exBlock(ex, lines);
       });
-      h += '</ul></section>';
+      h += '<li class="tl-ses legacy"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>قبل التحديث</b><span>مجموع بدون أوقات أو مجموعات</span></div></div><div class="tl-body">' + rows + '</div></li>';
     }
     ses.forEach((x, i) => {
-      const groups = groupSets(x.sets);
-      const range = fmtClock(x.start) + (x.end - x.start > 60000 ? ' – ' + fmtClock(x.end) : '');
-      h += '<section class="ses" aria-label="' + sesName(i) + '"><div class="ses-h"><div><b>' + sesName(i) + '</b><span>' + range + ' · ' + groups.length + ' ' + (groups.length === 1 ? 'تمرين' : 'تمارين') + '</span></div>' +
-        (i > 0 ? '<button type="button" class="ses-btn" data-act="log-merge" data-i="' + i + '">' + ICON_MERGE + 'دمج مع ' + sesName(i - 1) + '</button>' : '') + '</div>' +
-        '<ul class="lg-l">' + groups.map(g => groupRow(g, g.sets.map(chipFor).join(''))).join('') + '</ul></section>';
+      if (i > 0) {
+        const rest = fmtSpan(x.start - ses[i - 1].end);
+        h += '<li class="tl-gap"><span class="g">' + (x.manual ? 'بدأتها يدوياً بعد ' + rest : 'استراحة ' + rest) + '</span>' +
+          '<button type="button" class="tl-act" data-act="log-merge" data-i="' + i + '" aria-label="دمج ' + sesName(i) + ' مع ' + sesName(i - 1) + '">' + ICON_MERGE + 'دمج</button></li>';
+      }
+      const dur = x.end - x.start;
+      const when = fmtClock(x.start) + (dur >= 60000 ? ' – ' + fmtClock(x.end) + ' · ' + fmtSpan(dur) : '');
+      const exs = EX.filter(ex => x.sets.some(st => st.ex === ex.id));
+      h += '<li class="tl-ses"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(i) + '</b><span>' + when + '</span></div>' +
+        '<span class="tl-meta">' + setsAr(x.sets.length) + '</span></div>' +
+        '<div class="tl-body">' + exs.map(ex => exBlock(ex, exRows(ex, x.sets.filter(st => st.ex === ex.id)))).join('') + '</div></li>';
     });
     if (pend) {
-      h += '<section class="ses pending"><div class="ses-h"><div><b>' + sesName(ses.length) + '</b><span>بدأت ' + fmtClock(pend) + ' · ما سجّلت فيها شي للحين</span></div>' +
-        '<button type="button" class="ses-btn" data-act="log-unsplit">إلغاء</button></div></section>';
+      if (ses.length) h += '<li class="tl-gap"><span class="g">مرة جديدة يدوية</span></li>';
+      h += '<li class="tl-ses pending"><span class="tl-dot"></span><div class="tl-h"><div class="tl-tt"><b>' + sesName(ses.length) + '</b><span>بدأت ' + fmtClock(pend) + ' · بانتظار أول تمرين</span></div>' +
+        '<button type="button" class="tl-act" data-act="log-unsplit">إلغاء</button></div></li>';
     }
-    if (!ses.length && !hasBase && !pend) {
-      h += '<div class="lg-empty">' + (isToday ? 'ما سجّلت تمارين اليوم للحين. كل تكرار أو ثبات تسجّله يظهر هنا بوقته.' : 'ما فيه تمارين مسجّلة في هاليوم.') + '</div>';
-    }
-    $('logBody').innerHTML = h;
+    $('logBody').innerHTML = h
+      ? '<ol class="tl">' + h + '</ol>'
+      : '<div class="lg-empty">' + (isToday ? 'ما سجّلت تمارين اليوم للحين.<br>كل مجموعة تسجّلها تظهر هنا بوقتها.' : 'ما فيه تمارين مسجّلة في هاليوم.') + '</div>';
     $('logFoot').hidden = !isToday;
-    $('logHint').textContent = 'كل ما يمر أكثر من ساعتين بين تمرين والثاني تبدأ مرة جديدة تلقائياً. اضغط على أي رقم لتعديله.';
+    $('logHint').textContent = (isToday ? 'بعد ساعتين راحة تبدأ مرة جديدة تلقائياً · ' : '') + (L.sets.length ? 'اضغط أي رقم لتعديله أو حذفه' : '');
+    renderToday();
   }
   function openLog(k, from) {
     logDayKey = k || store.date;
@@ -5478,7 +5625,7 @@ body.dash-on #entrySheet { z-index: 78; }
     if (ex.tool === 'reps') {
       const avg = m.practiced ? m.sum / m.practiced / (ex.sides ? 2 : 1) : 0;
       meta += '<span>متوسط <b>' + fmtNum(avg) + '</b> تكرار' + (ex.sides ? ' لكل رجل' : '') + '</span>';
-      if (m.lgSets) meta += '<span><b>' + fmtAvg(m.lgSets / m.lgDays / (ex.sides ? 2 : 1)) + '</b> مجموعة × <b>' + fmtNum(m.lgSum / m.lgSets) + '</b> تكرار باليوم</span>';
+      if (m.lgSets) meta += '<span>بمعدل <b>' + fmtAvg(m.lgSets / m.lgDays / (ex.sides ? 2 : 1)) + '</b> مجموعة × <b>' + fmtNum(m.lgSum / m.lgSets) + '</b></span>';
     } else if (ex.tool === 'hold') {
       meta += '<span>أطول ثبات <b>' + (m.best ? fmt(m.best) : '—') + '</b></span><span><b>' + fmtNum(m.cnt) + '</b> مرة</span>';
       if (m.lgT) meta += '<span>مجموع الوقت <b>' + fmtDur(m.lgT) + '</b></span>';
@@ -5826,7 +5973,7 @@ body.dash-on #entrySheet { z-index: 78; }
 /* In-app updates for the installed app: a new version downloads quietly,
    then the person chooses when to apply it. Results live in localStorage and are untouched. */
 (function () {
-  var APP_VERSION = 15;
+  var APP_VERSION = 16;
   var bar = document.getElementById('updBar');
   var row = document.getElementById('updRow');
   var ver = document.getElementById('verTxt');

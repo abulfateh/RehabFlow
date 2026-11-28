@@ -1,7 +1,7 @@
 // RehabFlow offline worker.
 // The app runs from this version's saved copy. A new version downloads in the background
 // and waits until the person taps "تحديث" in the app (message SKIP_WAITING).
-const VERSION = 15;
+const VERSION = 16;
 const CACHE = 'rehabflow-v' + VERSION;
 const FONT_CACHE = 'rehabflow-fonts';
 const CORE = ['./', './index.html', './manifest.webmanifest', './three.min.js', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
